@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🚀 خطة نشر GMT — جلسة 2026-08-18</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Cairo',sans-serif;}
+  body{background:#f1f5f9;color:#1e293b;padding:16px;line-height:1.85;}
+  .wrap{max-width:900px;margin:0 auto;background:#fff;border-radius:16px;padding:22px;box-shadow:0 4px 20px rgba(0,0,0,.08);}
+  h1{font-size:23px;font-weight:900;color:#0f172a;text-align:center;}
+  .sub{text-align:center;color:#64748b;font-size:13px;margin:4px 0 18px;}
+  .warn{background:#fef2f2;border:1.5px solid #fca5a5;border-radius:12px;padding:12px 14px;margin:14px 0;font-size:13.5px;color:#991b1b;}
+  .ok{background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;padding:12px 14px;margin:14px 0;font-size:13.5px;color:#166534;}
+  .info{background:#eff6ff;border:1.5px solid #93c5fd;border-radius:12px;padding:12px 14px;margin:14px 0;font-size:13.5px;color:#1e40af;}
+  .step{border:1px solid #e2e8f0;border-radius:14px;padding:16px 18px;margin:16px 0;}
+  .step h2{font-size:17px;font-weight:800;color:#0f172a;display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+  .num{background:#C00012;color:#fff;width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0;}
+  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px;}
+  th,td{border:1px solid #e2e8f0;padding:8px 10px;text-align:right;vertical-align:top;}
+  th{background:#f8fafc;font-weight:800;}
+  code{background:#0f172a;color:#fca5a5;padding:2px 7px;border-radius:6px;font-size:12.5px;font-family:monospace;direction:ltr;display:inline-block;}
+  .tag{display:inline-block;background:#16a34a;color:#fff;font-size:10px;padding:1px 8px;border-radius:20px;font-weight:800;}
+  .tag.root{background:#C00012;}
+  ul{margin:6px 22px;font-size:13.5px;}
+  li{margin:4px 0;}
+  .files{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+  .chip{background:#eef2ff;border:1px solid #c7d2fe;color:#3730a3;font-size:12px;padding:4px 10px;border-radius:8px;font-weight:600;direction:ltr;}
+  .ck{list-style:none;margin:6px 0;}
+  .ck li{padding-right:26px;position:relative;}
+  .ck li::before{content:'☐';position:absolute;right:0;font-size:16px;color:#C00012;}
+  .print{text-align:center;margin-top:18px;}
+  .print button{background:#0f172a;color:#fff;border:none;border-radius:10px;padding:10px 20px;font-weight:800;cursor:pointer;font-family:'Cairo';}
+  @media print{body{background:#fff;padding:0;}.wrap{box-shadow:none;}.print{display:none;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🚀 خطة نشر GMT — جلسة 2026-08-18</h1>
+  <div class="sub">إصلاح جذر المضاعفة · رصيد العبور · الصفحة الرئيسية + طبيب المخطط · نفّذ بالترتيب</div>
+
+  <div class="warn">
+    <b>الجذر الواحد لكل مشاكلنا:</b> الكود يكتب عموداً/جدولاً غير موجود في القاعدة، فيفشل الطلب
+    <b>بصمت (400)</b>. هكذا صارت: مضاعفة المخزون (<code>import_log</code> ناقص أعمدة الحالة)،
+    ورصيد العبور «—» (<code>products</code> ناقص أعمدة الفروع)، وسجل الكفالة الصامت. الخطوات أدناه تُغلق الباب.
+  </div>
+
+  <div class="step">
+    <h2><span class="num">1</span> شغّل الإصلاح الشامل في Supabase <span class="tag root">الجذر · ابدأ هنا</span></h2>
+    <ul>
+      <li>Supabase ← <b>SQL Editor</b> ← الصق محتوى الملف كامل ← <b>Run</b>.</li>
+      <li>الملف الموحّد (يجمع الاثنين): <code>_SQL/GMT_إصلاح_شامل_موحّد.sql</code></li>
+      <li>أو شغّلهما منفصلَين بالترتيب: <code>1️⃣5️⃣_إكمال_الأعمدة.sql</code> ثم <code>1️⃣6️⃣_أعمدة_الفروع_على_products.sql</code></li>
+      <li>شغّله <b>بعد</b> ملفاتك <code>1..14</code>. آمن لإعادة التشغيل، لا يمسّ بيانات (كله <code>add column if not exists</code>).</li>
+    </ul>
+    <div class="ok">يُغلق نمط «العمود الناقص» في: <b>import_log</b> (أعمدة الترحيل ⇒ يزول جذر المضاعفة) · <b>products</b> (أعمدة الفروع ⇒ يزول رصيد العبور «—») · <b>stock_receipts</b> (note/created_by) · وبقية الجداول وقائياً.</div>
+    <div class="info"><b>تأكيد سريع قبلها (اختياري):</b> شغّل <code>select id, germany, china, haleb from products limit 1;</code> — خطأ «column does not exist» يؤكّد سبب رصيد العبور «—».</div>
+  </div>
+
+  <div class="step">
+    <h2><span class="num">2</span> ارفع الملفات على GitHub <span class="tag">آمن</span></h2>
+    <p>ارفعها فوق القديم في المستودع (بأسمائها العربية كما هي):</p>
+    <div class="files">
+      <span class="chip">index.html</span>
+      <span class="chip">gmt-core.js</span>
+      <span class="chip">gmt-staff.js</span>
+      <span class="chip">gmt-updater.js</span>
+      <span class="chip">المشتريات.html</span>
+      <span class="chip">إنشاء_الكفالة.html</span>
+    </div>
+    <table>
+      <tr><th>الملف</th><th>ماذا تغيّر</th></tr>
+      <tr><td><b>index.html</b></td><td>الصفحة الرئيسية: تحميل البوتات (كان ناقصاً) + روابط كل الصفحات + 🩺 طبيب المخطط.</td></tr>
+      <tr><td><b>gmt-core.js · gmt-staff.js · gmt-updater.js</b></td><td>غير معدّلة — مرفقة فقط لأن index.html يحتاجها لإظهار البوتات.</td></tr>
+      <tr><td><b>المشتريات.html</b></td><td>إشعار الجرد بعد الترحيل يوزّع القطع حسب فرعها الحقيقي.</td></tr>
+      <tr><td><b>إنشاء_الكفالة.html</b></td><td>سجلّ التفعيل يفحص <code>res.ok</code> ويُنبّهك إن لم يُحفَظ (كان يفشل بصمت).</td></tr>
+    </table>
+    <div class="info"><b>مشكلة 404:</b> ارفع <code>index.html</code> على <b>جذر</b> المستودع — يفتح الرابط مباشرةً بلا اسم ملف. وتأكّد أن كل صفحة مرفوعة باسمها العربي بالضبط (أصغر فرق حرف = 404).</div>
+  </div>
+
+  <div class="step">
+    <h2><span class="num">3</span> شغّل طبيب المخطط — إغلاق الدوّامة</h2>
+    <ul>
+      <li>افتح الصفحة الرئيسية <code>index.html</code> ← قسم <b>🩺 طبيب المخطط</b> ← زر «<b>افحص المخطط الآن</b>».</li>
+      <li>يقرأ مخطط قاعدتك الحيّة ويقارنه بما يكتبه الكود، ويكشف أي عمود ناقص.</li>
+      <li><b>أخضر</b> = المخطط سليم. <b>أحمر</b> = يعطيك قائمة النواقص + SQL إصلاح جاهز للنسخ (شغّله وأعد الفحص).</li>
+    </ul>
+    <div class="ok">هذه أداتك الدائمة: قبل الاعتماد على أي جزء جديد، شغّل الطبيب — يصطاد النمط قبل أن يؤذي.</div>
+  </div>
+
+  <div class="step">
+    <h2><span class="num">4</span> اختبار القبول (٣ دقائق)</h2>
+    <p><b>أ) جذر المضاعفة + رصيد العبور:</b></p>
+    <ul class="ck">
+      <li>افتح فاتورة <code>IMP-2026-0003</code> واضغط «ترحيل» ← يجب أن تظهر الكميات فوراً (لا «—» ولا صفر).</li>
+      <li>رحّلها لفرع ← تُختم «واصلة» وتزيد الكمية مرة واحدة.</li>
+      <li>اضغط «ترحيل» ثانيةً ← «مُرحّلة مسبقاً» و<b>لا تتضاعف</b>.</li>
+      <li>في Supabase: <code>stock_receipts</code> فيه سجلّ للفاتورة.</li>
+    </ul>
+    <p><b>ب) الصفحة الرئيسية والبوتات:</b></p>
+    <ul class="ck">
+      <li>الصفحة الرئيسية تفتح، وكل الروابط تشتغل بلا 404.</li>
+      <li>افتح <code>المشتريات.html?sovereign=1</code> ← تظهر أزرار البوتات وتفتح.</li>
+      <li>فعّل كفالة تجريبية ← تُحفظ بلا تنبيه أحمر.</li>
+    </ul>
+    <div class="info">ملاحظة صدق: فحصتُ كل شيء ثابتاً (صياغة · ربط · تطابق الطبيب مع الحل). لا متصفّح في بيئتي، فالضغط الحرفي (هذه الخطوة) هو تأكيدك النهائي.</div>
+  </div>
+
+  <div class="step">
+    <h2><span class="num">5</span> مؤجَّل بوعي (ليس عطلاً)</h2>
+    <ul>
+      <li><b>ذرّية الترحيل:</b> مسار الوصول يكتب بـ<code>PATCH</code> محسوب بدل الدوال الذرّية. حمايته = التحقّق بإعادة القراءة. لم يُعَد كتابته لأنه مسار مالي شغّال يتعذّر اختباره بمتصفّح؛ نعمله في الساندبوكس عند الطلب.</li>
+      <li><b>توسيع طبيب المخطط:</b> يغطّي حالياً products · import_log · stock_receipts. نوسّعه لبقية الجداول (invoices · invoice_items · gmt_orders · stock_counts · gmt_settlements …) عند الوصول إليها.</li>
+    </ul>
+  </div>
+
+  <div class="ok"><b>الخلاصة:</b> شغّل <code>GMT_إصلاح_شامل_موحّد.sql</code> ← ارفع الملفات (خصوصاً index على الجذر) ← شغّل طبيب المخطط ← اختبر التكرار والبوتات.</div>
+
+  <div class="print"><button onclick="window.print()">🖨️ اطبع الخطة</button></div>
+</div>
+</body>
+</html>

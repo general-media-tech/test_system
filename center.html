@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>📚 مركز معرفة GMT — كل شيء عن النظام</title>
+<style>
+  :root{ --gmt-red:#C00012; --bg:#f2f3f5; --card:#ffffff; --line:#e2e5ea; --tx:#1a1d23; --tx2:#6b7280; }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Cairo,system-ui,"Segoe UI",Tahoma,sans-serif;background:var(--bg);color:var(--tx);line-height:1.85}
+  header{background:linear-gradient(135deg,#C00012,#8a000d);padding:24px 18px;text-align:center;border-bottom:2px solid var(--gmt-red)}
+  header h1{margin:0 0 4px;font-size:23px;font-weight:900}
+  header p{margin:0;color:var(--tx2);font-size:13px}
+  .tabs{display:flex;gap:6px;overflow-x:auto;padding:12px 14px;background:#f2f3f5;position:sticky;top:0;z-index:10;border-bottom:1px solid var(--line)}
+  .tab{white-space:nowrap;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 15px;font:inherit;font-size:12.5px;font-weight:800;color:var(--tx2);cursor:pointer;transition:.15s}
+  .tab.active{background:var(--gmt-red);color:#fff;border-color:var(--gmt-red)}
+  main{max-width:1000px;margin:0 auto;padding:18px 16px 70px}
+  .panel{display:none} .panel.active{display:block;animation:fade .2s}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 17px;margin-bottom:12px}
+  .card h3{margin:0 0 8px;font-size:15px;font-weight:900;color:#fff}
+  .card h3 .sev{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;margin-inline-start:6px}
+  .sev-critical{background:#fee2e2;color:#b91c1c} .sev-high{background:#ffedd5;color:#c2410c}
+  .sev-medium{background:#fef3c7;color:#b45309} .sev-low{background:#dbeafe;color:#1d4ed8}
+  .st{font-size:11px;font-weight:800;padding:2px 8px;border-radius:5px}
+  .st-done{background:#dcfce7;color:#15803d} .st-partial{background:#fef3c7;color:#b45309}
+  .st-conflict{background:#fee2e2;color:#b91c1c} .st-pending{background:#f1f5f9;color:#64748b}
+  .row{font-size:12.5px;color:var(--tx2);margin:4px 0} .row b{color:var(--tx)}
+  .big{font-size:34px;font-weight:900;color:var(--gmt-red);line-height:1}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+  .stat .n{font-size:26px;font-weight:900;color:#fff} .stat .l{font-size:11px;color:var(--tx2);margin-top:3px}
+  .hint{background:rgba(192,0,18,.08);border:1px solid rgba(192,0,18,.3);border-radius:11px;padding:12px 14px;font-size:12.5px;margin-bottom:14px}
+  .btn{background:var(--gmt-red);color:#fff;border:0;border-radius:10px;padding:11px 18px;font:inherit;font-weight:900;font-size:13px;cursor:pointer;margin:4px 4px 4px 0}
+  .btn.g{background:#16a34a} .btn.ghost{background:#f8f9fb;border:1px solid var(--line)}
+  pre{margin:0;font-size:12px;line-height:1.8;white-space:pre-wrap;color:#374151;font-family:ui-monospace,monospace;max-height:55vh;overflow:auto;background:#f8f9fb;padding:12px;border-radius:9px}
+  a{color:#2563eb} details{margin:6px 0} summary{cursor:pointer;font-weight:800;font-size:13px;color:#2563eb}
+  .link-item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
+</style>
+</head>
+<body>
+  <script src="gmt-updater.js"></script>
+  <script src="gmt-core.js"></script>
+  <script src="gmt-staff.js"></script>
+
+<header>
+  <h1>📚 مركز معرفة GMT</h1>
+  <p>كل شيء عن النظام في مكان واحد — بوتات · تعليم · تجريب · تقارير · توثيق · سجلات</p>
+</header>
+
+<div class="tabs" id="tabs">
+  <button class="tab active" data-t="over">🏠 نظرة عامة</button>
+  <button class="tab" data-t="feat">📚 الميزات</button>
+  <button class="tab" data-t="rules">📜 قواعد المالك</button>
+  <button class="tab" data-t="bots">🛡️ البوتات</button>
+  <button class="tab" data-t="tests">🧪 التجريب</button>
+  <button class="tab" data-t="reports">📊 تقارير الأخطاء</button>
+  <button class="tab" data-t="changelog">📝 سجل التعديلات</button>
+  <button class="tab" data-t="guide">📖 دليل المستخدم</button>
+  <button class="tab" data-t="passwords">🔑 كلمات السر</button>
+  <button class="tab" data-t="docs">📂 التوثيق والسجلات</button>
+</div>
+
+<main>
+  <!-- نظرة عامة -->
+  <div class="panel active" id="p-over">
+    <div class="grid" id="over-stats"></div>
+    <div class="hint">
+      هذا المركز يُنشر <b>مع النظام كملف مستقل</b> — لا يضيع شيء. يقرأ سجل الميزات وقواعد المالك
+      حيّاً، ويجمع كل التوثيق والتقارير. حدّثه بتحديث ملفات المعرفة.
+    </div>
+    <div class="card">
+      <h3>ما هو GMT</h3>
+      <p class="row">نظام إدارة تجارية عربي متكامل: نقطة بيع · مخزون · مشتريات · عمولات · تسويات · أوردرات · كفالة · متجر إلكتروني · عقود · نسخ احتياطي. مبني على HTML/JS/Supabase، منشور كصفحات مستقلة.</p>
+    </div>
+    <div class="card">
+      <h3>نظام الحماية المستقل</h3>
+      <p class="row">٧ بوتات + قاعدتا معرفة تراقب النظام: الحارس · المفتّش · الفاحص الذاتي · المراقب السيادي · الفاحص الشامل · اختبارات الترابط · محرّك الهوية. تكتب تقارير فورية عند أي خطأ (برمجي/تقني/عملي/حسابي).</p>
+    </div>
+  </div>
+
+  <!-- الميزات -->
+  <div class="panel" id="p-feat">
+    <div class="hint">كل ميزة: ماذا تفعل · كيف تعمل · كيف بُنيت · كيف تُراقَب · حالتها. <span id="feat-count"></span></div>
+    <div id="feat-list"></div>
+  </div>
+
+  <!-- قواعد المالك -->
+  <div class="panel" id="p-rules">
+    <div class="hint">القواعد السيادية التي يراقب النظام على أساسها — طلبات المالك كما نصّها.</div>
+    <div id="rules-list"></div>
+  </div>
+
+  <!-- البوتات -->
+  <div class="panel" id="p-bots">
+    <div class="hint">منظومة الحماية — كل بوت ودوره. اضغط لفتح صفحة بوتات الحماية للتقارير الحيّة.</div>
+    <a href="19_بوتات_الحماية.html"><button class="btn">🛡️ افتح صفحة بوتات الحماية</button></a>
+    <div id="bots-list"></div>
+  </div>
+
+  <!-- التجريب -->
+  <div class="panel" id="p-tests">
+    <div class="hint">
+      الفاحص الشامل يجرّب <b>كل زر ومعاينة وطباعة</b>. اختبارات الترابط تفحص <b>تدفّق البيانات بين الوحدات</b>.
+      يعملان بالوضع التدريبي (لا يمسّان بياناتك).
+    </div>
+    <div class="card">
+      <h3>🤖 الفاحص الشامل الآلي</h3>
+      <p class="row">يجرّب كل زر · يفحص كل رقم منطقياً · كل طباعة · كل شكل. تلقائي بعد النشر + زر يدوي. حاجز مزدوج/ثلاثي للأمان.</p>
+    </div>
+    <div class="card">
+      <h3>🔗 اختبارات الترابط</h3>
+      <div id="links-list"></div>
+    </div>
+    <button class="btn g" id="run-tests">🧪 شغّل كل الاختبارات الآن</button>
+    <div id="tests-out"></div>
+  </div>
+
+  <!-- تقارير الأخطاء -->
+  <div class="panel" id="p-reports">
+    <div class="hint">تقارير الأخطاء — الحيّة (من المراقب) والموثّقة (من التدقيق). اقرأها كاملة هنا.</div>
+    <a href="تقرير_أسبوعي.html"><button class="btn">📊 التقرير الأسبوعي (آخر 7 أيام)</button></a>
+    <button class="btn" id="load-reports">🔄 التقارير الحيّة (المراقب)</button>
+    <div style="margin:10px 0">
+      <button class="btn ghost docbtn" data-doc="تقرير_المالك_بلغة_واضحة.md">👔 تقرير المالك</button>
+      <button class="btn ghost docbtn" data-doc="سجل_أخطاء_SQL_الخفية.md">🗄️ أخطاء SQL</button>
+      <button class="btn ghost docbtn" data-doc="خطة_الصيانة.md">🔧 خطة الصيانة</button>
+    </div>
+    <div id="reports-out"></div>
+  </div>
+
+  <!-- سجل التعديلات -->
+  <div class="panel" id="p-changelog">
+    <button class="btn docbtn" data-doc="سجل_التعديلات.md">📝 اقرأ سجل التعديلات الكامل</button>
+    <button class="btn ghost docbtn" data-doc="خطة_إعادة_التأهيل_الشاملة.md">🏗️ خطة إعادة التأهيل الشاملة</button>
+    <button class="btn ghost docbtn" data-doc="دليل_المحادثة_الجديدة.md">🧭 دليل المحادثة الجديدة</button>
+    <button class="btn ghost docbtn" data-doc="دليل_النشر_والتحديث_2026-07-24.md">🚀 دليل النشر والتحديث</button>
+    <button class="btn ghost docbtn" data-doc="تقرير_الجلسة_2026-07-24.md">📋 تقرير الجلسة الأخيرة</button>
+    <button class="btn ghost docbtn" data-doc="ملاحظات_وخطة_التعديل_القادم.md">📝 ملاحظات وخطة التعديل</button>
+    <button class="btn ghost docbtn" data-doc="كلمات_السر_والوصول.md">🔑 كلمات السر والوصول</button>
+    <div id="changelog-out" class="card" style="margin-top:10px"><p class="row">اضغط الزر لقراءة سجل التعديلات، أو شاهد آخر التعديلات أدناه.</p></div>
+  </div>
+
+  <!-- دليل المستخدم -->
+  <div class="panel" id="p-guide">
+    <div class="hint">دليل استخدام النظام خطوة بخطوة.</div>
+    <a href="دليل_المستخدم_زر_بزر.html" target="_blank"><button class="btn">📖 افتح دليل المستخدم الكامل (زر بزر)</button></a>
+    <div class="card"><h3>البدء السريع</h3>
+      <p class="row"><b>الكاشير:</b> نقطة البيع → أضف منتجات → راجع → احفظ الفاتورة. ربحك يظهر بسجلك.</p>
+      <p class="row"><b>الأدمن:</b> راجع الفواتير والعمولات · اعتمد أو صفّر · تابع ربح الشركة الحقيقي.</p>
+      <p class="row"><b>المشتريات:</b> فاتورة شراء → استلام بالفرع → ترحيل. لا مضاعفة.</p>
+      <p class="row"><b>الحماية:</b> زر 🛡️ للمراقب · 🤖 للفاحص الشامل · صفحة بوتات الحماية للتقارير.</p>
+    </div>
+  </div>
+
+  <!-- كلمات السر -->
+  <div class="panel" id="p-passwords">
+    <div class="hint">مكان واحد لكل كلمات السر. صفحة الإدارة تعدّل كلمات القاعدة فعلياً، وتشرح بصدق أي كلمات تُدار من Supabase.</div>
+    <a href="كلمات_السر.html"><button class="btn">🔑 افتح صفحة إدارة كلمات السر</button></a>
+    <div class="card" style="margin-top:10px">
+      <h3>🟢 تنعدّل من صفحة الإدارة مباشرةً</h3>
+      <p class="row"><b>كلمة سر أدمن نقاط البيع</b> (المفتاح <code>admin_password</code> بجدول <code>gmt_settings</code>) — وأي كلمة سر أخرى تضيفها بالقاعدة.</p>
+      <h3>🔵 تُدار من لوحة Supabase (بصراحة، مو من هون)</h3>
+      <p class="row"><b>الأدمن السيادي</b> و<b>أدمن الموقع</b> — عبر Supabase Auth: <code>Authentication → Users → Update password</code>.</p>
+    </div>
+    <button class="btn ghost docbtn" data-doc="كلمات_السر_والوصول.md" style="margin-top:8px">📄 المرجع الكامل (كلمات السر والوصول)</button>
+    <div id="passwords-out"></div>
+  </div>
+
+  <!-- التوثيق -->
+  <div class="panel" id="p-docs">
+    <div class="hint">كل ملفات التوثيق والتقارير والسجلات — اقرأها مباشرة هنا.</div>
+    <button class="btn docbtn" data-doc="📌_ملخص_الجلسة_الكامل_2026-08-03.md">📌 ملخص الجلسة الكامل</button>
+    <button class="btn docbtn" data-doc="خطة_الأسئلة_والنقاش.md">🧭 خطة الأسئلة والنقاش</button>
+    <button class="btn ghost docbtn" data-doc="سجل_النواقص_وسجل_القرارات.md">📒 سجل النواقص والقرارات</button>
+    <button class="btn ghost docbtn" data-doc="التدقيق_الشامل_2026-08-03.md">🔍 التدقيق الشامل</button>
+    <button class="btn ghost docbtn" data-doc="ملخص_تسليم_الجلسة_2026-08-03.md">🔑 ملخص التسليم</button>
+    <div class="card">
+      <h3>📂 اقرأ الملفات</h3>
+      <button class="btn ghost docbtn" data-doc="تقرير_المالك_بلغة_واضحة.md">👔 تقرير المالك بلغة واضحة</button>
+      <button class="btn ghost docbtn" data-doc="خطة_الصيانة.md">🔧 خطة الصيانة</button>
+      <button class="btn ghost docbtn" data-doc="سجل_أخطاء_SQL_الخفية.md">🗄️ سجل أخطاء SQL</button>
+      <button class="btn ghost docbtn" data-doc="سجل_التعديلات.md">📝 سجل التعديلات</button>
+      <button class="btn ghost docbtn" data-doc="التدقيق_الشامل_كل_الملفات.md">🔍 التدقيق الشامل</button>
+      <button class="btn ghost docbtn" data-doc="سجل_الجلسة_الكامل_2026-07-16.md">📋 سجل الجلسة</button>
+    </div>
+    <div id="docs-out"></div>
+  </div>
+</main>
+<script>
+(function(){
+  'use strict';
+  window.__gmtRole='admin';
+  var F=window.GMT_FEATURES||[], R=window.GMT_OWNER_RULES||[];
+
+  // التبويبات
+  document.getElementById('tabs').addEventListener('click',function(e){
+    var b=e.target.closest('.tab'); if(!b)return;
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    b.classList.add('active');
+    document.getElementById('p-'+b.dataset.t).classList.add('active');
+  });
+
+  // نظرة عامة — إحصاءات
+  var done=F.filter(f=>f.status==='done').length;
+  var issues=F.filter(f=>f.status==='conflict'||f.status==='partial').length;
+  document.getElementById('over-stats').innerHTML=
+    stat(F.length,'ميزة موثّقة')+stat(done,'مكتملة')+stat(R.length,'قاعدة مالك')+stat(7,'بوت حماية');
+  function stat(n,l){return '<div class="stat"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>';}
+
+  // الميزات
+  document.getElementById('feat-count').textContent='('+F.length+' ميزة)';
+  document.getElementById('feat-list').innerHTML=F.map(function(f){
+    return '<div class="card"><h3>'+f.id+' — '+f.title+
+      ' <span class="sev sev-'+(f.severity||'low')+'">'+(f.severity||'')+'</span>'+
+      ' <span class="st st-'+f.status+'">'+f.status+'</span></h3>'+
+      row('ماذا',f.what)+row('كيف تعمل',f.how)+row('كيف بُنيت',f.built)+row('كيف تُراقَب',f.watch)+
+      (f.note?row('ملاحظة',f.note):'')+'</div>';
+  }).join('');
+  function row(k,v){return v?'<div class="row"><b>'+k+':</b> '+esc(v)+'</div>':'';}
+  function esc(s){return String(s).replace(/</g,'&lt;');}
+
+  // قواعd المالك
+  document.getElementById('rules-list').innerHTML=R.map(function(r){
+    return '<div class="card"><h3>'+r.id+' <span class="sev sev-'+(r.severity||'low')+'">'+(r.severity||'')+'</span></h3>'+
+      '<div class="row"><b>القاعدة:</b> '+esc(r.rule)+'</div>'+
+      '<div class="row"><b>لماذا:</b> '+esc(r.why)+'</div>'+
+      '<div class="row"><b>كيف يُتحقّق:</b> '+esc(r.check)+'</div></div>';
+  }).join('');
+
+  // البوتات
+  var bots=F.filter(f=>/^BOT-|BRAND|AUTOTEST|INTEGRATION/.test(f.id)||/بوت|مراقب|حارس|فاحص|مفتّش/.test(f.title));
+  document.getElementById('bots-list').innerHTML=bots.map(function(f){
+    return '<div class="card"><h3>'+f.title+'</h3>'+row('الدور',f.what)+row('كيف يعمل',f.how)+'</div>';
+  }).join('');
+
+  // اختبارات الترابط
+  if(window.GMTIntegrationTests){
+    document.getElementById('links-list').innerHTML=window.GMTIntegrationTests.links.map(function(l){
+      return '<div class="row"><b>'+l.title+':</b> '+esc(l.desc)+'</div>';
+    }).join('');
+  }
+
+  // تشغيل الاختبارات
+  document.getElementById('run-tests').onclick=async function(){
+    this.disabled=true; this.textContent='⏳ جارٍ...';
+    var out=document.getElementById('tests-out'); var L=[];
+    if(window.GMTIntegrationTests){
+      L.push('═══ اختبارات الترابط ═══');
+      var ir=await window.GMTIntegrationTests.run();
+      ir.forEach(x=>L.push((x.ok===true?'✅':x.ok===false?'🔴':'ℹ️')+' '+x.title+' — '+x.msg));
+    }
+    if(window.GMTWarden&&window.GMTWarden.runProbes){
+      L.push(''); L.push('═══ الاختبارات الوهمية ═══');
+      var pr=await window.GMTWarden.runProbes();
+      pr.forEach(x=>L.push((x.ok?'✅':'🔴')+' '+x.title+' — '+x.msg));
+    }
+    out.innerHTML='<div class="card"><pre>'+L.join('\n').replace(/</g,'&lt;')+'</pre></div>';
+    this.disabled=false; this.textContent='🧪 شغّل كل الاختبارات الآن';
+  };
+
+  // تقارير حيّة
+  document.getElementById('load-reports').onclick=function(){
+    var out=document.getElementById('reports-out');
+    if(window.GMTWarden&&window.GMTWarden.fullReport){
+      out.innerHTML='<div class="card"><pre>'+window.GMTWarden.fullReport().replace(/</g,'&lt;')+'</pre></div>';
+    } else out.innerHTML='<div class="card"><p class="row">المراقب غير محمّل.</p></div>';
+  };
+
+  // ── قارئ ملفات markdown (يجلب الملف الفعلي ويعرضه) ──
+  function miniMd(t){
+    return t.replace(/</g,'&lt;')
+      .replace(/^### (.+)$/gm,'<h4 style="color:#2563eb;margin:10px 0 4px">$1</h4>')
+      .replace(/^## (.+)$/gm,'<h3 style="color:#111827;margin:12px 0 5px">$1</h3>')
+      .replace(/^# (.+)$/gm,'<h2 style="color:var(--gmt-red);margin:14px 0 6px">$1</h2>')
+      .replace(/\*\*(.+?)\*\*/g,'<b style="color:#1a1d23">$1</b>')
+      .replace(/^\| (.+) \|$/gm,function(m){return '<div style="font-family:monospace;font-size:11px;color:#374151">'+m+'</div>';})
+      .replace(/^- (.+)$/gm,'<div style="padding-inline-start:14px">• $1</div>')
+      .replace(/^> (.+)$/gm,'<div style="border-inline-start:3px solid var(--gmt-red);padding-inline-start:10px;color:#6b7280;margin:5px 0">$1</div>')
+      .replace(/\n\n/g,'<br>');
+  }
+  async function loadDoc(name,target){
+    var out=document.getElementById(target);
+    out.innerHTML='<div class="card"><p class="row">⏳ جارٍ تحميل '+name+'...</p></div>';
+    // نجرّب عدّة مسارات (المركز قد يُنشر بمجلد منفصل)
+    var paths=[name,'06_التوثيق/'+name,'06_التوثيق/'+name,
+               '06_التوثيق/تقارير_التدقيق_2026-07-16/'+name,'06_التوثيق/تقارير_التدقيق_2026-07-16/'+name];
+    for(var i=0;i<paths.length;i++){
+      try{
+        var r=await fetch(paths[i]);
+        if(r.ok){ var t=await r.text();
+          out.innerHTML='<div class="card"><div style="line-height:1.9;font-size:13px">'+miniMd(t)+'</div></div>';
+          return;
+        }
+      }catch(e){}
+    }
+    out.innerHTML='<div class="card"><p class="row">📄 <b>'+name+'</b><br>هذا الملف موجود بحزمة المشروع (مجلد التوثيق). لقراءته هنا، تأكّد أنه منشور بجانب مركز المعرفة.</p></div>';
+  }
+  document.querySelectorAll('.docbtn').forEach(function(b){
+    b.onclick=function(){
+      var panel=b.closest('.panel');
+      var target=(panel.id==='p-changelog')?'changelog-out':(panel.id==='p-reports')?'reports-out':(panel.id==='p-passwords')?'passwords-out':'docs-out';
+      loadDoc(b.dataset.doc,target);
+    };
+  });
+
+  // سجل التعديلات — من الميزات (احتياطي إن لم يُحمّل الملف)
+  var chDone=F.filter(f=>/2026-07-17/.test(f.built||''));
+  document.getElementById('changelog-out').innerHTML='<h3>📝 آخر التعديلات (2026-07-17)</h3>'+
+    chDone.map(f=>'<div class="row">✅ <b>'+f.id+'</b> — '+esc(f.title)+'</div>').join('')+
+    '<div class="row" style="margin-top:10px;color:#2563eb">للسجل الكامل: ملف سجل_التعديلات.md بالتوثيق.</div>';
+})();
+</script>
+</body>
+</html>

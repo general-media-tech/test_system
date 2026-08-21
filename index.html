@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GMT — بوابة النظام</title>
+<link rel="icon" href="favicon.ico">
+<style>
+  :root{ --red:#C00012; --dark:#0f1219; --card:#fff; --muted:#6b7280; --line:#e5e7eb; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Tahoma,system-ui,sans-serif;background:linear-gradient(160deg,#f8f9fb,#eef1f5);color:#1f2937;min-height:100vh;padding:20px}
+  .wrap{max-width:1100px;margin:0 auto}
+  header{text-align:center;padding:30px 0 24px}
+  .logo{width:76px;height:76px;border-radius:18px;background:var(--red);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:30px;font-weight:900;box-shadow:0 10px 30px rgba(192,0,18,.3);margin-bottom:14px}
+  h1{font-size:26px;font-weight:900;color:var(--dark)}
+  .sub{color:var(--muted);font-size:14px;margin-top:6px}
+  .section{margin-top:28px}
+  .section h2{font-size:15px;font-weight:800;color:var(--red);margin-bottom:12px;padding-right:10px;border-right:4px solid var(--red)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-decoration:none;color:inherit;transition:.2s;display:flex;align-items:center;gap:12px}
+  .card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08);border-color:var(--red)}
+  .ic{font-size:26px;flex-shrink:0}
+  .tx{flex:1}
+  .tx .t{font-weight:800;font-size:14px}
+  .tx .d{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .badge{font-size:10px;padding:2px 8px;border-radius:99px;font-weight:800}
+  .b-emp{background:#eff6ff;color:#1d4ed8}
+  .b-cust{background:#f0fdf4;color:#15803d}
+  .b-tool{background:#fef3c7;color:#b45309}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin:36px 0 10px}
+</style>
+</head>
+<body>
+  <script src="gmt-updater.js"></script>
+  <script src="gmt-core.js"></script>
+  <script src="gmt-staff.js"></script>
+  <script src="gmt-deep-inspector.js"></script>
+<div class="wrap">
+  <header>
+    <div class="logo">GMT</div>
+    <h1>بوابة نظام General Media Tech</h1>
+    <div class="sub">كل روابط النظام في مكان واحد</div>
+  </header>
+
+  <div class="section">
+    <h2>👥 الموظفون والإدارة</h2>
+    <div class="grid">
+      <a class="card" href="نقطة_البيع.html"><span class="ic">🛒</span><div class="tx"><div class="t">نقطة البيع</div><div class="d">البيع والفواتير</div></div><span class="badge b-emp">موظف</span></a>
+      <a class="card" href="الجرد.html"><span class="ic">📦</span><div class="tx"><div class="t">الجرد</div><div class="d">المخزون والمنتجات</div></div><span class="badge b-emp">موظف</span></a>
+      <a class="card" href="طابعة_الملصقات.html"><span class="ic">🏷️</span><div class="tx"><div class="t">طابعة الملصقات</div><div class="d">باركود وأسعار</div></div><span class="badge b-emp">موظف</span></a>
+      <a class="card" href="أدمن_نقاط_البيع.html"><span class="ic">💼</span><div class="tx"><div class="t">أدمن نقاط البيع</div><div class="d">إدارة المبيعات</div></div><span class="badge b-emp">موظف</span></a>
+      <a class="card" href="الأوردرات.html"><span class="ic">📋</span><div class="tx"><div class="t">الأوردرات</div><div class="d">الطلبات</div></div><span class="badge b-emp">موظف</span></a>
+      <a class="card" href="المشتريات.html"><span class="ic">🏭</span><div class="tx"><div class="t">المشتريات</div><div class="d">الشراء والشحنات</div></div><span class="badge b-emp">موظف</span></a>
+      <a class="card" href="الجسر.html"><span class="ic">🌉</span><div class="tx"><div class="t">الجسر</div><div class="d">الربط والتحويل</div></div><span class="badge b-emp">موظف</span></a>
+      <a class="card" href="أدمن_المتجر.html"><span class="ic">🏪</span><div class="tx"><div class="t">أدمن المتجر</div><div class="d">إدارة المتجر</div></div><span class="badge b-emp">موظف</span></a>
+      <a class="card" href="أدمن_الكفالة.html"><span class="ic">🛡️</span><div class="tx"><div class="t">أدمن الكفالة</div><div class="d">إدارة الكفالات</div></div><span class="badge b-emp">موظف</span></a>
+      <a class="card" href="العقود.html"><span class="ic">📜</span><div class="tx"><div class="t">العقود</div><div class="d">عقود ونماذج</div></div><span class="badge b-emp">موظف</span></a>
+      <a class="card" href="أدمن_الموقع.html"><span class="ic">🌐</span><div class="tx"><div class="t">أدمن الموقع</div><div class="d">إدارة الموقع</div></div><span class="badge b-emp">موظف</span></a>
+      <a class="card" href="النسخ_الاحتياطي.html"><span class="ic">💾</span><div class="tx"><div class="t">النسخ الاحتياطي</div><div class="d">حفظ البيانات</div></div><span class="badge b-emp">موظف</span></a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🌐 صفحات الزبون (عامة)</h2>
+    <div class="grid">
+      <a class="card" href="المتجر.html"><span class="ic">🛍️</span><div class="tx"><div class="t">المتجر</div><div class="d">تسوّق المنتجات</div></div><span class="badge b-cust">زبون</span></a>
+      <a class="card" href="إنشاء_الكفالة.html"><span class="ic">✅</span><div class="tx"><div class="t">إنشاء الكفالة</div><div class="d">تسجيل كفالة</div></div><span class="badge b-cust">زبون</span></a>
+      <a class="card" href="بحث_الكفالة.html"><span class="ic">🔍</span><div class="tx"><div class="t">بحث الكفالة</div><div class="d">استعلام كفالة</div></div><span class="badge b-cust">زبون</span></a>
+      <a class="card" href="تتبع_الشحنة.html"><span class="ic">🚚</span><div class="tx"><div class="t">تتبّع الشحنة</div><div class="d">حالة الطلب</div></div><span class="badge b-cust">زبون</span></a>
+      <a class="card" href="الموقع_الرئيسي.html"><span class="ic">🏠</span><div class="tx"><div class="t">الموقع الرئيسي</div><div class="d">واجهة الشركة</div></div><span class="badge b-cust">زبون</span></a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🔧 الأدوات والمالك</h2>
+    <div class="grid">
+      <a class="card" href="الأدمن_السيادي.html"><span class="ic">👑</span><div class="tx"><div class="t">الأدمن السيادي</div><div class="d">لوحة المالك</div></div><span class="badge b-tool">مالك</span></a>
+      <a class="card" href="بوتات_الحماية.html"><span class="ic">🛡️</span><div class="tx"><div class="t">بوتات الحماية</div><div class="d">التقارير والفحص</div></div><span class="badge b-tool">مالك</span></a>
+      <a class="card" href="مركز_المعرفة.html"><span class="ic">📚</span><div class="tx"><div class="t">مركز المعرفة</div><div class="d">التوثيق والسجلات</div></div><span class="badge b-tool">مالك</span></a>
+      <a class="card" href="الفاحص_المركزي.html"><span class="ic">🔬</span><div class="tx"><div class="t">الفاحص المركزي</div><div class="d">فحص كل الصفحات</div></div><span class="badge b-tool">مالك</span></a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🔬 الفحص والتشخيص والتعليم</h2>
+    <div class="grid">
+      <a class="card" href="الفحوصات.html"><span class="ic">🧪</span><div class="tx"><div class="t">الفحوصات</div><div class="d">فحوصات النظام</div></div><span class="badge b-tool">مالك</span></a>
+      <a class="card" href="تشخيص.html"><span class="ic">🩻</span><div class="tx"><div class="t">تشخيص</div><div class="d">تشخيص الأعطال</div></div><span class="badge b-tool">مالك</span></a>
+      <a class="card" href="لوحة_التجريب.html"><span class="ic">🏋️</span><div class="tx"><div class="t">لوحة التجريب</div><div class="d">ساندبوكس آمن</div></div><span class="badge b-tool">مالك</span></a>
+      <a class="card" href="دليل_المستخدم_زر_بزر.html"><span class="ic">🎓</span><div class="tx"><div class="t">دليل المستخدم</div><div class="d">شرح زر بزر</div></div><span class="badge b-tool">مالك</span></a>
+      <a class="card" href="توثيق_GMT_الشامل.html"><span class="ic">📖</span><div class="tx"><div class="t">التوثيق الشامل</div><div class="d">مرجع النظام</div></div><span class="badge b-tool">مالك</span></a>
+      <a class="card" href="تقرير_أسبوعي.html"><span class="ic">📊</span><div class="tx"><div class="t">تقرير أسبوعي</div><div class="d">ملخص الأداء</div></div><span class="badge b-tool">مالك</span></a>
+      <a class="card" href="كلمات_السر.html"><span class="ic">🔑</span><div class="tx"><div class="t">كلمات السر</div><div class="d">الوصول السيادي</div></div><span class="badge b-tool">مالك</span></a>
+      <a class="card" href="خطة_النشر_الشاملة.html"><span class="ic">🚀</span><div class="tx"><div class="t">خطة النشر</div><div class="d">خطوات النشر</div></div><span class="badge b-tool">مالك</span></a>
+    </div>
+  </div>
+
+  <!-- ═══ شو أجرّب؟ — قائمة فحص عملية (بديل النظام التعليمي) ═══ -->
+  <div class="section">
+    <h2>🧪 شو أجرّب؟ — قائمة الفحص العملية</h2>
+    <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px">
+      <p style="font-size:13px;color:var(--muted);line-height:1.9;margin-bottom:14px">
+        بدل ما تقرأ شرحاً، جرّب هذه الحالات بالترتيب. كل بند يفحص <b>غلطاً حقيقياً كان موجوداً وأُصلح</b> —
+        إن نجح البند فالإصلاح ثابت، وإن فشل أخبرني بالبند بالضبط. علّم ✔ كل ما تنجح.
+      </p>
+      <div id="tst-wrap"></div>
+      <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+        <button id="tst-reset" style="background:#f1f5f9;border:1px solid var(--line);border-radius:9px;padding:8px 16px;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit">↺ صفّر العلامات</button>
+        <button id="tst-copy" style="background:#0f172a;color:#fff;border:none;border-radius:9px;padding:8px 16px;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit">📋 انسخ النتيجة لإرسالها</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    const TESTS = [
+      { g:'🧾 المشتريات — الإضافة والبحث', items:[
+        {t:'في معاينة الفاتورة: اكتب في خانة «🔎 ابحث عن منتج» ← تنزل قائمة منسدلة بالمنتجات الموجودة (صورة + اسم + باركود).', w:'كان زر «إضافة منتج» يفتح مودال منتج جديد فقط — بلا بحث في الموجود.'},
+        {t:'اختر منتجاً من القائمة ← يُضاف للفاتورة فوراً ويظهر في الجدول.', w:'كان Object.assign يدهس القائمة المحدّثة ⇒ المنتج المضاف لا يظهر.'},
+        {t:'اختر نفس المنتج ثانيةً ← تزيد كميته بدل تكراره كسطر جديد.', w:'—'},
+        {t:'اكتب اسماً غير موجود ← اضغط «تعريف منتج جديد» ← يفتح المودال والاسم مُعبّأ مسبقاً.', w:'—'},
+        {t:'بعد الإضافة اضغط «حفظ سحابياً» ← أغلق وافتح ← يبقى مضافاً.', w:'الإضافة تُثبَّت في القاعدة عند الحفظ.'},
+      ]},
+      { g:'🧾 المشتريات — الحذف', items:[
+        {t:'افتح فاتورة ← اضغط 🗑 على منتج ← يختفي فوراً من الجدول (لا يبقى ظاهراً).', w:'كان يقول «تم الحذف» والمنتج يبقى — بسبب Object.assign يدهس القائمة المنقوصة.'},
+        {t:'بعد الحذف اضغط «حفظ سحابياً» ← أغلق الفاتورة وافتحها ← يبقى محذوفاً.', w:'الحذف يُثبَّت في القاعدة عند الحفظ فقط — هذا سلوك مقصود.'},
+      ]},
+      { g:'📊 المشتريات — Excel', items:[
+        {t:'صدّر Excel من الفاتورة ← العمود A = اسم المنتج، B = الصورة.', w:'كان A = رقم تسلسل # فتُقرأ الأسماء أرقاماً عند الاستيراد.'},
+        {t:'استورد نفس الملف بلا حذف الترويسة ولا صف الإجمالي ← الأسماء تظهر صحيحة لا أرقاماً.', w:'القارئ صار يكتشف صف الرؤوس ويتخطّى الترويسة والإجمالي تلقائياً.'},
+        {t:'بعد الاستيراد: كل صورة على منتجها الصحيح (لا مُزاحة ولا مفقودة).', w:'كانت الصور تُزاح صفّاً ثابتاً ⇒ تظهر على منتج آخر أو تختفي.'},
+        {t:'الاستيراد يجلب أيضاً: الحد الأدنى + الجملة + الملاحظات.', w:'كانت تُهمَل ولا تُقرأ.'},
+      ]},
+      { g:'📦 الجرد — الصور والحذف', items:[
+        {t:'عدّل منتجاً واختر صورة جديدة مع قطع الإنترنت ← تظهر «فشل الرفع» و<b>تبقى الصورة القديمة</b> (لا تختفي).', w:'كان فشل الرفع يحفظ image_url فارغاً فيمحو الصورة الموجودة.'},
+        {t:'احذف منتجاً ← يختفي فوراً ويبقى محذوفاً بعد تحديث الصفحة.', w:'حذف الجرد يكتب DELETE فعلياً في القاعدة (كان سليماً — للتأكيد).'},
+        {t:'جرّب الحذف الجماعي وحذف مجموعة ← يُثبَّتان في القاعدة.', w:'مسارات حذف منفصلة — فُحصت وسليمة.'},
+      ]},
+      { g:'🚚 الترحيل والمخزون', items:[
+        {t:'افتح فاتورة استيراد واضغط «ترحيل» ← تظهر الكميات فوراً (لا «—» ولا صفر).', w:'أعمدة الفروع (germany/haleb…) لم تكن معرّفة ⇒ رصيد العبور فارغ. شغّل SQL أولاً.'},
+        {t:'رحّل الفاتورة ← تُختم «واصلة» وتزيد الكمية <b>مرة واحدة</b>.', w:'—'},
+        {t:'اضغط «ترحيل» ثانيةً ← «مُرحّلة مسبقاً» ولا تتضاعف الكمية.', w:'جذر المضاعفة: أعمدة الحالة الناقصة في import_log كانت تُفشل التحديث بصمت.'},
+      ]},
+      { g:'🛡️ الكفالة والبوتات', items:[
+        {t:'فعّل كفالة تجريبية ← تُحفظ بلا تنبيه أحمر.', w:'سجل التفعيل صار يكشف فشل الحفظ بدل ابتلاعه.'},
+        {t:'افتح أي صفحة بـ <code>?sovereign=1</code> ← يظهر شريط البوتات وتفتح أزراره.', w:'—'},
+        {t:'من هذه الصفحة: اضغط «افحص المخطط الآن» ← يعطي أخضر أو قائمة نواقص + SQL جاهز.', w:'يصطاد نمط «العمود الناقص» قبل أن يؤذي.'},
+      ]},
+    ];
+
+    const KEY='gmt_tests_v1';
+    let state={};
+    try{ state=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){ state={}; }
+    const save=()=>{ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} };
+
+    function render(){
+      const wrap=document.getElementById('tst-wrap');
+      let n=0, done=0;
+      wrap.innerHTML = TESTS.map(sec=>{
+        const rows = sec.items.map(it=>{
+          const id='t'+(n++);
+          const on=!!state[id]; if(on)done++;
+          return `<label style="display:flex;gap:9px;align-items:flex-start;padding:9px 10px;border-radius:9px;cursor:pointer;background:${on?'#f0fdf4':'transparent'};border:1px solid ${on?'#bbf7d0':'transparent'}">
+            <input type="checkbox" data-id="${id}" ${on?'checked':''} style="margin-top:3px;width:16px;height:16px;accent-color:#16a34a;flex-shrink:0">
+            <span style="flex:1">
+              <span style="font-size:13px;font-weight:600;color:#1e293b;line-height:1.7">${it.t}</span>
+              ${it.w&&it.w!=='—'?`<span style="display:block;font-size:11px;color:var(--muted);margin-top:3px">لماذا: ${it.w}</span>`:''}
+            </span>
+          </label>`;
+        }).join('');
+        return `<div style="margin-bottom:14px">
+          <div style="font-weight:800;font-size:13.5px;color:var(--red);margin-bottom:5px">${sec.g}</div>
+          ${rows}
+        </div>`;
+      }).join('');
+      const bar=document.getElementById('tst-bar');
+      if(bar) bar.textContent=`${done} / ${n}`;
+      wrap.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+        cb.addEventListener('change',()=>{ state[cb.dataset.id]=cb.checked; save(); render(); });
+      });
+    }
+
+    document.getElementById('tst-reset').addEventListener('click',()=>{ state={}; save(); render(); });
+    document.getElementById('tst-copy').addEventListener('click',function(){
+      let n=0, out=['نتيجة فحص GMT — '+new Date().toLocaleString('ar-SY'),''];
+      TESTS.forEach(sec=>{ out.push(sec.g); sec.items.forEach(it=>{ const id='t'+(n++); out.push((state[id]?'✔ ':'✖ ')+it.t.replace(/<[^>]+>/g,'')); }); out.push(''); });
+      const txt=out.join('\n');
+      const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); this.textContent='✓ نُسخت'; setTimeout(()=>this.textContent='📋 انسخ النتيجة لإرسالها',1800); }catch(e){}
+      document.body.removeChild(ta);
+    });
+
+    render();
+  })();
+  </script>
+
+  <!-- ═══ 🚦 متحقّق النشر — يفحص الموقع الحيّ ═══ -->
+  <div class="section">
+    <h2>🚦 متحقّق النشر — أي صفحة تعمل وأي واحدة 404؟</h2>
+    <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px">
+      <p style="font-size:13px;color:var(--muted);line-height:1.9;margin-bottom:12px">
+        يفتح كل صفحة على موقعك الحيّ ويقول لك بالضبط: <b>تعمل ✅ · غير موجودة ❌ (404) · نسخة قديمة ⚠️</b>.
+        بلا توكن وبلا صلاحيات — قراءة فقط. هذا يقفل لغز «بعض الروابط لا تفتح».
+      </p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+        <input id="pv-base" type="text" value="" placeholder="عنوان الموقع (يُملأ تلقائياً)"
+          style="flex:1;min-width:240px;padding:9px 12px;border:1px solid var(--line);border-radius:9px;font-size:12px;font-family:inherit;direction:ltr;text-align:left">
+        <button id="pv-run" style="background:#0f172a;color:#fff;border:none;border-radius:10px;padding:10px 20px;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit">🚦 افحص النشر</button>
+        <button id="pv-copy" style="background:#f1f5f9;border:1px solid var(--line);border-radius:10px;padding:10px 18px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">📋 انسخ</button>
+      </div>
+      <div id="pv-out"></div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    const PAGES=['index.html','المشتريات.html','الجرد.html','الأوردرات.html','العقود.html',
+      'تتبع_الشحنة.html','إنشاء_الكفالة.html','بحث_الكفالة.html','أدمن_الكفالة.html',
+      'نقطة_البيع.html','أدمن_نقاط_البيع.html','المتجر.html','أدمن_المتجر.html','الجسر.html',
+      'الموقع_الرئيسي.html','أدمن_الموقع.html','الأدمن_السيادي.html','الفحوصات.html','تشخيص.html',
+      'لوحة_التجريب.html','مركز_المعرفة.html','النسخ_الاحتياطي.html','طابعة_الملصقات.html',
+      'كلمات_السر.html','تقرير_أسبوعي.html','توثيق_GMT_الشامل.html','دليل_المستخدم_زر_بزر.html',
+      'gmt-core.js','gmt-staff.js','gmt-updater.js','gmt-deep-inspector.js'];
+    let last=[];
+    const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+    const baseIn=()=>document.getElementById('pv-base');
+    try{
+      const u=location.href.replace(/[^/]*$/,'');
+      if(location.protocol.startsWith('http')) baseIn().value=u;
+    }catch(e){}
+
+    async function check(base,name){
+      const url=base.replace(/\/?$/,'/')+encodeURI(name);
+      try{
+        const r=await fetch(url,{method:'GET',cache:'no-store'});
+        if(!r.ok) return {name,status:r.status,note:r.status===404?'غير موجودة على الموقع':'خطأ'};
+        const txt=await r.text();
+        // كشف نسخة قديمة: هل تحتوي علامات هذه الجلسة؟
+        let note='تعمل';
+        if(name==='index.html'&&!/الفاحص العميق/.test(txt)) note='⚠️ نسخة قديمة (ارفع index الجديد)';
+        if(name==='gmt-staff.js'&&!/KNOWN_PATTERNS/.test(txt)) note='⚠️ نسخة قديمة';
+        if(name==='المشتريات.html'&&!/inv-prod-search/.test(txt)) note='⚠️ نسخة قديمة';
+        if(/^\s*<!DOCTYPE html>[\s\S]{0,400}404/i.test(txt)&&name.endsWith('.js')) note='⚠️ رجع صفحة 404';
+        return {name,status:200,note};
+      }catch(e){ return {name,status:0,note:'تعذّر الوصول: '+e.message}; }
+    }
+
+    async function run(){
+      const base=baseIn().value.trim();
+      const out=document.getElementById('pv-out');
+      const btn=document.getElementById('pv-run');
+      if(!base){ out.innerHTML='<div style="color:#991b1b;font-size:13px">اكتب عنوان الموقع أولاً.</div>'; return; }
+      btn.disabled=true; btn.textContent='⏳ جارٍ الفحص…'; last=[];
+      out.innerHTML='<div style="font-size:12px;color:var(--muted)">جارٍ فحص '+PAGES.length+' ملف…</div>';
+      for(const p of PAGES){
+        const r=await check(base,p); last.push(r);
+        const okc=last.filter(x=>x.status===200&&!x.note.startsWith('⚠️')).length;
+        const oldc=last.filter(x=>x.note.startsWith('⚠️')).length;
+        const badc=last.filter(x=>x.status!==200).length;
+        out.innerHTML='<div style="background:#f8fafc;border-radius:10px;padding:10px;font-weight:800;font-size:13px;margin-bottom:8px">'
+          +'✅ '+okc+' تعمل · ⚠️ '+oldc+' قديمة · ❌ '+badc+' مفقودة <span style="font-weight:600;color:var(--muted)">('+last.length+'/'+PAGES.length+')</span></div>'
+          +last.map(x=>{
+            const ic=x.status!==200?'❌':(x.note.startsWith('⚠️')?'⚠️':'✅');
+            const bg=x.status!==200?'#fef2f2':(x.note.startsWith('⚠️')?'#fffbeb':'#f0fdf4');
+            return '<div style="display:flex;gap:8px;padding:6px 10px;border-radius:7px;background:'+bg+';margin-bottom:2px;font-size:12px">'
+              +'<span>'+ic+'</span><span style="flex:1;direction:ltr;text-align:left">'+esc(x.name)+'</span>'
+              +'<span style="color:var(--muted);font-size:11px">'+esc(x.note)+'</span></div>';
+          }).join('');
+      }
+      const badn=last.filter(x=>x.status!==200);
+      if(badn.length){
+        out.innerHTML+='<div style="background:#fef2f2;border:1.5px solid #fca5a5;border-radius:10px;padding:11px;font-size:12.5px;color:#991b1b;margin-top:10px">'
+          +'<b>ملفات لا تفتح ('+badn.length+'):</b> ارفعها للمستودع بنفس الاسم بالضبط. '
+          +'الأسباب المعتادة: لم تُرفع · فرق حرف واحد في الاسم · Pages غير مفعّل (Settings ← Pages).</div>';
+      }
+      btn.disabled=false; btn.textContent='🚦 أعد الفحص';
+    }
+    document.getElementById('pv-run').addEventListener('click',run);
+    document.getElementById('pv-copy').addEventListener('click',function(){
+      if(!last.length)return;
+      const t='تقرير النشر — '+new Date().toLocaleString('ar-SY')+'\n\n'
+        +last.map(x=>(x.status===200?(x.note.startsWith('⚠️')?'⚠️ ':'✅ '):'❌ ')+x.name+' — '+x.note+(x.status!==200?' ('+x.status+')':'')).join('\n');
+      const ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select();
+      try{document.execCommand('copy');this.textContent='✓ نُسخ';setTimeout(()=>this.textContent='📋 انسخ',1800);}catch(e){}
+      document.body.removeChild(ta);
+    });
+  })();
+  </script>
+
+  <!-- ═══ 🔬 الفاحص العميق الذاتي ═══ -->
+  <div class="section">
+    <h2>🔬 الفاحص العميق — يجرّب كل شيء بنفسه</h2>
+    <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px">
+      <p style="font-size:13px;color:var(--muted);line-height:1.9;margin-bottom:12px">
+        لا يكتفي بالنظر: <b>ينفّذ العمليات فعلياً</b> — يعرّف منتجاً · يعدّل سعره · يفحص بقاء الصورة ·
+        ينشئ فاتورة · يغيّر عملتها · يحفظ حالة الترحيل · يكتب في سجل الاستلام · يحذف بنداً ·
+        ثم <b>يقرأ من القاعدة</b> ليتأكّد ممّا جرى حقاً — ويربط كل إخفاق بنمطه (P1…P6).
+      </p>
+      <div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:10px;padding:10px 12px;font-size:12px;color:#166534;margin-bottom:12px">
+        🛡️ <b>آمن تماماً:</b> كل ما يُنشئه موسوم <code>__GMT_TEST__</code> وباركود <code>TEST-…</code>،
+        ولا يلمس أي سجل غير موسوم، ويحذف ما أنشأه في النهاية. الفحص الكامل يطلب تأكيدك أولاً.
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button id="di-scan" style="background:#0f172a;color:#fff;border:none;border-radius:10px;padding:10px 18px;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit">👁️ فحص سريع (قراءة فقط)</button>
+        <button id="di-full" style="background:var(--red);color:#fff;border:none;border-radius:10px;padding:10px 18px;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit">🔬 الفحص العميق الكامل</button>
+        <button id="di-copy" style="background:#f1f5f9;border:1px solid var(--line);border-radius:10px;padding:10px 18px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">📋 انسخ التقرير</button>
+        <button id="di-clean" style="background:#fff7ed;border:1px solid #fed7aa;color:#c2410c;border-radius:10px;padding:10px 18px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">🧹 نظّف بيانات الفحص</button>
+      </div>
+      <div id="di-out" style="margin-top:14px"></div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    const out=()=>document.getElementById('di-out');
+    const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+    let rows=[];
+    window.__gmtInspectorTick=function(r){ rows.push(r); paint(); };
+    function paint(sum){
+      const ic=o=>o===true?'✅':o===false?'❌':o==='warn'?'⚠️':'ℹ️';
+      const col=o=>o===false?'#fef2f2':o==='warn'?'#fffbeb':o===true?'#f8fafc':'#fff';
+      let h='';
+      if(sum) h+=`<div style="background:${sum.fail?'#fef2f2':'#f0fdf4'};border:1.5px solid ${sum.fail?'#fca5a5':'#86efac'};border-radius:10px;padding:11px 13px;font-weight:800;font-size:13.5px;color:${sum.fail?'#991b1b':'#166534'};margin-bottom:10px">
+        النتيجة: ✅ ${sum.pass} · ⚠️ ${sum.warn} · ❌ ${sum.fail}
+        ${Object.keys(sum.byPattern||{}).length?'<div style="font-weight:600;font-size:12px;margin-top:6px">أنماط الإخفاق: '+Object.entries(sum.byPattern).map(([p,s])=>`<code>${p}</code>×${s.length}`).join(' · ')+'</div>':''}
+      </div>`;
+      h+=rows.map(r=>`<div style="display:flex;gap:8px;padding:7px 10px;border-radius:8px;background:${col(r.ok)};margin-bottom:3px;font-size:12.5px">
+        <span style="flex-shrink:0">${ic(r.ok)}</span>
+        <span style="flex:1"><b style="color:var(--red)">[${esc(r.area)}]</b> ${esc(r.step)}
+        ${r.detail?`<span style="display:block;color:var(--muted);font-size:11px;margin-top:2px">${esc(r.detail)}</span>`:''}</span>
+        ${r.pattern?`<code style="flex-shrink:0;background:#0f172a;color:#fca5a5;padding:1px 6px;border-radius:5px;font-size:10.5px;height:fit-content">${r.pattern}</code>`:''}
+      </div>`).join('');
+      out().innerHTML=h;
+    }
+    async function go(mode,btn){
+      if(!window.GMTDeepInspector){ out().innerHTML='<div style="color:#991b1b;font-size:13px">⚠️ الفاحص غير محمّل — تأكّد من رفع <code>gmt-deep-inspector.js</code>.</div>'; return; }
+      rows=[]; const old=btn.textContent; btn.disabled=true; btn.textContent='⏳ جارٍ الفحص…';
+      try{ const r=await GMTDeepInspector[mode](); if(r) paint(r); }
+      catch(e){ out().innerHTML='<div style="color:#991b1b">خطأ: '+esc(e.message)+'</div>'; }
+      btn.disabled=false; btn.textContent=old;
+    }
+    document.getElementById('di-scan').addEventListener('click',function(){go('scan',this);});
+    document.getElementById('di-full').addEventListener('click',function(){go('full',this);});
+    document.getElementById('di-clean').addEventListener('click',function(){go('cleanup',this);});
+    document.getElementById('di-copy').addEventListener('click',function(){
+      if(!window.GMTDeepInspector)return;
+      GMTDeepInspector.copy(); this.textContent='✓ نُسخ';
+      setTimeout(()=>this.textContent='📋 انسخ التقرير',1800);
+    });
+  })();
+  </script>
+ (فاحص نمط «العمود الناقص») — 2026-08-18 ═══ -->
+  <!-- ═══ طبيب المخطط (فاحص نمط «العمود الناقص») ═══ -->
+  <div class="section">
+    <h2>🩺 طبيب المخطط — يكشف الأغلاط قبل ما تصير</h2>
+    <div id="doc-card" style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px">
+      <p style="font-size:13px;color:var(--muted);line-height:1.9;margin-bottom:14px">
+        كل مشاكلنا المتكررة لها جذر واحد: <b>الكود يكتب عموداً غير موجود في القاعدة، فيفشل الطلب بصمت (400)</b>
+        — هكذا صارت مضاعفة المخزون، ورصيد العبور «—»، وسجل الكفالة. هذا الفاحص يقرأ مخطط قاعدتك الحيّة
+        الآن، ويقارنه بما يكتبه الكود، ويصطاد النمط <b>قبل</b> أن يؤذيك — ويعطيك SQL الإصلاح جاهزاً.
+      </p>
+      <button id="doc-run" style="background:var(--red);color:#fff;border:none;border-radius:10px;padding:11px 22px;font-weight:800;font-size:14px;cursor:pointer;font-family:inherit">
+        🔬 افحص المخطط الآن
+      </button>
+      <div id="doc-out" style="margin-top:16px"></div>
+      <details style="margin-top:14px;border-top:1px solid var(--line);padding-top:12px">
+        <summary style="cursor:pointer;font-weight:800;font-size:13px;color:#0f172a">🗑️ نمط الحذف — هل يُحفَظ فعلاً؟ (مرجع)</summary>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.9;margin-top:8px">
+          فُحصت كل مسارات الحذف في النظام (المشتريات · الجرد · المتجر · نقاط البيع · الأوردرات):
+          <ul style="margin:6px 20px">
+            <li><b>الجرد:</b> حذف المنتج والحذف الجماعي وحذف المجموعة — كلها تكتب <code>DELETE/UPDATE</code> على القاعدة فوراً ثم تُعيد التحميل. ✅ محفوظ.</li>
+            <li><b>المشتريات (حذف منتج من الفاتورة):</b> يحذف من الشاشة فوراً، ويُحفَظ في القاعدة عند الضغط على <b>«حفظ سحابياً»</b> (يكتب <code>items_snapshot</code> على <code>import_log</code>). ⚠️ إن حذفت ولم تحفظ، يعود المنتج عند إعادة فتح الفاتورة — هذا سلوك مقصود (عدّل ثم احفظ).</li>
+            <li><b>المتجر:</b> يكتب عبر <code>updateField</code>. ✅ محفوظ.</li>
+            <li><b>نقاط البيع (سلة مؤقتة):</b> شاشة فقط بحكم طبيعتها — ليست حذفاً من القاعدة.</li>
+          </ul>
+          <b>القاعدة الذهبية:</b> في المشتريات، بعد أي حذف/إضافة/تعديل على الفاتورة اضغط «حفظ سحابياً» ليُثبَّت في القاعدة.
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    const SB  = 'https://ysawzwtmodkqqbqoiojj.supabase.co';
+    const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzYXd6d3Rtb2RrcXFicW9pb2pqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0NjI0OTUsImV4cCI6MjA5MjAzODQ5NX0.g-dBDpHzMsP_0IQAKFxzWkKzc_I13bGUMeYNgcUmrKQ';
+    const H   = { apikey: KEY, Authorization: 'Bearer ' + KEY };
+
+    // ── ما الذي يكتبه الكود فعلاً (منسوخ يدوياً من مراجعة الكود — أعمدة مؤكّدة تسبّب أعطالاً إن نقصت) ──
+    const STATIC_BRANCHES = ['germany','china','haleb','homs','daraa','kurani','sarmada','fakhouri','hny_sbyl'];
+    const NEED = {
+      products: {
+        why: 'إنشاء منتج من فاتورة يكتب كل الأعمدة دفعةً واحدة — نقص أيّ عمود يفشل الحفظ كاملاً (رصيد العبور «—»).',
+        cols: ['name','barcode','price','wholesale_price','cost_price','net_cost','group_name','short',
+               'count','in_transit','min_stock','image_url','store_url','qty_manual_reason','qty_manual_at','created_at']
+        // + أعمدة الفروع تُضاف ديناميكياً أدناه
+      },
+      import_log: {
+        why: 'تحديث حالة الفاتورة بعد الترحيل — نقص transferred/transferred_at يُبقيها «غير مرحّلة» ⇒ مضاعفة.',
+        cols: ['inv_number','inv_type','supplier','supplier_phone','supplier_address','supplier_contact',
+               'inv_date','eta_date','currency','sector','shipping_company','tracking_number','shipping_notes',
+               'invoice_file_url','cost_transport','cost_shipping','cost_customs','cost_local','cash_payment',
+               'status','source_branch','dest_branch','total_amount','items_count','total_qty','items_snapshot',
+               'transfer_moved','transferred','transferred_at','transferred_by','arrived_at','unseal_reason',
+               'unsealed_at','updated_at','created_at']
+      },
+      stock_receipts: {
+        why: 'دفتر الاستلام — الحماية الثانية ضد مضاعفة الترحيل. نقص note/created_by يُفشل تسجيل السجل.',
+        cols: ['import_id','product_id','branch_key','qty','kind','note','created_by','created_at']
+      }
+    };
+
+    const typeOf = c =>
+      /_at$|_date$/.test(c) ? 'timestamptz'
+      : /^(qty|count|in_transit|min_stock|total_|cost_|cash_|items_count|price|wholesale_price|cost_price|net_cost)/.test(c) ? 'numeric'
+      : /^transferred$/.test(c) ? 'boolean'
+      : /snapshot|_json$|transfer_moved/.test(c) ? 'jsonb'
+      : STATIC_BRANCHES.includes(c) ? 'numeric default 0'
+      : 'text';
+
+    async function liveSchema(){
+      // الطريقة الأولى: OpenAPI (طلب واحد يعطي كل الجداول والأعمدة)
+      try {
+        const r = await fetch(SB + '/rest/v1/', { headers: H });
+        const j = await r.json();
+        if (j && j.definitions) {
+          const m = {};
+          for (const [t, def] of Object.entries(j.definitions))
+            m[t] = Object.keys((def && def.properties) || {});
+          return m;
+        }
+      } catch(e){}
+      return null; // سنلجأ للفحص عموداً-عموداً
+    }
+
+    async function colExists(table, col){
+      // احتياطي: هل العمود موجود؟ (400 «does not exist» = ناقص)
+      try {
+        const r = await fetch(`${SB}/rest/v1/${table}?select=${encodeURIComponent(col)}&limit=1`, { headers: H });
+        if (r.ok) return true;
+        const t = await r.text();
+        if (/does not exist|Could not find|column/i.test(t)) return false;
+        return true; // خطأ آخر (صلاحيات) — لا نعتبره نقصاً
+      } catch(e){ return null; }
+    }
+
+    async function branchKeys(){
+      try {
+        const r = await fetch(`${SB}/rest/v1/inv_columns?select=key_name`, { headers: H });
+        if (!r.ok) return STATIC_BRANCHES.slice();
+        const rows = await r.json();
+        const dyn = (rows||[]).map(x => x.key_name).filter(Boolean);
+        return [...new Set([...STATIC_BRANCHES, ...dyn])];
+      } catch(e){ return STATIC_BRANCHES.slice(); }
+    }
+
+    function esc(s){ return String(s).replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
+
+    async function run(){
+      const out = document.getElementById('doc-out');
+      const btn = document.getElementById('doc-run');
+      btn.disabled = true; btn.textContent = '⏳ جارٍ قراءة مخطط القاعدة…';
+      out.innerHTML = '';
+
+      // أضِف أعمدة الفروع لجدول products ديناميكياً
+      const branches = await branchKeys();
+      const need = JSON.parse(JSON.stringify(NEED));
+      need.products.cols = [...need.products.cols, ...branches];
+
+      const schema = await liveSchema();
+      const missing = {};      // table -> [cols]
+      let unreadable = [];
+
+      for (const [table, spec] of Object.entries(need)){
+        let live = schema ? schema[table] : undefined;
+        if (schema && !live){ unreadable.push(table); continue; }
+        let miss = [];
+        if (live){
+          const set = new Set(live);
+          miss = spec.cols.filter(c => !set.has(c));
+        } else {
+          // لا OpenAPI — افحص عموداً-عموداً
+          for (const c of spec.cols){
+            const ex = await colExists(table, c);
+            if (ex === false) miss.push(c);
+          }
+        }
+        if (miss.length) missing[table] = miss;
+      }
+
+      // ── التقرير ──
+      const tables = Object.keys(missing);
+      let html = '';
+      if (!tables.length){
+        html = `<div style="background:#f0fdf4;border:1.5px solid #86efac;border-radius:12px;padding:14px;color:#166534;font-weight:700">
+          ✅ المخطط سليم — كل الأعمدة الحرجة موجودة في قاعدتك. لا نمط «عمود ناقص».
+        </div>`;
+      } else {
+        html += `<div style="background:#fef2f2;border:1.5px solid #fca5a5;border-radius:12px;padding:14px;color:#991b1b;margin-bottom:12px">
+          🔴 <b>لقيت النمط:</b> ${tables.length} جدول ينقصه أعمدة يكتبها الكود. هذا هو سبب الأعطال الصامتة.
+        </div>`;
+        let sql = '-- 🩺 SQL إصلاح توليد طبيب المخطط — الصقه في Supabase ← SQL Editor ← Run\n\n';
+        for (const t of tables){
+          const spec = need[t];
+          html += `<div style="border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px">
+            <div style="font-weight:800;color:var(--red);font-size:14px">${esc(t)}</div>
+            <div style="font-size:11.5px;color:var(--muted);margin:3px 0 8px">${esc(spec.why||'')}</div>
+            <div style="font-size:12.5px">أعمدة ناقصة: ${missing[t].map(c=>`<code style="background:#0f172a;color:#fca5a5;padding:1px 6px;border-radius:5px;font-size:11.5px">${esc(c)}</code>`).join(' ')}</div>
+          </div>`;
+          sql += `-- ── ${t} ──\n`;
+          for (const c of missing[t]) sql += `alter table if exists ${t} add column if not exists ${c} ${typeOf(c)};\n`;
+          sql += '\n';
+        }
+        html += `<div style="margin-top:6px">
+          <div style="font-weight:800;font-size:13px;margin-bottom:6px">🛠️ SQL الإصلاح الجاهز:</div>
+          <textarea id="doc-sql" readonly style="width:100%;height:150px;font-family:monospace;font-size:11.5px;background:#0f172a;color:#e2e8f0;border-radius:10px;padding:12px;border:none;direction:ltr;text-align:left">${esc(sql)}</textarea>
+          <button onclick="(function(){const t=document.getElementById('doc-sql');t.select();document.execCommand('copy');this.textContent='✓ نُسخ';}).call(this)"
+            style="margin-top:8px;background:#0f172a;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-weight:700;cursor:pointer;font-family:inherit">📋 انسخ SQL</button>
+        </div>`;
+      }
+
+      if (unreadable.length){
+        html += `<div style="background:#fffbeb;border:1.5px solid #fcd34d;border-radius:12px;padding:12px;color:#92400e;font-size:12.5px;margin-top:10px">
+          ⚠️ جداول لم أستطع قراءتها (قد تكون غير منشأة بعد أو محجوبة بصلاحيات): ${unreadable.map(esc).join('، ')}
+        </div>`;
+      }
+
+      html += `<div style="font-size:11px;color:var(--muted);margin-top:10px">
+        قُرِئ المخطط مباشرةً من قاعدتك الحيّة — هذا ما هو موجود فعلاً الآن، لا تخمين.
+      </div>`;
+
+      out.innerHTML = html;
+      btn.disabled = false; btn.textContent = '🔬 أعد الفحص';
+    }
+
+    document.getElementById('doc-run').addEventListener('click', run);
+  })();
+  </script>
+
+  <footer>
+    General Media Tech — بوابة النظام · نسخة 2026-07-24
+  </footer>
+</div>
+</body>
+</html>

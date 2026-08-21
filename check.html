@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔬 تشخيص GMT</title>
+<style>
+body{font-family:'Cairo',system-ui,sans-serif;background:#f5f6f8;color:#1f2937;padding:16px;line-height:1.7}
+.box{background:#fff;border-radius:12px;padding:14px;margin:10px 0;border:1px solid #e5e7eb;border-right:4px solid #d1d5db;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+.ok{border-right-color:#16a34a}.bad{border-right-color:#b91c1c}.warn{border-right-color:#d97706}
+h1{color:#C00012}.big{font-size:18px;font-weight:900;margin-bottom:6px}
+code{background:#f1f5f9;padding:2px 6px;border-radius:4px;color:#0369a1;font-size:12px;word-break:break-all;border:1px solid #e2e8f0}
+pre{background:#f8fafc;color:#334155;padding:10px;border-radius:6px;overflow-x:auto;font-size:11px;max-height:150px;border:1px solid #e5e7eb}
+</style>
+</head>
+<body>
+<h1>🔬 تشخيص GMT — النسخة الدقيقة</h1>
+<div id="r">جارٍ الفحص العميق...</div>
+
+<script>
+// نفحص الملف بـfetch مباشرة (نرى محتواه الفعلي)
+async function diagnose(){
+  var r = document.getElementById('r');
+  var html = '';
+
+  // 1) جِب gmt-core.js مباشرة وافحص محتواه
+  var coreUrl = 'gmt-core.js';
+  var coreText = '', coreStatus = 0, coreErr = '';
+  try {
+    var resp = await fetch(coreUrl + '?t=' + Date.now()); // تجاوز الكاش
+    coreStatus = resp.status;
+    coreText = await resp.text();
+  } catch(e) { coreErr = e.message; }
+
+  var fileExists = (coreStatus === 200 && coreText.length > 1000);
+  html += '<div class="box '+(fileExists?'ok':'bad')+'">';
+  html += '<div class="big">'+(fileExists?'✅':'🔴')+' 1. ملف gmt-core.js</div>';
+  html += 'الحالة: <code>HTTP '+coreStatus+'</code><br>';
+  html += 'الحجم: <code>'+coreText.length+' حرف</code>';
+  if(coreErr) html += '<br>خطأ: <code>'+coreErr+'</code>';
+  if(coreStatus===404) html += '<br>🔴 <b>الملف غير موجود (404)!</b> مجلد _shared لم يُرفع صح.';
+  if(coreStatus===200 && coreText.length<1000) html += '<br>🔴 <b>الملف فارغ أو ناقص!</b> ('+coreText.length+' حرف فقط)';
+  html += '</div>';
+
+  // 2) هل المحتوى فيه تعريف GMTCache؟
+  var hasCache = coreText.indexOf('window.GMTCache') >= 0;
+  var hasSync = coreText.indexOf('syncCollection') >= 0;
+  html += '<div class="box '+((hasCache&&hasSync)?'ok':'bad')+'">';
+  html += '<div class="big">'+((hasCache&&hasSync)?'✅':'🔴')+' 2. محتوى الملف</div>';
+  html += 'يحوي window.GMTCache: '+(hasCache?'✅ نعم':'🔴 لا')+'<br>';
+  html += 'يحوي syncCollection: '+(hasSync?'✅ نعم':'🔴 لا');
+  if(!hasCache) html += '<br>🔴 <b>الملف المرفوع نسخة قديمة/خاطئة!</b> لا يحوي GMTCache.';
+  html += '</div>';
+
+  // 3) نفّذ الملف فعلياً وشوف إذا يعرّف GMTCache
+  var execErr = '';
+  try {
+    eval(coreText);
+  } catch(e) { execErr = e.message + ' @ ' + (e.lineNumber||'?'); }
+
+  await new Promise(function(res){ setTimeout(res, 500); });
+
+  var loaded = (typeof window.GMTCache !== 'undefined');
+  html += '<div class="box '+(loaded?'ok':'bad')+'">';
+  html += '<div class="big">'+(loaded?'✅':'🔴')+' 3. تنفيذ الملف</div>';
+  html += 'GMTCache بعد التنفيذ: <code>'+(typeof window.GMTCache)+'</code><br>';
+  html += 'GMTUI: <code>'+(typeof window.GMTUI)+'</code><br>';
+  html += 'GMT_DB: <code>'+(typeof window.GMT_DB)+'</code>';
+  if(execErr){
+    html += '<br>🔴 <b>خطأ أثناء التنفيذ:</b><br><code>'+execErr+'</code>';
+    html += '<br>↳ هذا الخطأ يوقف تعريف GMTCache!';
+  }
+  html += '</div>';
+
+  // 4) الخلاصة الحاسمة
+  html += '<div class="box '+(loaded?'ok':'bad')+'">';
+  html += '<div class="big">📋 الخلاصة</div>';
+  if(loaded){
+    html += '✅ <b>كل شيء سليم!</b> gmt-core.js يعمل. لو الجرد لا يحمّل فالمشكلة بمفاتيح Supabase.';
+  } else if(coreStatus===404){
+    html += '🔴 <b>مجلد _shared غير مرفوع صح.</b> ارفعه بجذر المستودع.';
+  } else if(!hasCache){
+    html += '🔴 <b>الملف المرفوع نسخة قديمة.</b> ارفع آخر gmt-core.js.';
+  } else if(execErr){
+    html += '🔴 <b>خطأ برمجي يوقف الملف:</b><br><code>'+execErr+'</code><br>صوّر هذا وأرسله!';
+  } else {
+    html += '🔴 سبب غير معروف. صوّر كل هذه الصفحة وأرسلها.';
+  }
+  html += '</div>';
+
+  // 5) أول 300 حرف من الملف (للتأكد)
+  html += '<div class="box warn"><div class="big">🔍 بداية الملف المرفوع</div>';
+  html += '<pre>'+(coreText.slice(0,300).replace(/</g,'&lt;')||'(فارغ)')+'</pre></div>';
+
+  r.innerHTML = html;
+}
+diagnose();
+</script>
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Canon General Media Tech - البحث عن الكفالة</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap');
+
+        :root {
+            --canon-red: #E60012;
+            --canon-dark: #111111;
+            --canon-gradient: linear-gradient(135deg, #E60012 0%, #8B000D 100%);
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f8fafc;
+            color: var(--canon-dark);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .bg-canon-gradient { background: var(--canon-gradient); }
+
+        @keyframes pulse-red {
+            0%   { box-shadow: 0 0 0 0 rgba(230, 0, 18, 0.4); }
+            70%  { box-shadow: 0 0 0 10px rgba(230, 0, 18, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(230, 0, 18, 0); }
+        }
+        .pulse-red { animation: pulse-red 2s infinite; }
+
+        @keyframes smoothAppear {
+            0%   { opacity: 0; transform: translateY(15px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .smooth-appear {
+            animation: smoothAppear 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .spinner {
+            width: 40px; height: 40px;
+            border: 5px solid var(--canon-red);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(230, 0, 18, 0.08);
+            border-color: var(--canon-red) !important;
+            background: white !important;
+        }
+    </style><!-- 🐞 جامع الأخطاء (2026-07-10) --><!-- 🎨 نوافذ بهويتنا + روابط مضبوطة + إصلاح المشاركة --><!-- 🔍 المفتّش: تقرير التجربة -->
+  <!-- 🎨 الهوية البصرية الموحّدة (2026-07-12) — مصدر الحقيقة الوحيد للألوان والخط -->
+  <link rel="stylesheet" href="gmt-theme.css">
+</head>
+<body class="min-h-screen flex flex-col items-center p-4 pb-12">
+  <script src="gmt-updater.js"></script>
+  <script src="gmt-core.js"></script>
+  <script src="gmt-staff.js"></script>
+
+
+    <!-- Header -->
+    <header class="w-full max-w-md bg-[#000000] rounded-[2rem] p-6 shadow-xl shadow-gray-400/40 mb-6 text-center mt-4 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16"></div>
+        <div class="absolute bottom-0 left-0 w-24 h-24 bg-[#E60012]/20 rounded-full -ml-12 -mb-12"></div>
+        
+        <div class="bg-white inline-flex p-2.5 rounded-[1.2rem] mb-4 relative z-10 shadow-lg">
+            <img src="canonlogo.png" alt="Canon Logo" class="h-14 w-auto mx-auto rounded-lg object-contain"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+            <div style="display:none;" class="h-14 w-32 items-center justify-center text-canon-red font-bold text-sm">Canon GMT</div>
+        </div>
+        
+        <h1 class="text-2xl font-black text-white relative z-10 tracking-tight text-center">التحقق من الكفالة</h1>
+        <div class="h-1 w-12 bg-[#E60012] mx-auto mt-3 mb-3 rounded-full relative z-10"></div>
+        <h3 class="text-sm font-bold text-gray-300 relative z-10">ابحث عن كفالتك بسهولة وسرعة</h3>
+    </header>
+
+    <!-- Search Box -->
+    <div class="w-full max-w-md bg-white rounded-[2rem] p-6 shadow-xl shadow-gray-200/50 border border-white relative">
+        <label class="block text-[10px] font-black text-gray-400 mb-2 px-1 uppercase tracking-widest text-center">
+            أدخل رقم الكفالة أو رقم الفاتورة
+        </label>
+        <div class="flex gap-2">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="رقم الكفالة أو رقم الفاتورة"
+                class="flex-1 bg-gray-50 p-4 rounded-2xl text-sm font-bold border border-gray-100 text-center text-gray-800 transition-all"
+                onkeypress="if(event.key==='Enter') searchWarranty()"
+            >
+            <button
+                onclick="searchWarranty()"
+                id="searchBtn"
+                class="bg-canon-gradient text-white w-16 rounded-2xl flex items-center justify-center hover:shadow-lg hover:shadow-red-500/30 active:scale-95 transition-all shrink-0"
+            >
+                <i class="fas fa-search text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Error Message -->
+        <p id="errorMsg" class="text-xs font-bold text-[#E60012] mt-4 text-center hidden items-center justify-center gap-1">
+            <i class="fas fa-exclamation-circle"></i>
+            لم يتم العثور على كفالة بهذه البيانات
+        </p>
+    </div>
+
+    <!-- Loader -->
+    <div id="loader" class="hidden my-12 flex-col items-center gap-4">
+        <div class="spinner"></div>
+        <p class="text-sm font-bold text-gray-500">جارٍ البحث في قاعدة البيانات...</p>
+    </div>
+
+    <!-- Warranty Types Modal -->
+    <div id="warrantyTypesModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4" style="background:rgba(0,0,0,0.6)">
+        <div class="bg-white rounded-[2rem] w-full max-w-md max-h-[85vh] overflow-y-auto p-6 shadow-2xl">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-black text-gray-900">أنواع الكفالات</h2>
+                <button onclick="closeWarrantyModal()" class="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors">
+                    <i class="fas fa-times text-gray-600"></i>
+                </button>
+            </div>
+
+            <!-- Standard -->
+            <div class="bg-gray-50 border-r-4 border-gray-600 p-5 rounded-l-xl mb-4 shadow-sm">
+                <h3 class="text-base font-black text-gray-800 mb-3 flex items-center gap-2">
+                    <i class="fas fa-shield-alt text-gray-600"></i> الباقة الأساسية (Standard)
+                </h3>
+                <ul class="space-y-2 text-gray-700 text-sm leading-relaxed">
+                    <li class="flex items-start gap-2"><i class="fas fa-circle text-[6px] text-gray-500 mt-2 shrink-0"></i>يشمل هذا الضمان عيوب التصنيع فقط، ولا يشمل أي أعطال ناتجة عن سوء الاستخدام، أو الكسر، أو السوائل، أو الصدمات، أو التعديلات غير المعتمدة.</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-circle text-[6px] text-gray-500 mt-2 shrink-0"></i>يشمل الضمان بطارية الجهاز وفق شروط الشركة المصنعة.</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-circle text-[6px] text-gray-500 mt-2 shrink-0"></i>يسقط الضمان في حال فتح الجهاز أو العبث به من قبل جهة غير معتمدة.</li>
+                </ul>
+            </div>
+
+            <!-- Plus -->
+            <div class="bg-green-50 border-r-4 border-green-600 p-5 rounded-l-xl mb-4 shadow-sm">
+                <h3 class="text-base font-black text-green-800 mb-3 flex items-center gap-2">
+                    <i class="fas fa-star text-green-600"></i> باقة بلس (Plus)
+                </h3>
+                <ul class="space-y-2 text-gray-700 text-sm leading-relaxed">
+                    <li class="flex items-start gap-2"><i class="fas fa-circle text-[6px] text-gray-500 mt-2 shrink-0"></i>يشمل هذا الضمان عيوب التصنيع فقط، إضافة إلى خصم بنسبة 50% من تكلفة أجور الصيانة للأعطال الناتجة عن سوء الاستخدام.</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-circle text-[6px] text-gray-500 mt-2 shrink-0"></i>لا يشمل الخصم سعر قطع التبديل، ويتم احتسابها بشكل كامل على العميل.</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-circle text-[6px] text-gray-500 mt-2 shrink-0"></i>يشمل الضمان بطارية الجهاز وفق شروط الشركة المصنعة.</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-circle text-[6px] text-gray-500 mt-2 shrink-0"></i>يسقط الضمان في حال وجود كسر متعمد، أو أضرار جسيمة، أو فتح الجهاز من قبل جهة غير معتمدة.</li>
+                </ul>
+            </div>
+
+            <!-- Extreme -->
+            <div class="bg-red-50 border-r-4 border-[#E60012] p-5 rounded-l-xl shadow-sm">
+                <h3 class="text-base font-black text-red-800 mb-3 flex items-center gap-2">
+                    <i class="fas fa-meteor text-[#E60012]"></i> باقة لوكال إكستريم (Extreme)
+                </h3>
+                <ul class="space-y-2 text-gray-700 text-sm leading-relaxed">
+                    <li class="flex items-start gap-2"><i class="fas fa-circle text-[6px] text-gray-500 mt-2 shrink-0"></i>يشمل هذا الضمان عيوب التصنيع فقط، ولا يشمل أي أعطال ناتجة عن سوء الاستخدام، أو الكسر، أو السوائل، أو الصدمات.</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-circle text-[6px] text-gray-500 mt-2 shrink-0"></i>يشمل هذا الضمان صيانة مجانية كاملة لمدة سنة واحدة من تاريخ الشراء، وتشمل أجور الصيانة فقط.</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-circle text-[6px] text-gray-500 mt-2 shrink-0"></i>لا يشمل الضمان سعر قطع التبديل، ويتم احتسابها بشكل منفصل على العميل.</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-circle text-[6px] text-gray-500 mt-2 shrink-0"></i>لا يشمل الضمان الأضرار الناتجة عن الإهمال الشديد، أو الكسر المتعمد، أو السوائل، أو الاستخدام غير الطبيعي للجهاز.</li>
+                    <li class="flex items-start gap-2"><i class="fas fa-circle text-[6px] text-gray-500 mt-2 shrink-0"></i>يسقط الضمان في حال فتح الجهاز أو التعديل عليه من قبل جهة غير معتمدة.</li>
+                </ul>
+            </div>
+
+            <button onclick="closeWarrantyModal()" class="w-full mt-6 bg-[#E60012] hover:bg-red-800 text-white font-black py-3 rounded-2xl transition-colors">
+                فهمت، شكراً
+            </button>
+        </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="w-full max-w-md mt-6 grid grid-cols-2 gap-4">
+        <button onclick="openWarrantyModal()" class="bg-white p-5 rounded-[1.5rem] shadow-lg shadow-gray-200/40 border border-gray-100 flex flex-col items-center justify-center gap-3 hover:border-[#E60012]/30 hover:shadow-xl hover:-translate-y-1 transition-all group duration-300 text-center">
+            <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center text-[#E60012] group-hover:bg-[#E60012] group-hover:text-white transition-colors duration-300">
+                <i class="fas fa-shield-alt text-xl"></i>
+            </div>
+            <span class="text-[13px] font-black text-gray-700 group-hover:text-[#E60012] transition-colors">أنواع الكفالات</span>
+        </button>
+
+        <a href="#" class="bg-white p-5 rounded-[1.5rem] shadow-lg shadow-gray-200/40 border border-gray-100 flex flex-col items-center justify-center gap-3 hover:border-[#E60012]/30 hover:shadow-xl hover:-translate-y-1 transition-all group duration-300 text-center">
+            <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center text-[#E60012] group-hover:bg-[#E60012] group-hover:text-white transition-colors duration-300">
+                <i class="fas fa-users text-xl"></i>
+            </div>
+            <span class="text-[13px] font-black text-gray-700 group-hover:text-[#E60012] transition-colors">من نحن</span>
+        </a>
+
+        <a href="https://yourwebsite.com" target="_blank" class="bg-white p-5 rounded-[1.5rem] shadow-lg shadow-gray-200/40 border border-gray-100 flex flex-col items-center justify-center gap-3 hover:border-[#E60012]/30 hover:shadow-xl hover:-translate-y-1 transition-all group duration-300 text-center">
+            <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center text-[#E60012] group-hover:bg-[#E60012] group-hover:text-white transition-colors duration-300">
+                <i class="fas fa-globe text-xl"></i>
+            </div>
+            <span class="text-[13px] font-black text-gray-700 group-hover:text-[#E60012] transition-colors">موقعنا الإلكتروني</span>
+        </a>
+
+        <a href="https://wa.me/963900000000" target="_blank" class="bg-white p-5 rounded-[1.5rem] shadow-lg shadow-gray-200/40 border border-gray-100 flex flex-col items-center justify-center gap-3 hover:border-[#E60012]/30 hover:shadow-xl hover:-translate-y-1 transition-all group duration-300 text-center">
+            <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center text-[#E60012] group-hover:bg-[#E60012] group-hover:text-white transition-colors duration-300">
+                <i class="fab fa-whatsapp text-xl"></i>
+            </div>
+            <span class="text-[13px] font-black text-gray-700 group-hover:text-[#E60012] transition-colors">تواصل معنا</span>
+        </a>
+    </div>
+    
+    <script>
+        // =====================================================
+        // ⚙️ SUPABASE — نفس إعدادات نظام الكفالة
+        // =====================================================
+        const SUPABASE_URL     = 'https://abppuwylukzpqckazegk.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFicHB1d3lsdWt6cHFja2F6ZWdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMxNTQ4NzYsImV4cCI6MjA5ODczMDg3Nn0.Dx6WCUfXD4T8D_tJclB9VuMUS3B0YSwejexrRrYhnqo';
+        const TABLE_NAME        = 'warranties';
+        // =====================================================
+
+        function openWarrantyModal() {
+            const m = document.getElementById('warrantyTypesModal');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeWarrantyModal() {
+            const m = document.getElementById('warrantyTypesModal');
+            m.classList.add('hidden');
+            m.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+        // إغلاق عند الضغط خارج الـ modal
+        document.getElementById('warrantyTypesModal').addEventListener('click', function(e) {
+            if (e.target === this) closeWarrantyModal();
+        });
+
+        async function searchWarranty() {
+            const input = document.getElementById('searchInput').value.trim();
+            if (!input) return;
+
+            const errorMsg = document.getElementById('errorMsg');
+            const loader   = document.getElementById('loader');
+            const searchBtn = document.getElementById('searchBtn');
+
+            // Reset
+            errorMsg.classList.add('hidden');
+            errorMsg.classList.remove('flex');
+
+            // Show loader
+            loader.classList.remove('hidden');
+            loader.classList.add('flex');
+            searchBtn.disabled = true;
+
+            try {
+                // البحث برقم الكفالة (short_id — نفسه الباركود) أو رقم الفاتورة
+                const enc = encodeURIComponent(input);
+                const url = `${SUPABASE_URL}/rest/v1/${TABLE_NAME}`
+                    + `?select=short_id`
+                    + `&or=(short_id.eq.${enc},invoice_no.eq.${enc},serial_number.eq.${enc})`   /* WAR-2: الرقم التسلسلي مفتاح ثالث */
+                    + `&limit=1`;
+
+                const res = await fetch(url, {
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
+                    }
+                });
+
+                const rows = await res.json();
+                const found = Array.isArray(rows) && rows.length > 0 ? rows[0] : null;
+
+                loader.classList.add('hidden');
+                loader.classList.remove('flex');
+                searchBtn.disabled = false;
+
+                if (found && found.short_id) {
+                    // فتح صفحة الكفالة مباشرة بدون خطوات وسيطة
+                    const warrantyUrl = `index.html?w=${found.short_id}`;
+                    window.location.href = warrantyUrl;
+                } else {
+                    errorMsg.classList.remove('hidden');
+                    errorMsg.classList.add('flex');
+                }
+
+            } catch (error) {
+                loader.classList.add('hidden');
+                loader.classList.remove('flex');
+                searchBtn.disabled = false;
+                errorMsg.classList.remove('hidden');
+                errorMsg.classList.add('flex');
+                console.error('Search error:', error);
+            }
+        }
+    </script>
+<script>
+/* م20: دعوة بارزة لتفعيل الإشعارات (مرة واحدة) */
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    if (!('Notification' in window)) return;
+    if (Notification.permission !== 'default') return;
+    if (localStorage.getItem('gmt_notif_prompted') === '1') return;
+    const b = document.createElement('div');
+    b.style.cssText = 'position:fixed;bottom:14px;right:14px;left:14px;z-index:9999;background:#111827;color:#fff;border-radius:14px;padding:13px 15px;box-shadow:0 10px 30px rgba(0,0,0,.35);font-family:Cairo,Arial,sans-serif;direction:rtl;display:flex;align-items:center;gap:10px;max-width:520px;margin:0 auto;';
+    b.innerHTML = '<div style="flex:1;font-size:12.5px;font-weight:700;line-height:1.7;">🔔 فعّل الإشعارات ليصلك كل جديد عن كفالتك وعروض جنرال ميديا تك</div>'+
+      '<button id="gmt-nf-ok" style="background:#e11d48;color:#fff;border:none;border-radius:10px;padding:9px 14px;font-weight:900;font-family:inherit;font-size:12px;cursor:pointer;white-space:nowrap;">تفعيل</button>'+
+      '<button id="gmt-nf-x" style="background:transparent;color:#9ca3af;border:none;font-size:16px;cursor:pointer;">✕</button>';
+    document.body.appendChild(b);
+    document.getElementById('gmt-nf-ok').onclick = async () => { try { await Notification.requestPermission(); } catch(_){} localStorage.setItem('gmt_notif_prompted','1'); b.remove(); };
+    document.getElementById('gmt-nf-x').onclick  = () => { localStorage.setItem('gmt_notif_prompted','1'); b.remove(); };
+  } catch (_) {}
+});
+</script>
+<script>
+/* م27: بطاقات الصفحة السريعة — عبّئ الروابط هنا (الفارغة تُخفى تلقائياً) */
+(function(){
+  const QUICK = [ '' ];   // 👥 «من نحن» ← رابط الموقع الرئيسي + #about
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('a[href="#"]').forEach((a, i) => {
+      const u = (QUICK[i] || '').trim();
+      if (u) { a.href = u; a.target = '_blank'; a.rel = 'noopener'; }
+      else { a.style.display = 'none'; }
+    });
+  });
+})();
+</script>
+</body>
+</html>

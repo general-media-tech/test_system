@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GMT | تتبع الشحنة</title>
+    
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <meta name="theme-color" content="#111111">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap');
+        
+        :root {
+            --gmt-red: #D5001C;
+            --gmt-dark: #111111;
+            --gmt-black: #000000;
+            --gmt-gradient: linear-gradient(135deg, #D5001C 0%, #8B0012 100%);
+        }
+
+        body { 
+            font-family: 'Cairo', sans-serif; 
+            background-color: #f8fafc;
+            color: var(--gmt-dark);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .bg-gmt-gradient { background: var(--gmt-gradient); }
+        
+        .step-active .icon-box { 
+            background: var(--gmt-gradient); 
+            color: white; 
+            border-color: transparent; 
+            box-shadow: 0 10px 20px rgba(213, 0, 28, 0.3); 
+            transform: scale(1.15);
+        }
+        .step-active .step-title { color: var(--gmt-red); font-weight: 800; }
+        
+        .step-passed .icon-box { 
+            background-color: var(--gmt-dark); 
+            color: white; 
+            border-color: var(--gmt-dark); 
+        }
+        .step-passed .step-title { color: var(--gmt-dark); opacity: 0.8; }
+        
+        .connector { width: 3px; border-radius: 50px; }
+        .connector-passed { background: var(--gmt-dark) !important; }
+
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(213, 0, 28, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(213, 0, 28, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(213, 0, 28, 0); }
+        }
+        .pulse { animation: pulse-red 2s infinite; }
+
+        @keyframes slideRtl {
+            0% { right: -50%; }
+            100% { right: 100%; }
+        }
+
+        /* تأثير التلاشي الناعم لشاشة الترحيب */
+        .fade-out-screen {
+            opacity: 0 !important;
+            visibility: hidden;
+            transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+        }
+
+        #l1-text2 {
+            white-space: nowrap;
+            font-size: clamp(0.7rem, 3.8vw, 1.1rem);
+            max-width: 95vw;
+        }
+
+        /* --- تأثيرات الشاحنة والطريق --- */
+        .road-wrapper {
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: #444;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .road-line {
+            position: absolute;
+            top: 2px;
+            left: -100px;
+            width: 200%;
+            height: 2px;
+            background: repeating-linear-gradient(to right, transparent, transparent 15px, #fff 15px, #fff 30px);
+            animation: roadMove 0.6s linear infinite;
+        }
+        .truck-img {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 250px;
+            margin: 0 auto;
+            margin-bottom: 8px;
+            animation: truckMove 2.5s ease-in-out infinite;
+        }
+        .smoke-container {
+            position: absolute;
+            bottom: 25px;
+            right: 15%;
+            z-index: 5;
+        }
+        .smoke {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: #d1d5db;
+            border-radius: 50%;
+            filter: blur(4px);
+            opacity: 0;
+        }
+        .smoke-1 { animation: smokeFlow 1.5s infinite; }
+        .smoke-2 { animation: smokeFlow 1.5s 0.5s infinite; }
+        .smoke-3 { animation: smokeFlow 1.5s 1s infinite; }
+
+        @keyframes roadMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(30px); }
+        }
+        @keyframes truckMove {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            50% { transform: translateX(-5px) translateY(-2px); }
+        }
+        @keyframes smokeFlow {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+            100% { transform: translate(45px, -20px) scale(2.5); opacity: 0; }
+        }
+
+        /* --- التأثيرات الجديدة للظهور والاختفاء اللطيف --- */
+        @keyframes smoothAppear {
+            0% { opacity: 0; transform: translateY(15px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes smoothDisappear {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-15px) scale(0.98); }
+        }
+        .smooth-appear {
+            animation: smoothAppear 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        .smooth-disappear {
+            animation: smoothDisappear 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+    </style><!-- 🐞 جامع الأخطاء (2026-07-10) --><!-- 🎨 نوافذ بهويتنا + روابط مضبوطة + إصلاح المشاركة --><!-- 🔍 المفتّش: تقرير التجربة -->
+  <!-- 🎨 الهوية البصرية الموحّدة (2026-07-12) — مصدر الحقيقة الوحيد للألوان والخط -->
+  <link rel="stylesheet" href="gmt-theme.css">
+</head>
+<body class="min-h-screen flex flex-col items-center p-4 pb-12">
+  <script src="gmt-updater.js"></script>
+  <script src="gmt-core.js"></script>
+  <script src="gmt-staff.js"></script>
+
+
+    <!-- المرحلة 1: شاشة الترحيب -->
+    <div id="layer1" class="fixed inset-0 bg-white z-[9999] flex flex-col items-center justify-center px-4 text-center">
+        <div id="l1-logo" class="w-full max-w-[320px] relative h-40 opacity-0 transition-opacity duration-[800ms] flex items-end justify-center">
+            <div class="smoke-container">
+                <div class="smoke smoke-1"></div>
+                <div class="smoke smoke-2"></div>
+                <div class="smoke smoke-3"></div>
+            </div>
+            <img src="truck.png" alt="Delivery Truck" class="truck-img" onerror="this.outerHTML='<span style=&quot;display:inline-flex;align-items:center;justify-content:center;color:#64748b;font-weight:900;font-size:12px;font-family:Cairo,Arial,sans-serif;&quot;>🚚</span>'">
+            <div class="road-wrapper">
+                <div class="road-line"></div>
+            </div>
+        </div>
+        <h2 id="l1-text1" class="text-2xl font-black mt-6 text-black opacity-0 transition-opacity duration-[800ms]">أهلاً بكم</h2>
+        <p id="l1-text2" class="font-bold mt-4 text-black opacity-0 transition-opacity duration-[800ms] overflow-hidden">
+            شكراً لثقتكم – شركة General Media Tech
+        </p>
+    </div>
+
+    <!-- الترويسة الأساسية -->
+    <header class="w-full max-w-md bg-[#000000] rounded-[2rem] p-6 shadow-xl shadow-gray-400/40 mb-6 text-center mt-4 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -mr-16 -mt-16"></div>
+        <div class="absolute bottom-0 left-0 w-24 h-24 bg-[#D5001C]/20 rounded-full -ml-12 -mb-12"></div>
+        
+        <div class="bg-white inline-flex p-2.5 rounded-[1.2rem] mb-4 relative z-10 shadow-lg">
+            <img src="logo.jpg" alt="GMT Logo" class="h-14 w-auto mx-auto rounded-lg object-contain" onerror="this.src='https://via.placeholder.com/150x60?text=GMT'">
+        </div>
+        
+        <h1 class="text-2xl font-black text-white relative z-10 tracking-tight text-center">نظام التتبع الذكي</h1>
+        <div class="h-1 w-12 bg-[#D5001C] mx-auto mt-3 mb-3 rounded-full relative z-10"></div>
+        <h3 class="text-sm font-bold text-gray-300 relative z-10">تتبع شحنتك على مدار اللحظة</h3>
+    </header>
+
+    <!-- صندوق البحث -->
+    <div class="w-full max-w-md bg-white rounded-[2rem] p-6 shadow-xl shadow-gray-200/50 border border-white relative">
+        <label class="block text-[10px] font-black text-gray-400 mb-2 px-1 uppercase tracking-widest text-center">أدخل رقم الشحنة أو الجوال</label>
+        <div class="flex gap-2">
+            <input type="text" id="searchInput" placeholder="مثال: 100234..." class="flex-1 bg-gray-50 p-4 rounded-2xl text-sm font-bold border border-gray-100 text-center text-gray-800 transition-all focus:bg-white focus:ring-4 focus:ring-red-50">
+            <button onclick="searchOrder()" id="searchBtn" class="bg-gmt-gradient text-white w-16 rounded-2xl flex items-center justify-center hover:shadow-lg hover:shadow-red-500/30 active:scale-95 transition-all shrink-0">
+                <i data-lucide="search" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <p id="errorMsg" class="text-xs font-bold text-[#D5001C] mt-4 text-center hidden flex items-center justify-center gap-1">
+            <i data-lucide="alert-circle" class="w-4 h-4"></i> الرقم المدخل غير صحيح!
+        </p>
+    </div>
+
+    <!-- شريط التحميل المبدئي -->
+    <div id="loader" class="hidden my-12">
+        <div class="w-10 h-10 border-[5px] border-[#D5001C] border-t-transparent rounded-full animate-spin mx-auto"></div>
+    </div>
+
+    <!-- المرحلة 2: شاشة التحقق مع الشاحنة -->
+    <div id="layer2" class="hidden w-full max-w-md bg-white rounded-[2.5rem] p-8 shadow-xl shadow-gray-200/50 border border-white mt-8 flex-col items-center justify-center">
+        <h2 id="l2-name" class="text-2xl font-black text-gray-800 text-center"></h2>
+        <p class="text-sm font-bold text-gray-500 mt-2 text-center">جارٍ تتبع شحنتكم...</p>
+        
+        <div class="w-full max-w-[150px] relative h-24 mt-6 flex items-end justify-center">
+            <div class="smoke-container" style="bottom: 12px; right: 10%; transform: scale(0.6); transform-origin: bottom right;">
+                <div class="smoke smoke-1"></div>
+                <div class="smoke smoke-2"></div>
+                <div class="smoke smoke-3"></div>
+            </div>
+            <img src="truck.png" alt="Delivery Truck" class="truck-img" style="max-width: 110px; margin-bottom: 5px;" onerror="this.outerHTML='<span style=&quot;display:inline-flex;align-items:center;justify-content:center;color:#64748b;font-weight:900;font-size:12px;font-family:Cairo,Arial,sans-serif;&quot;>🚚</span>'">
+            <div class="road-wrapper" style="bottom: 0;">
+                <div class="road-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- بطاقة النتائج -->
+    <div id="resultCard" class="hidden w-full max-w-md bg-white rounded-[2.5rem] p-8 shadow-2xl shadow-gray-300/50 border border-white mt-8 relative overflow-hidden">
+        <div class="absolute -top-10 -left-10 w-40 h-40 bg-gray-50 rounded-full opacity-50"></div>
+        <div class="relative z-10 mb-10">
+            <div class="flex justify-between items-start mb-6">
+                <div>
+                    <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-1">اسم المستلم</span>
+                    <h3 id="res-name" class="font-black text-xl text-gray-800"></h3>
+                </div>
+                <div class="text-left bg-red-50 px-4 py-2 rounded-2xl border border-red-100">
+                    <span class="text-[10px] font-black text-[#D5001C] uppercase block">المبلغ الإجمالي</span>
+                    <span id="res-price" class="text-xl font-black text-[#D5001C]"></span>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-gray-50/80 rounded-2xl p-4 border border-gray-100">
+                    <span class="text-[9px] font-black text-gray-400 block mb-1">📦 المنتج المطلوب</span>
+                    <p id="res-product" class="text-xs font-black text-gray-700 leading-tight"></p>
+                </div>
+                <div class="bg-gray-50/80 rounded-2xl p-4 border border-gray-100">
+                    <span class="text-[9px] font-black text-gray-400 block mb-1">🔖 رقم التتبع</span>
+                    <p id="res-tracking" class="text-xs font-black text-gray-700"></p>
+                </div>
+            </div>
+        </div>
+        <div id="timelineContainer" class="px-2 relative z-10"></div>
+    </div>
+
+    <!-- الروابط السريعة -->
+    <div class="w-full max-w-md mt-6 grid grid-cols-2 gap-4">
+        <!-- ... نفس الروابط بدون تغيير ... -->
+        <a href="#" class="bg-white p-5 rounded-[1.5rem] shadow-lg shadow-gray-200/40 border border-gray-100 flex flex-col items-center justify-center gap-3 hover:border-[#D5001C]/30 hover:shadow-xl hover:-translate-y-1 transition-all group duration-300 text-center">
+            <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center text-[#D5001C] group-hover:bg-[#D5001C] group-hover:text-white transition-colors duration-300">
+                <i data-lucide="map-pin" class="w-6 h-6"></i>
+            </div>
+            <span class="text-[13px] font-black text-gray-700 group-hover:text-[#D5001C] transition-colors">أماكن الاستلام</span>
+        </a>
+        <a href="#" class="bg-white p-5 rounded-[1.5rem] shadow-lg shadow-gray-200/40 border border-gray-100 flex flex-col items-center justify-center gap-3 hover:border-[#D5001C]/30 hover:shadow-xl hover:-translate-y-1 transition-all group duration-300 text-center">
+            <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center text-[#D5001C] group-hover:bg-[#D5001C] group-hover:text-white transition-colors duration-300">
+                <i data-lucide="users" class="w-6 h-6"></i>
+            </div>
+            <span class="text-[13px] font-black text-gray-700 group-hover:text-[#D5001C] transition-colors">من نحن</span>
+        </a>
+        <a href="#" class="bg-white p-5 rounded-[1.5rem] shadow-lg shadow-gray-200/40 border border-gray-100 flex flex-col items-center justify-center gap-3 hover:border-[#D5001C]/30 hover:shadow-xl hover:-translate-y-1 transition-all group duration-300 text-center">
+            <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center text-[#D5001C] group-hover:bg-[#D5001C] group-hover:text-white transition-colors duration-300">
+                <i data-lucide="globe" class="w-6 h-6"></i>
+            </div>
+            <span class="text-[13px] font-black text-gray-700 group-hover:text-[#D5001C] transition-colors">موقعنا الإلكتروني</span>
+        </a>
+        <a href="#" class="bg-white p-5 rounded-[1.5rem] shadow-lg shadow-gray-200/40 border border-gray-100 flex flex-col items-center justify-center gap-3 hover:border-[#D5001C]/30 hover:shadow-xl hover:-translate-y-1 transition-all group duration-300 text-center">
+            <div class="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center text-[#D5001C] group-hover:bg-[#D5001C] group-hover:text-white transition-colors duration-300">
+                <i data-lucide="briefcase" class="w-6 h-6"></i>
+            </div>
+            <span class="text-[13px] font-black text-gray-700 group-hover:text-[#D5001C] transition-colors">وكلاؤنا</span>
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const l1Logo = document.getElementById('l1-logo');
+            const l1Text1 = document.getElementById('l1-text1');
+            const l1Text2 = document.getElementById('l1-text2');
+            const layer1 = document.getElementById('layer1');
+
+            document.body.style.overflow = 'hidden';
+
+            setTimeout(() => { l1Logo.style.opacity = '1'; }, 0);
+            setTimeout(() => { l1Text1.style.opacity = '1'; }, 800);
+            setTimeout(() => { l1Text2.style.opacity = '1'; }, 1600);
+
+            setTimeout(() => {
+                layer1.classList.add('fade-out-screen');
+                setTimeout(() => {
+                    layer1.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }, 800); 
+            }, 3500); 
+        });
+
+        // ════════ إعدادات Supabase ════════
+        const SUPA_URL = 'https://ysawzwtmodkqqbqoiojj.supabase.co';
+        const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzYXd6d3Rtb2RrcXFicW9pb2pqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY0NjI0OTUsImV4cCI6MjA5MjAzODQ5NX0.g-dBDpHzMsP_0IQAKFxzWkKzc_I13bGUMeYNgcUmrKQ';
+        const TABLE    = 'gmt_orders';
+
+        lucide.createIcons();
+
+        // ════════ روابط البطاقات السريعة (عبّئها مرة واحدة هنا) ════════
+        // البطاقة الفارغة ('' ) تُخفى تلقائياً — بالترتيب من اليمين كما بالصفحة.
+        const QUICK_LINKS = [
+            '',   // 📍 البطاقة 1 (أيقونة الموقع/الخريطة)   — مثال: رابط الموقع الرئيسي#about
+            '',   // 👥 البطاقة 2 (أيقونة الأشخاص)          — مثال: رابط الموقع الرئيسي#agents
+            '',   // 🌐 البطاقة 3 (أيقونة الكرة الأرضية)     — مثال: رابط المتجر أو الموقع
+            ''    // 💼 البطاقة 4 (أيقونة الحقيبة)
+        ];
+        document.querySelectorAll('a[href="#"]').forEach((a, i) => {
+            const u = (QUICK_LINKS[i] || '').trim();
+            if (u) { a.href = u; a.target = '_blank'; a.rel = 'noopener'; }
+            else   { a.style.display = 'none'; }
+        });
+
+        async function searchOrder() {
+            const input = document.getElementById('searchInput').value.trim();
+            if(!input) return;
+
+            const resultCard = document.getElementById('resultCard');
+            const layer2 = document.getElementById('layer2');
+            const errorMsg = document.getElementById('errorMsg');
+            const loader = document.getElementById('loader');
+
+            // إخفاء النتائج السابقة بطريقة ناعمة إذا كانت موجودة
+            resultCard.classList.remove('smooth-appear');
+            resultCard.classList.add('hidden');
+            
+            errorMsg.classList.add('hidden');
+            errorMsg.classList.remove('smooth-appear');
+
+            loader.classList.remove('hidden');
+            document.getElementById('searchBtn').disabled = true;
+
+            try {
+                // البحث في Supabase بـ tracking_number أو phone أو id
+                const isNum = /^\d+$/.test(input);
+                let query = `${SUPA_URL}/rest/v1/${TABLE}?select=*`;
+                if (isNum) {
+                    query += `&or=(internal_no.eq.${encodeURIComponent(input)},tracking_number.eq.${encodeURIComponent(input)},phone.eq.${encodeURIComponent(input)},id.eq.${encodeURIComponent(input)})`;  /* TRK-1 */
+                } else {
+                    query += `&or=(tracking_number.eq.${encodeURIComponent(input)},phone.eq.${encodeURIComponent(input)})`;
+                }
+                query += '&limit=1';
+
+                const res = await fetch(query, {
+                    headers: {
+                        'apikey': SUPA_KEY,
+                        'Authorization': 'Bearer ' + SUPA_KEY,
+                    }
+                });
+                const rows = await res.json();
+                const order = Array.isArray(rows) && rows.length > 0 ? rows[0] : null;
+
+                loader.classList.add('hidden');
+                document.getElementById('searchBtn').disabled = false;
+
+                if(order) {
+                    document.getElementById('l2-name').innerText = `أهلاً بك ${order.name}`;
+                    
+                    // ظهور شاشة التحميل (الشاحنة) بنعومة
+                    layer2.classList.remove('hidden', 'smooth-disappear');
+                    layer2.classList.add('flex', 'smooth-appear');
+
+                    setTimeout(() => {
+                        // بدء اختفاء شاشة التحميل بنعومة
+                        layer2.classList.remove('smooth-appear');
+                        layer2.classList.add('smooth-disappear');
+
+                        // الانتظار حتى تنتهي حركة الاختفاء (500ms) ثم عرض النتائج
+                        setTimeout(() => {
+                            layer2.classList.add('hidden');
+                            layer2.classList.remove('flex', 'smooth-disappear');
+                            showTimeline(order);
+                        }, 500);
+
+                    }, 4000);
+
+                } else {
+                    errorMsg.classList.remove('hidden');
+                    errorMsg.classList.add('smooth-appear');
+                }
+            } catch (error) {
+                loader.classList.add('hidden');
+                document.getElementById('searchBtn').disabled = false;
+            }
+        }
+
+        // دالة مساعدة لتحليل المنتجات من items_json أو product
+        function parseProducts(o) {
+            if (o.items_json) {
+                try {
+                    const items = JSON.parse(o.items_json);
+                    if (Array.isArray(items) && items.length > 0) {
+                        return items.map(i => i.name + (i.qty > 1 ? ' × ' + i.qty : '')).join(' | ');
+                    }
+                } catch(e) {}
+            }
+            return o.product || 'غير محدد';
+        }
+
+        function showTimeline(o) {
+            const resultCard = document.getElementById('resultCard');
+            
+            // إظهار بطاقة النتائج بنعومة
+            resultCard.classList.remove('hidden');
+            resultCard.classList.add('smooth-appear');
+
+            document.getElementById('res-name').innerText = o.name;
+            document.getElementById('res-price').innerText = "$" + (Number(o.price)||0).toLocaleString();
+            document.getElementById('res-product').innerText = parseProducts(o);
+            // tracking_number هو الاسم الجديد في Supabase
+            document.getElementById('res-tracking').innerText = o.tracking_number || 'قيد المعالجة';
+
+            const now = new Date();
+            // shipped_at هو الاسم الجديد في Supabase (كان shipped_time)
+            let hoursSinceShipped = o.shipped_at ? Math.floor((now - new Date(o.shipped_at)) / (1000 * 60 * 60)) : (o.status !== 'pending' ? 1 : 0);
+            let currentStepIndex = 0;
+
+            if (o.status === 'pending') currentStepIndex = 0;
+            else if (o.status === 'shipped') {
+                if (hoursSinceShipped < 12) currentStepIndex = 1;
+                else if (hoursSinceShipped < 33) currentStepIndex = 2;
+                else currentStepIndex = 3;
+            } else if (o.status === 'delivered' || o.status === 'completed') currentStepIndex = 3;
+
+            const stepsData = [
+                { icon: 'package', title: 'تم استلام الطلب', desc: 'طلبك قيد التجهيز حالياً في مستودعاتنا' },
+                { icon: 'truck', title: 'مركز التوزيع الرئيسي', desc: 'تم إرسال الشحنة لمركز التسيير للانطلاق لوجهتكم' },
+                { icon: 'navigation', title: 'الشحنة في الطريق', desc: 'شحنتك الآن تتحرك باتجاه عنوانك المسجل' },
+                { icon: 'map-pin', title: 'وصلت الوجهة النهائية', desc: 'تم وصول الشحنة لمركز التسليم في [' + (o.address || 'عنوانكم') + ']' }
+            ];
+
+            const timelineContainer = document.getElementById('timelineContainer');
+            let timelineHTML = '';
+            stepsData.forEach((step, index) => {
+                const isLast = index === stepsData.length - 1;
+                let stepStateClass = index < currentStepIndex ? 'step-passed' : (index === currentStepIndex ? 'step-active pulse' : '');
+                const isConnPassed = currentStepIndex > index ? 'connector-passed' : 'bg-gray-100';
+
+                timelineHTML += '<div class="' + stepStateClass + ' relative flex gap-6">' +
+                    '<div class="flex flex-col items-center">' +
+                    '<div class="w-14 h-14 rounded-[1.25rem] flex items-center justify-center icon-box border-2 border-gray-50 bg-white text-gray-300 z-10 transition-all duration-700">' +
+                    '<i data-lucide="' + step.icon + '" class="w-7 h-7"></i></div>' +
+                    (!isLast ? '<div class="connector flex-1 my-1 transition-all duration-700 ' + isConnPassed + '" style="min-height: 50px;"></div>' : '') +
+                    '</div>' +
+                    '<div class="pt-3 flex-1 pb-8">' +
+                    '<h4 class="font-black text-gray-400 step-title text-base transition-colors duration-500">' + step.title + '</h4>' +
+                    '<p class="text-[11px] text-gray-500 mt-2 font-bold leading-relaxed">' + step.desc + '</p>' +
+                    '</div></div>';
+            });
+            timelineContainer.innerHTML = timelineHTML;
+            setTimeout(() => lucide.createIcons(), 50);
+        }
+    </script>
+</body>
+</html>
+
+

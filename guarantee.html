@@ -1,0 +1,2202 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Canon General Media Tech - Official Warranty</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                        english: ['Roboto', 'sans-serif'],
+                    },
+                    colors: {
+                        canon: {
+                            red: '#E60012',
+                            black: '#000000',
+                            gray: '#F5F5F5',
+                            darkgray: '#333333'
+                        },
+                        tier: {
+                            standard: '#374151',
+                            plus: '#15803d',
+                            extreme: '#b91c1c'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse-dot 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'slide-up': 'slide-up 0.6s ease-out forwards',
+                        'fade-in': 'fade-in 0.8s ease-out forwards',
+                        'lock-shine': 'lock-shine 2s forwards',
+                        'loader-line': 'loader-line 1.5s infinite ease-in-out',
+                        'gentle-pulse': 'gentle-pulse 2s infinite',
+                    },
+                    keyframes: {
+                        'pulse-dot': {
+                            '0%, 100%': { opacity: '1', transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(74, 222, 128, 0.7)' },
+                            '50%': { opacity: '.8', transform: 'scale(1.1)', boxShadow: '0 0 0 10px rgba(74, 222, 128, 0)' },
+                        },
+                        'slide-up': {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        'fade-in': {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        'lock-shine': {
+                            '0%': { color: '#9ca3af', transform: 'scale(0.8)' },
+                            '50%': { color: '#E60012', transform: 'scale(1.1)' },
+                            '100%': { color: '#000000', transform: 'scale(1)' }
+                        },
+                        'loader-line': {
+                            '0%': { width: '0%', left: '0%' },
+                            '50%': { width: '50%', left: '25%' },
+                            '100%': { width: '0%', left: '100%' }
+                        },
+                        'gentle-pulse': {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0.8' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+            overflow-x: hidden;
+        }
+        
+        .bg-animated {
+            background: linear-gradient(-45deg, #ffffff, #f3f4f6, #fff0f0, #f3f4f6);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            body { background-color: white; -webkit-print-color-adjust: exact; }
+            .certificate-container { box-shadow: none; border: 1px solid #ddd; width: 100%; max-width: 100%; margin: 0; }
+            #intro-overlay { display: none !important; }
+        }
+        
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .data-table-container {
+            border-radius: 0.75rem;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .data-row td {
+            transition: background-color 0.2s ease;
+        }
+        .data-row:hover td {
+            background-color: rgba(230, 0, 18, 0.03);
+        }
+
+        .toast-enter {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+        .toast-enter-active {
+            transform: translateY(0);
+            opacity: 1;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .img-logo {
+            max-width: 150px;
+            height: auto;
+        }
+
+        /* Cancelled banner */
+        .cancelled-banner {
+            background: linear-gradient(135deg, #7f1d1d, #991b1b);
+            border-bottom: 3px solid #E60012;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-animated">
+  <script src="gmt-updater.js"></script>
+  <script src="gmt-core.js"></script>
+  <script src="gmt-staff.js"></script>
+
+
+    <!-- Intro Overlay -->
+    <div id="intro-overlay" class="fixed inset-0 z-[100] bg-white hidden flex-col items-center justify-center text-center">
+        
+        <div id="intro-stage-1" class="intro-stage absolute inset-0 flex flex-col items-center justify-center p-6 hidden">
+            <div class="mb-8 opacity-0 animate-fade-in" style="animation-delay: 0.1s;">
+                <img src="canonlogo.png" alt="Canon Logo" class="w-40 h-auto">
+            </div>
+            <h1 class="text-3xl font-bold text-gray-800 mb-2 opacity-0 animate-fade-in" style="animation-delay: 0.6s;">أهلاً بكم</h1>
+            <p class="text-lg text-gray-500 opacity-0 animate-fade-in" style="animation-delay: 1.0s;">شكراً لثقتكم – شركة General Media Tech</p>
+        </div>
+
+        <div id="intro-stage-2" class="intro-stage absolute inset-0 flex flex-col items-center justify-center p-6 hidden">
+             <div class="mb-10 opacity-80 scale-75 transform transition-all duration-500">
+                <img src="canonlogo.png" alt="Canon Logo" class="w-32 h-auto">
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-2 animate-fade-in">أهلاً بك <span id="introCustomerName" class="text-canon-red"></span></h2>
+            <p class="text-gray-500 mb-6 text-sm">جارٍ تحميل كفالتكم...</p>
+            <div class="w-64 h-1 bg-gray-200 rounded-full overflow-hidden relative">
+                <div class="absolute top-0 bottom-0 bg-canon-red w-1/3 animate-loader-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed top-6 left-1/2 transform -translate-x-1/2 z-[90] pointer-events-none transition-all duration-500 opacity-0 translate-y-[-20px]">
+        <div class="bg-white border-r-4 border-green-500 text-gray-800 px-6 py-4 rounded shadow-2xl flex items-center gap-3">
+            <div class="bg-green-100 p-2 rounded-full">
+                <i class="fas fa-check text-green-600"></i>
+            </div>
+            <div>
+                <h4 class="font-bold text-sm">تم التحقق بنجاح</h4>
+                <p class="text-xs text-gray-500 font-english">Warranty verified successfully</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== ADMIN VIEW ==================== -->
+    <div id="admin-view" class="container mx-auto px-4 py-8 min-h-screen hidden bg-white">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-8 border-b pb-4">
+                <h1 class="text-3xl font-bold text-canon-black mb-1">إدارة نظام الضمان</h1>
+                <p class="text-gray-500 text-sm">Canon General Media Tech - Internal System</p>
+            </div>
+
+            <form id="warrantyForm" class="space-y-6 bg-white p-8 rounded-lg border border-gray-200 shadow-sm">
+                <h3 class="text-lg font-bold text-canon-red border-r-4 border-canon-red pr-3">بيانات العميل والمنتج</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-gray-700">اسم العميل</label>
+                        <input type="text" id="customerName" required class="w-full bg-gray-50 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-canon-red transition-colors">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-gray-700">رقم الهاتف</label>
+                        <input type="text" id="phoneNo" class="w-full bg-gray-50 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-canon-red" placeholder="09XXXXXXXX">
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-sm font-bold text-gray-700">المنتج / الموديل</label>
+                    <input type="text" id="productName" required class="w-full bg-gray-50 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-canon-red transition-colors">
+                </div>
+
+                <div class="space-y-2">
+                    <label class="text-sm font-bold text-gray-700">الرقم التسلسلي (S/N)</label>
+                    <input type="text" id="serialNo" required class="w-full bg-gray-50 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-canon-red font-mono" placeholder="SN-XXXXX">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-gray-700">رقم الفاتورة</label>
+                        <input type="text" id="invoiceNo" class="w-full bg-gray-50 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-canon-red">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-gray-700">حالة المنتج (مستعمل / جديد / معرض ...)</label>
+                        <input type="text" id="productCondition" class="w-full bg-gray-50 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-canon-red" placeholder="مثال: مستعمل - جيد">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-gray-700">تاريخ الشراء (البداية)</label>
+                        <input type="date" id="purchaseDate" required class="w-full bg-gray-50 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-canon-red">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm font-bold text-gray-700">تاريخ انتهاء الكفالة <span class="text-xs text-gray-400">(يُحسب تلقائياً بعد 3 أشهر)</span></label>
+                        <input type="date" id="expiryDate" required class="w-full bg-gray-50 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-canon-red">
+                    </div>
+                </div>
+
+                <h3 class="text-lg font-bold text-canon-red border-r-4 border-canon-red pr-3 pt-4">تفاصيل الضمان</h3>
+
+                <div class="space-y-2">
+                    <label class="text-sm font-bold text-gray-700">نوع الضمان</label>
+                    <div class="grid grid-cols-3 gap-3">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="warrantyType" value="standard" checked class="peer sr-only">
+                            <div class="text-center py-3 border rounded peer-checked:bg-gray-800 peer-checked:text-white transition-all text-sm font-bold">Standard</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="warrantyType" value="plus" class="peer sr-only">
+                            <div class="text-center py-3 border rounded peer-checked:bg-green-700 peer-checked:text-white transition-all text-sm font-bold">Plus</div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="warrantyType" value="extreme" class="peer sr-only">
+                            <div class="text-center py-3 border rounded peer-checked:bg-red-700 peer-checked:text-white transition-all text-sm font-bold">Extreme</div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                  <label class="block mb-1 font-semibold text-gray-700">ملاحظات (اختياري)</label>
+                  <textarea name="notes" id="notes" rows="3"
+                    class="w-full bg-gray-50 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-canon-red"
+                    placeholder="اكتب أي ملاحظة لتظهر فقط بالشهادة (اختياري)"></textarea>
+                </div>
+
+                <div class="flex gap-2">
+                    <button type="submit" id="generateBtn" class="flex-1 bg-canon-red hover:bg-red-800 text-white font-bold py-4 rounded shadow-lg transition-all flex items-center justify-center gap-2">
+                        <i class="fas fa-file-contract"></i>
+                        إصدار الشهادة
+                    </button>
+                    <button type="button" id="copyBtn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-4 px-4 rounded shadow transition-all flex items-center gap-2" title="انسخ الرابط بعد الإنشاء" disabled>
+                        <i class="fas fa-link"></i> نسخ الرابط
+                    </button>
+                </div>
+            </form>
+
+            <div id="resultSection" class="hidden mt-8 p-6 bg-green-50 border border-green-200 rounded text-center">
+                <p class="text-green-800 font-bold mb-4">تم إنشاء وثيقة الضمان بنجاح</p>
+                
+                <div id="adminQrContainer" class="hidden flex flex-col items-center justify-center mb-6 bg-white p-4 rounded shadow-sm max-w-xs mx-auto">
+                    <img id="adminQrCode" src="" alt="Admin QR Code" class="w-32 h-32 object-contain">
+                    <p class="text-xs text-gray-500 mt-2">امسح الكود لفتح الشهادة مباشرة</p>
+                    <button id="downloadQrBtn" type="button" class="mt-3 bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-bold py-2 px-4 rounded transition-colors flex items-center gap-2 border border-gray-300">
+                        <i class="fas fa-download"></i> حفظ QR
+                    </button>
+                </div>
+
+                <div class="flex gap-2 justify-center">
+                    <a id="previewBtn" href="#" target="_blank" class="bg-gray-800 text-white px-6 py-2 rounded hover:bg-gray-700 transition-colors">
+                        فتح الشهادة
+                    </a>
+                    <button id="printStickerBtn" type="button" class="bg-gray-600 text-white px-6 py-2 rounded hover:bg-gray-700 transition-colors flex items-center gap-2">
+                        <i class="fas fa-print"></i> إنشاء ملصق
+                    </button>
+                </div>
+            </div>
+
+            <!-- ==================== ADMIN PANEL ==================== -->
+            <!-- (2026-07-23) مخفيّة عن الزبون: هذه صفحة عامة. الإدارة لها صفحتها 11_WARRANTY_ADMIN.
+                 تظهر فقط بإضافة ?admin=1 للرابط أو لمستخدم بدور أدمن. -->
+            <div id="adminPanel" class="mt-12" style="display:none">
+                <div class="border-b-2 border-canon-red pb-4 mb-6 flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-bold text-canon-black">لوحة إدارة الكفالات</h2>
+                        <p class="text-sm text-gray-500 mt-1">عرض، بحث، تعديل، وإلغاء الكفالات</p>
+                    </div>
+                    <button onclick="loadAllWarranties()" class="bg-canon-red text-white px-4 py-2 rounded text-sm font-bold hover:bg-red-800 transition-colors flex items-center gap-2">
+                        <i class="fas fa-sync-alt"></i> تحديث
+                    </button>
+                </div>
+
+                <div class="mb-4 flex gap-2">
+                    <input type="text" id="adminSearch" placeholder="بحث بالاسم أو IMEI أو رقم الفاتورة أو رقم الهاتف..." 
+                        class="flex-1 bg-gray-50 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-canon-red text-sm">
+                    <button onclick="adminSearchWarranties()" class="bg-gray-800 text-white px-4 py-2 rounded text-sm font-bold hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+                <div id="adminTableContainer" class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+                    <table class="w-full text-sm text-right">
+                        <thead class="bg-gray-800 text-white">
+                            <tr>
+                                <th class="px-4 py-3 font-bold">العميل</th>
+                                <th class="px-4 py-3 font-bold">المنتج</th>
+                                <th class="px-4 py-3 font-bold">الفاتورة</th>
+                                <th class="px-4 py-3 font-bold">الانتهاء</th>
+                                <th class="px-4 py-3 font-bold">الحالة</th>
+                                <th class="px-4 py-3 font-bold">التفعيل</th>
+                                <th class="px-4 py-3 font-bold">إجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminTableBody" class="divide-y divide-gray-100 bg-white">
+                            <tr><td colspan="7" class="px-4 py-8 text-center text-gray-400">اضغط "تحديث" لعرض الكفالات</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cancel Modal -->
+    <div id="cancelModal" class="fixed inset-0 bg-black/60 z-[200] hidden items-center justify-center">
+        <div class="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full mx-4">
+            <h3 class="text-xl font-bold text-canon-red mb-2 flex items-center gap-2">
+                <i class="fas fa-times-circle"></i> إلغاء الكفالة
+            </h3>
+            <p class="text-gray-600 text-sm mb-5">سيتم إلغاء هذه الكفالة. يرجى كتابة سبب الإلغاء (إلزامي).</p>
+            <input type="hidden" id="cancelWarrantyId">
+            <div class="space-y-2 mb-6">
+                <label class="text-sm font-bold text-gray-700">سبب الإلغاء <span class="text-canon-red">*</span></label>
+                <textarea id="cancelReason" rows="3" 
+                    class="w-full bg-gray-50 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-canon-red text-sm"
+                    placeholder="اكتب سبب الإلغاء هنا..."></textarea>
+                <p id="cancelReasonError" class="text-canon-red text-xs hidden">يجب كتابة سبب الإلغاء</p>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="confirmCancel()" class="flex-1 bg-canon-red hover:bg-red-800 text-white font-bold py-3 rounded transition-colors">
+                    تأكيد الإلغاء
+                </button>
+                <button onclick="closeCancelModal()" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 rounded transition-colors">
+                    رجوع
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== WARRANTY VIEW ==================== -->
+    <div id="warranty-view" class="min-h-screen py-10 px-4 hidden flex flex-col items-center justify-start opacity-0 transition-opacity duration-700">
+        
+        <div id="topBar" class="fixed top-0 left-0 w-full h-1 z-50 gradient-bar"></div>
+
+        <!-- Cancelled Banner (hidden by default) -->
+        <div id="cancelledBanner" class="hidden w-full max-w-2xl mb-4 cancelled-banner text-white rounded-xl p-5 shadow-lg">
+            <div class="flex items-start gap-3">
+                <i class="fas fa-ban text-2xl mt-1 flex-shrink-0"></i>
+                <div>
+                    <h3 class="text-xl font-bold">⚠️ هذه الكفالة ملغاة</h3>
+                    <p class="text-sm opacity-90 mt-1">تم إلغاء هذه الكفالة ولا تعدّ سارية المفعول</p>
+                    <div id="cancelReasonDisplay" class="mt-3 bg-white/20 rounded-lg p-3 hidden">
+                        <p class="text-xs font-bold mb-1 opacity-80">سبب الإلغاء:</p>
+                        <p id="cancelReasonText" class="text-sm font-bold"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="certificate-container w-full max-w-2xl bg-white rounded-xl card-shadow overflow-hidden relative animate-slide-up pb-8 border border-gray-100">
+            
+            <div class="p-8 border-b border-gray-100 flex justify-between items-start relative">
+                <div class="absolute top-0 right-0 w-24 h-1 bg-canon-red"></div>
+                
+                <div>
+                    <div class="mb-3">
+                         <img src="canonlogo.png" alt="Canon Logo" class="w-24 h-auto">
+                    </div>
+                    <h1 class="text-2xl font-bold text-black uppercase tracking-wide">Warranty Certificate</h1>
+                    <h2 class="text-canon-red font-bold text-lg mt-1">Canon General Media Tech</h2>
+                    <p class="text-gray-500 text-xs mt-1 uppercase tracking-wider font-english">Authorized Canon Distributor in Syria</p>
+                </div>
+                <div class="text-4xl animate-lock-shine">
+                    <i class="fas fa-certificate"></i>
+                </div>
+            </div>
+
+            <div class="p-8 space-y-8">
+
+                <div id="statusContainer" class="flex items-center gap-4 p-5 rounded-lg border transition-all duration-300">
+                    <div id="statusIconWrapper" class="w-10 h-10 rounded-full flex items-center justify-center text-white text-lg shadow-sm">
+                        <i id="statusIcon" class="fas"></i>
+                    </div>
+                    <div>
+                        <h3 id="statusTitle" class="font-bold text-base"></h3>
+                        <p class="text-xs text-gray-500">الضمان ساري حتى تاريخ الانتهاء المحدد في هذه الوثيقة</p>
+                    </div>
+                </div>
+
+                <div class="data-table-container">
+                    <table class="w-full text-sm text-right">
+                        <tbody class="divide-y divide-gray-100">
+                            <tr class="data-row group">
+                                <td class="p-4 bg-gray-50 w-1/3 font-bold text-gray-600 group-hover:bg-red-50 transition-colors"><i class="fas fa-user ml-2 text-gray-400"></i> اسم العميل</td>
+                                <td id="dispCustomer" class="p-4 font-bold text-black">...</td>
+                            </tr>
+                            <tr class="data-row group">
+                                <td class="p-4 bg-gray-50 font-bold text-gray-600 group-hover:bg-red-50 transition-colors"><i class="fas fa-phone ml-2 text-gray-400"></i> رقم الهاتف</td>
+                                <td id="dispPhone" class="p-4 font-english text-gray-800">---</td>
+                            </tr>
+                            <tr class="data-row group">
+                                <td class="p-4 bg-gray-50 font-bold text-gray-600 group-hover:bg-red-50 transition-colors"><i class="fas fa-box-open ml-2 text-gray-400"></i> اسم المنتج</td>
+                                <td id="dispProduct" class="p-4 font-bold text-black">...</td>
+                            </tr>
+                            <tr class="data-row group">
+                                <td class="p-4 bg-gray-50 font-bold text-gray-600 group-hover:bg-red-50 transition-colors"><i class="fas fa-barcode ml-2 text-gray-400"></i> الرقم التسلسلي</td>
+                                <td id="dispSerial" class="p-4 font-mono text-gray-800 tracking-wider">...</td>
+                            </tr>
+                            <tr class="data-row group">
+                                <td class="p-4 bg-gray-50 font-bold text-gray-600 group-hover:bg-red-50 transition-colors"><i class="fas fa-shield-alt ml-2 text-gray-400"></i> نوع الضمان</td>
+                                <td class="p-4">
+                                    <span id="dispTypeBadge" class="px-3 py-1 rounded text-xs font-bold uppercase tracking-wider text-white shadow-sm">...</span>
+                                </td>
+                            </tr>
+                            <tr class="data-row group">
+                                <td class="p-4 bg-gray-50 font-bold text-gray-600 group-hover:bg-red-50 transition-colors"><i class="fas fa-calendar-check ml-2 text-gray-400"></i> تاريخ الشراء</td>
+                                <td id="dispPurchase" class="p-4 font-english text-gray-800">...</td>
+                            </tr>
+                            <tr class="data-row group">
+                                <td class="p-4 bg-gray-50 font-bold text-gray-600 group-hover:bg-red-50 transition-colors"><i class="fas fa-calendar-times ml-2 text-gray-400"></i> تاريخ الانتهاء</td>
+                                <td id="dispExpiry" class="p-4 font-english font-bold text-canon-red">...</td>
+                            </tr>
+                            <tr class="data-row group">
+                                <td class="p-4 bg-gray-50 font-bold text-gray-600 group-hover:bg-red-50 transition-colors"><i class="fas fa-file-invoice ml-2 text-gray-400"></i> رقم الفاتورة</td>
+                                <td id="dispInvoice" class="p-4 font-english text-gray-800">...</td>
+                            </tr>
+                            <tr class="data-row group">
+                                <td class="p-4 bg-gray-50 font-bold text-gray-600 group-hover:bg-red-50 transition-colors"><i class="fas fa-info-circle ml-2 text-gray-400"></i> حالة المنتج</td>
+                                <td id="dispProductStatus" class="p-4 font-english text-gray-800">...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-6 bg-gray-50 p-5 rounded-lg border border-gray-100">
+                    <h4 class="font-bold text-gray-800 mb-3 border-b border-gray-200 pb-2 flex items-center gap-2">
+                        <i class="fas fa-check-circle text-canon-red"></i> ماذا يشمل هذا الضمان
+                    </h4>
+                    <ul id="dispCoverage" class="list-none space-y-2 text-sm text-gray-600"></ul>
+                </div>
+
+                <div id="notesContainer" class="mt-4 hidden border-r-4 border-yellow-400 bg-yellow-50 p-4 rounded-r-sm">
+                    <h4 class="font-semibold text-gray-800 mb-2 flex items-center gap-2"><i class="fas fa-sticky-note text-yellow-600"></i> ملاحظات</h4>
+                    <p id="notesText" class="text-sm text-gray-700"></p>
+                </div>
+
+                <div id="countdownBox" class="bg-gray-900 text-white p-6 rounded-lg text-center relative overflow-hidden group shadow-lg transition-all duration-300">
+                    <div class="absolute inset-0 bg-canon-red opacity-0 group-hover:opacity-5 transition-opacity duration-500"></div>
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+                    
+                    <h4 class="text-xs text-gray-400 uppercase tracking-widest mb-4 font-english relative z-10">Time Remaining Until Expiry</h4>
+                    <h3 class="text-sm font-bold mb-6 text-gray-300 relative z-10">المدة المتبقية على انتهاء الضمان</h3>
+                    
+                    <div id="countdownContainer" class="flex justify-center items-center gap-3 md:gap-6 font-english relative z-10" dir="ltr">
+                        <div class="text-center">
+                            <div class="bg-gray-800 w-12 md:w-16 py-2 rounded border border-gray-700">
+                                <span id="cntMonths" class="block text-xl md:text-2xl font-bold">0</span>
+                            </div>
+                            <span class="text-[9px] md:text-[10px] text-gray-500 uppercase mt-1 block">Months</span>
+                        </div>
+                        <div class="text-gray-600 text-xl font-light">:</div>
+                        <div class="text-center">
+                            <div class="bg-gray-800 w-12 md:w-16 py-2 rounded border border-gray-700">
+                                <span id="cntDays" class="block text-xl md:text-2xl font-bold">0</span>
+                            </div>
+                            <span class="text-[9px] md:text-[10px] text-gray-500 uppercase mt-1 block">Days</span>
+                        </div>
+                        <div class="text-gray-600 text-xl font-light">:</div>
+                        <div class="text-center">
+                            <div class="bg-gray-800 w-12 md:w-16 py-2 rounded border border-gray-700">
+                                <span id="cntHours" class="block text-xl md:text-2xl font-bold">0</span>
+                            </div>
+                            <span class="text-[9px] md:text-[10px] text-gray-500 uppercase mt-1 block">Hours</span>
+                        </div>
+                        <div class="text-gray-600 text-xl font-light">:</div>
+                        <div class="text-center">
+                            <div class="bg-gray-800 w-12 md:w-16 py-2 rounded border border-gray-700 shadow-[0_0_15px_rgba(230,0,18,0.3)]">
+                                <span id="cntSeconds" class="block text-xl md:text-2xl font-bold text-canon-red">0</span>
+                            </div>
+                            <span class="text-[9px] md:text-[10px] text-gray-500 uppercase mt-1 block">Sec</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Client signature block: only shown once the warranty has been activated -->
+                <div id="signatureDisplayBlock" class="hidden w-full mt-8 border-2 border-gray-800 rounded-lg bg-gray-50 p-5">
+                    <p class="text-xs font-bold text-canon-red mb-3 flex items-center gap-2">
+                        <i class="fas fa-file-signature"></i> إقرار وتوقيع العميل — تفعيل الكفالة الإلكترونية
+                    </p>
+                    <p class="text-[11px] text-gray-500 mb-1">الاسم الكامل كما أدخله العميل:</p>
+                    <p id="signatureDisplayName" class="font-bold text-gray-900 text-base mb-3">---</p>
+
+                    <p class="text-[11px] text-gray-500 mb-1">التوقيع الإلكتروني:</p>
+                    <div class="bg-white border border-gray-200 rounded p-3 flex items-center justify-center mb-2">
+                        <img id="signatureDisplayImg" src="" alt="توقيع العميل" class="max-h-24 object-contain">
+                    </div>
+
+                    <p class="text-[11px] text-gray-500">تاريخ التفعيل: <span id="signatureDisplayDate" class="font-bold text-gray-700"></span></p>
+                    <p id="signatureDisplayBiometric" class="text-[11px] font-bold text-green-700 mt-1 hidden"><i class="fas fa-fingerprint"></i> تم التحقق أيضاً ببصمة/وجه الجهاز</p>
+                </div>
+                
+                <div class="flex flex-col items-center mt-8 space-y-4">
+                    <div class="flex flex-col items-center group cursor-pointer">
+                        <div class="bg-white p-2 border border-gray-200 rounded shadow-sm group-hover:shadow-md transition-all duration-300 group-hover:scale-105">
+                            <img id="qrCodeImage" src="" alt="QR Code" class="w-24 h-24 object-contain opacity-90">
+                        </div>
+                        <p class="text-[10px] text-gray-400 mt-2 font-english text-center max-w-xs leading-tight">
+                            This warranty certificate is officially verified and digitally issued
+                        </p>
+                    </div>
+
+                    <div class="w-full border-t border-gray-100 pt-6 mt-4 flex flex-col md:flex-row items-center justify-between gap-4">
+                         <div class="text-center md:text-right">
+                             <p class="text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">Authorized Service & Warranty Partner</p>
+                             <p class="text-[10px] text-gray-500">General Media Tech - Canon Syria</p>
+                         </div>
+                         <div class="h-10 w-32 border border-dashed border-gray-300 rounded bg-gray-50 flex items-center justify-center text-gray-400 text-xs hover:border-canon-red hover:text-canon-red transition-colors">
+                             <img src="genrallogo.png" alt="شعار الموقع">
+                         </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="bg-gray-50 border-t border-gray-200 p-4 text-center">
+                <p class="font-bold text-sm text-gray-800">© Canon General Media Tech</p>
+                <p class="text-[10px] text-gray-400 mt-1">وثيقة رسمية صادرة من النظام الرقمي</p>
+            </div>
+        </div>
+
+        <div class="max-w-2xl w-full mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 no-print animate-fade-in" style="animation-delay: 0.5s">
+            <button onclick="window.print()" class="bg-white border border-gray-300 text-gray-700 py-3 rounded shadow-sm hover:bg-gray-50 font-bold transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                <i class="fas fa-file-pdf text-canon-red"></i> تحميل الشهادة (PDF)
+            </button>
+            
+            <button onclick="toggleDetailsView()" class="bg-gray-800 text-white py-3 rounded shadow-sm hover:bg-gray-700 font-bold transition-all transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                <i class="fas fa-info-circle"></i> تفاصيل الضمان
+            </button>
+
+            <a href="#" target="_blank" class="bg-blue-900 text-white py-3 rounded shadow-sm hover:bg-blue-800 font-bold transition-all transform hover:-translate-y-1 text-center flex items-center justify-center gap-2">
+                <i class="fas fa-users"></i> من نحن
+            </a>
+            
+            <a href="https://yourwebsite.com" target="_blank" class="bg-cyan-600 text-white py-3 rounded shadow-sm hover:bg-cyan-700 font-bold transition-all transform hover:-translate-y-1 text-center flex items-center justify-center gap-2">
+                <i class="fas fa-globe"></i> زيارة موقعنا الالكتروني
+            </a>
+
+            <a href="#" target="_blank" class="bg-gray-600 text-white py-3 rounded shadow-sm hover:bg-gray-700 font-bold transition-all transform hover:-translate-y-1 text-center flex items-center justify-center gap-2">
+                <i class="fas fa-handshake"></i> وكلاؤنا
+            </a>
+            
+            <a href="https://instagram.com" target="_blank" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded shadow-sm hover:opacity-90 font-bold transition-all transform hover:-translate-y-1 text-center flex items-center justify-center gap-2">
+                <i class="fab fa-instagram"></i> زيارة الصفحة على انستغرام
+            </a>
+            <a href="https://wa.me/963900000000" target="_blank" class="bg-green-600 text-white py-3 rounded shadow-sm hover:bg-green-700 font-bold transition-all transform hover:-translate-y-1 text-center flex items-center justify-center gap-2">
+                <i class="fab fa-whatsapp"></i> تواصل معنا واتساب
+            </a>
+        </div>
+    </div>
+
+    <!-- ==================== DETAILS VIEW ==================== -->
+    <div id="details-view" class="fixed inset-0 bg-white z-[110] hidden overflow-y-auto">
+        <div class="max-w-3xl mx-auto px-4 py-12">
+            <button onclick="toggleDetailsView()" class="mb-8 flex items-center gap-2 text-gray-600 hover:text-canon-red transition-colors font-bold">
+                <i class="fas fa-arrow-right"></i> العودة للشهادة
+            </button>
+
+            <h1 class="text-3xl font-bold mb-2 text-black">سياسة الضمانات</h1>
+            <p class="text-gray-500 mb-10">General Media Tech Warranty Policies</p>
+
+            <div class="space-y-8">
+                <div class="bg-gray-50 border-r-4 border-gray-600 p-6 rounded-l-lg shadow-sm">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2"><i class="fas fa-shield-alt text-gray-600"></i> أولاً: الباقة الأساسية (Basic)</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 text-sm leading-relaxed">
+                        <li>يشمل هذا الضمان عيوب التصنيع فقط، ولا يشمل أي أعطال ناتجة عن سوء الاستخدام، أو الكسر، أو السوائل، أو الصدمات، أو التعديلات غير المعتمدة.</li>
+                        <li>يشمل الضمان بطارية الجهاز وفق شروط الشركة المصنعة.</li>
+                        <li>يسقط الضمان في حال فتح الجهاز أو العبث به من قبل جهة غير معتمدة.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-green-50 border-r-4 border-green-600 p-6 rounded-l-lg shadow-sm">
+                    <h3 class="text-xl font-bold text-green-800 mb-4 flex items-center gap-2"><i class="fas fa-star text-green-600"></i> ثانياً: باقة بلس (Plus)</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 text-sm leading-relaxed">
+                        <li>يشمل هذا الضمان عيوب التصنيع فقط، إضافة إلى خصم بنسبة 50% من تكلفة أجور الصيانة للأعطال الناتجة عن سوء الاستخدام.</li>
+                        <li>لا يشمل الخصم سعر قطع التبديل، ويتم احتسابها بشكل كامل على العميل.</li>
+                        <li>يشمل الضمان بطارية الجهاز وفق شروط الشركة المصنعة.</li>
+                        <li>يسقط الضمان في حال وجود كسر متعمد، أو أضرار جسيمة، أو فتح الجهاز من قبل جهة غير معتمدة.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-red-50 border-r-4 border-canon-red p-6 rounded-l-lg shadow-sm">
+                    <h3 class="text-xl font-bold text-red-800 mb-4 flex items-center gap-2"><i class="fas fa-meteor text-canon-red"></i> ثالثاً: باقة لوكال إكستريم (Local Extreme)</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 text-sm leading-relaxed">
+                        <li>يشمل هذا الضمان عيوب التصنيع فقط، ولا يشمل أي أعطال ناتجة عن سوء الاستخدام، أو الكسر، أو السوائل، أو الصدمات.</li>
+                        <li>يشمل هذا الضمان صيانة مجانية كاملة لمدة سنة واحدة من تاريخ الشراء، وتشمل أجور الصيانة فقط.</li>
+                        <li>لا يشمل الضمان سعر قطع التبديل، ويتم احتسابها بشكل منفصل على العميل.</li>
+                        <li>لا يشمل الضمان الأضرار الناتجة عن الإهمال الشديد، أو الكسر المتعمد، أو السوائل، أو الاستخدام غير الطبيعي للجهاز.</li>
+                        <li>يسقط الضمان في حال فتح الجهاز أو التعديل عليه من قبل جهة غير معتمدة.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                 <button onclick="toggleDetailsView()" class="bg-canon-red text-white px-8 py-3 rounded font-bold hover:bg-red-800 transition-colors">
+                    فهمت، العودة للوثيقة
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== WARRANTY ACTIVATION SYSTEM ==================== -->
+    <!-- المرحلة 1: صفحة الترحيب بتفعيل الكفالة -->
+    <div id="activation-welcome-view" class="fixed inset-0 z-[95] bg-white hidden flex-col items-center justify-center text-center p-6 opacity-0 transition-opacity duration-500">
+        <div class="max-w-md w-full animate-slide-up">
+            <div class="mb-6">
+                <img src="canonlogo.png" alt="Canon Logo" class="w-28 h-auto mx-auto">
+            </div>
+            <div class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-6 border-2 border-canon-red">
+                <i class="fas fa-shield-halved text-canon-red text-2xl"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-black mb-3">تفعيل الكفالة الإلكترونية</h1>
+            <p class="text-gray-600 mb-2">أهلاً بك <span id="actWelcomeName" class="font-bold text-canon-red"></span></p>
+            <p class="text-gray-500 text-sm leading-relaxed mb-1">شكراً لاختياركم General Media Tech.</p>
+            <p class="text-gray-500 text-sm leading-relaxed mb-1">قبل عرض شهادة الكفالة يجب إتمام خطوات تفعيل الكفالة الإلكترونية.</p>
+            <p class="text-gray-400 text-xs mb-8">لن تستغرق العملية أكثر من دقيقة.</p>
+            <button onclick="goToAgreementView()" class="w-full bg-canon-red hover:bg-red-800 text-white font-bold py-4 rounded-lg shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                ابدأ <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- المرحلة 2: صفحة اتفاقية تفعيل الكفالة الإلكترونية -->
+    <div id="agreement-view" class="fixed inset-0 z-[95] bg-gray-50 hidden flex-col overflow-y-auto opacity-0 transition-opacity duration-500">
+        <div class="max-w-2xl w-full mx-auto px-4 py-10">
+
+            <div class="text-center mb-8">
+                <img src="canonlogo.png" alt="Canon Logo" class="w-20 h-auto mx-auto mb-4">
+                <h1 class="text-2xl font-bold text-black">اتفاقية تفعيل الكفالة الإلكترونية</h1>
+                <p class="text-gray-500 text-sm mt-3 leading-relaxed">مرحباً بك، هذه هي وثيقة الكفالة الإلكترونية الخاصة بمنتجك.<br>
+                يرجى قراءة جميع المعلومات التالية بعناية، حيث يعتبر إتمام عملية التفعيل موافقة كاملة على جميع البنود الواردة في هذه الوثيقة.</p>
+            </div>
+
+            <!-- بطاقات بيانات الكفالة -->
+            <div class="data-table-container mb-6">
+                <table class="w-full text-sm text-right">
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="data-row"><td class="p-3 bg-gray-50 w-1/2 font-bold text-gray-600"><i class="fas fa-user ml-2 text-gray-400"></i>اسم العميل</td><td id="agCustomer" class="p-3 font-bold">...</td></tr>
+                        <tr class="data-row"><td class="p-3 bg-gray-50 font-bold text-gray-600"><i class="fas fa-box-open ml-2 text-gray-400"></i>اسم المنتج</td><td id="agProduct" class="p-3">...</td></tr>
+                        <tr class="data-row"><td class="p-3 bg-gray-50 font-bold text-gray-600"><i class="fas fa-barcode ml-2 text-gray-400"></i>الرقم التسلسلي</td><td id="agSerial" class="p-3 font-mono">...</td></tr>
+                        <tr class="data-row"><td class="p-3 bg-gray-50 font-bold text-gray-600"><i class="fas fa-file-invoice ml-2 text-gray-400"></i>رقم الفاتورة</td><td id="agInvoice" class="p-3">...</td></tr>
+                        <tr class="data-row"><td class="p-3 bg-gray-50 font-bold text-gray-600"><i class="fas fa-shield-alt ml-2 text-gray-400"></i>نوع الكفالة</td><td class="p-3"><span id="agTypeBadge" class="px-2 py-1 rounded text-xs font-bold uppercase text-white">...</span></td></tr>
+                        <tr class="data-row"><td class="p-3 bg-gray-50 font-bold text-gray-600"><i class="fas fa-hourglass-half ml-2 text-gray-400"></i>مدة الكفالة</td><td id="agDuration" class="p-3">...</td></tr>
+                        <tr class="data-row"><td class="p-3 bg-gray-50 font-bold text-gray-600"><i class="fas fa-calendar-check ml-2 text-gray-400"></i>تاريخ الشراء</td><td id="agPurchase" class="p-3">...</td></tr>
+                        <tr class="data-row"><td class="p-3 bg-gray-50 font-bold text-gray-600"><i class="fas fa-calendar-times ml-2 text-gray-400"></i>تاريخ انتهاء الكفالة</td><td id="agExpiry" class="p-3 font-bold text-canon-red">...</td></tr>
+                        <tr class="data-row"><td class="p-3 bg-gray-50 font-bold text-gray-600"><i class="fas fa-info-circle ml-2 text-gray-400"></i>حالة المنتج</td><td id="agCondition" class="p-3">...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- شروط نوع الكفالة -->
+            <div id="agTermsBox" class="bg-white border-r-4 p-6 rounded-l-lg shadow-sm mb-6">
+                <h3 id="agTermsTitle" class="text-lg font-bold mb-4 flex items-center gap-2"></h3>
+                <ul id="agTermsList" class="list-disc list-inside space-y-2 text-gray-700 text-sm leading-relaxed"></ul>
+            </div>
+
+            <!-- تنبيه مهم -->
+            <div class="bg-red-50 border-2 border-canon-red rounded-lg p-5 mb-6">
+                <h4 class="font-bold text-canon-red mb-2 flex items-center gap-2"><i class="fas fa-triangle-exclamation"></i> تنبيه مهم</h4>
+                <p class="text-sm text-red-900 leading-relaxed">
+                    تبدأ الكفالة الإلكترونية اعتباراً من لحظة قيامك بتفعيلها عبر هذا الموقع.
+                    ويجب إتمام عملية التفعيل خلال سبعة (7) أيام من تاريخ الفاتورة.
+                    في حال عدم قيام العميل بتفعيل الكفالة خلال هذه المدة، تعتبر الكفالة الإلكترونية غير مفعلة، ويحق للشركة اعتبارها ملغاة وفق سياسة الضمان المعتمدة لدى الشركة.
+                </p>
+            </div>
+
+            <!-- سياسة حفظ بيانات التفعيل -->
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6 shadow-sm">
+                <h4 class="font-bold text-gray-800 mb-3 flex items-center gap-2"><i class="fas fa-database text-canon-red"></i> سياسة حفظ بيانات التفعيل</h4>
+                <p class="text-sm text-gray-600 leading-relaxed">
+                    لحماية حقوق العميل والشركة، يقوم النظام بحفظ بيانات عملية تفعيل الكفالة الإلكترونية، بما في ذلك وقت وتاريخ التفعيل وبعض البيانات التقنية الخاصة بجلسة التفعيل،
+                    وتستخدم هذه البيانات فقط لإثبات عملية التفعيل وإدارة الكفالة، ولا يتم استخدامها لأي غرض آخر.
+                </p>
+            </div>
+
+            <!-- إقرار العميل -->
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6 shadow-sm">
+                <h4 class="font-bold text-gray-800 mb-4 flex items-center gap-2"><i class="fas fa-file-signature text-canon-red"></i> إقرار العميل</h4>
+                <ul class="list-none space-y-2 text-sm text-gray-700 leading-relaxed">
+                    <li class="flex items-start gap-2"><i class="fas fa-check text-green-600 mt-1 text-xs"></i><span>أقر بأنني استلمت المنتج المذكور أعلاه كاملاً.</span></li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check text-green-600 mt-1 text-xs"></i><span>أقر بأنني استلمت جميع الملحقات الخاصة به.</span></li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check text-green-600 mt-1 text-xs"></i><span>أقر بأن المنتج كان بحالة سليمة عند الاستلام ولا توجد به أضرار ظاهرة.</span></li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check text-green-600 mt-1 text-xs"></i><span>أقر بأنني تحققت من مطابقة الرقم التسلسلي الموجود على المنتج مع الرقم المسجل لدى الشركة.</span></li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check text-green-600 mt-1 text-xs"></i><span>أقر بأنني قرأت جميع شروط الكفالة الخاصة بهذا المنتج.</span></li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check text-green-600 mt-1 text-xs"></i><span>أقر بأنني فهمت ما تشمله الكفالة وما لا تشمله.</span></li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check text-green-600 mt-1 text-xs"></i><span>أقر بأن الكفالة مرتبطة بنفس الرقم التسلسلي المسجل لدى الشركة.</span></li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check text-green-600 mt-1 text-xs"></i><span>أقر بأن أي اختلاف في الرقم التسلسلي يؤدي إلى رفض المطالبة بالكفالة.</span></li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check text-green-600 mt-1 text-xs"></i><span>أوافق على قيام الشركة بحفظ بيانات عملية التفعيل الإلكترونية لغرض حماية حقوق العميل والشركة.</span></li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check text-green-600 mt-1 text-xs"></i><span>أقر بأن المعلومات التي سأقوم بإدخالها صحيحة.</span></li>
+                    <li class="flex items-start gap-2"><i class="fas fa-check text-green-600 mt-1 text-xs"></i><span>أقر بأن التوقيع الإلكتروني الذي سأقوم بإدخاله هو توقيعي الشخصي.</span></li>
+                </ul>
+            </div>
+
+            <!-- Checkbox الموافقة -->
+            <label class="flex items-start gap-3 bg-white border border-gray-200 rounded-lg p-5 mb-6 cursor-pointer shadow-sm hover:border-canon-red transition-colors">
+                <input type="checkbox" id="agAgreeCheckbox" onchange="validateAgreementCheckbox()" class="mt-1 w-5 h-5 accent-canon-red flex-shrink-0">
+                <span class="text-sm text-gray-700 leading-relaxed">أقر بأنني قرأت جميع المعلومات الواردة في هذه الوثيقة وفهمتها وأوافق عليها بالكامل، وأرغب في تفعيل الكفالة الإلكترونية الخاصة بمنتجي.</span>
+            </label>
+
+            <button id="agContinueBtn" onclick="goToSignatureView()" disabled
+                class="w-full bg-gray-300 text-white font-bold py-4 rounded-lg shadow-lg transition-all cursor-not-allowed flex items-center justify-center gap-2 mb-10">
+                متابعة <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- المرحلة 3: التوقيع الإلكتروني -->
+    <div id="signature-view" class="fixed inset-0 z-[95] bg-gray-50 hidden flex-col overflow-y-auto opacity-0 transition-opacity duration-500">
+        <div class="max-w-xl w-full mx-auto px-4 py-10">
+            <div class="text-center mb-8">
+                <img src="canonlogo.png" alt="Canon Logo" class="w-20 h-auto mx-auto mb-4">
+                <h1 class="text-2xl font-bold text-black">التوقيع الإلكتروني</h1>
+                <p class="text-gray-500 text-sm mt-2">الخطوة الأخيرة لتفعيل كفالتك الإلكترونية</p>
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6 shadow-sm space-y-2">
+                <label class="text-sm font-bold text-gray-700">الاسم الكامل <span class="text-canon-red">*</span></label>
+                <input type="text" id="sigFullName" placeholder="اكتب اسمك الكامل هنا" oninput="validateSignatureForm()"
+                    class="w-full bg-gray-50 border border-gray-300 rounded px-3 py-3 focus:outline-none focus:border-canon-red transition-colors">
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6 shadow-sm">
+                <div class="flex items-center justify-between mb-3">
+                    <label class="text-sm font-bold text-gray-700">التوقيع <span class="text-canon-red">*</span></label>
+                    <button type="button" onclick="clearSignaturePad()" class="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold px-3 py-2 rounded transition-colors flex items-center gap-1">
+                        <i class="fas fa-eraser"></i> مسح التوقيع
+                    </button>
+                </div>
+                <div class="border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 overflow-hidden">
+                    <canvas id="signatureCanvas" class="w-full touch-none cursor-crosshair" height="200"></canvas>
+                </div>
+                <p class="text-xs text-gray-400 mt-2 text-center">وقّع بإصبعك أو بالماوس داخل الإطار أعلاه</p>
+            </div>
+
+            <label class="flex items-start gap-3 bg-white border border-gray-200 rounded-lg p-5 mb-6 cursor-pointer shadow-sm hover:border-canon-red transition-colors">
+                <input type="checkbox" id="sigOwnCheckbox" onchange="validateSignatureForm()" class="mt-1 w-5 h-5 accent-canon-red flex-shrink-0">
+                <span class="text-sm text-gray-700 leading-relaxed">أقر بأن هذا التوقيع صادر مني شخصياً.</span>
+            </label>
+
+            <!-- تحقق بيومتري إضافي (اختياري) - يظهر فقط إذا كان الجهاز/المتصفح يدعمه -->
+            <div id="biometricBox" class="hidden bg-white border border-gray-200 rounded-lg p-5 mb-6 shadow-sm">
+                <div class="flex items-center justify-between gap-3">
+                    <div>
+                        <p class="text-sm font-bold text-gray-700 flex items-center gap-2"><i class="fas fa-fingerprint text-canon-red"></i> تحقق إضافي ببصمتك أو وجهك</p>
+                        <p class="text-xs text-gray-500 mt-1">اختياري — يضيف طبقة توثيق أقوى لهويتك على هذا العقد.</p>
+                    </div>
+                    <button type="button" id="biometricBtn" onclick="performBiometricVerification()"
+                        class="text-xs bg-gray-800 hover:bg-black text-white font-bold px-3 py-2 rounded transition-colors whitespace-nowrap">
+                        تحقق الآن
+                    </button>
+                </div>
+                <p id="biometricStatus" class="text-xs text-green-700 font-bold mt-2 hidden"><i class="fas fa-check-circle"></i> تم التحقق بنجاح</p>
+            </div>
+
+            <button id="activateBtn" onclick="submitActivation()" disabled
+                class="w-full bg-gray-300 text-white font-bold py-4 rounded-lg shadow-lg transition-all cursor-not-allowed flex items-center justify-center gap-2 mb-10">
+                <i class="fas fa-shield-halved"></i> تفعيل الكفالة
+            </button>
+        </div>
+    </div>
+
+    <!-- شاشة التحميل أثناء الحفظ -->
+    <div id="activation-loading-view" class="fixed inset-0 z-[96] bg-white hidden flex-col items-center justify-center text-center p-6">
+        <div class="w-16 h-16 border-4 border-gray-200 border-t-canon-red rounded-full animate-spin mb-6"></div>
+        <h3 class="text-lg font-bold text-gray-800 mb-1">جارٍ تفعيل الكفالة...</h3>
+        <p class="text-sm text-gray-500">جارٍ حفظ بيانات التفعيل...</p>
+    </div>
+
+    <!-- شاشة نجاح التفعيل -->
+    <div id="activation-success-view" class="fixed inset-0 z-[96] bg-white hidden flex-col items-center justify-center text-center p-6 opacity-0 transition-opacity duration-500">
+        <div class="max-w-md w-full animate-slide-up">
+            <div class="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-6 animate-gentle-pulse">
+                <i class="fas fa-check text-green-600 text-3xl"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-black mb-4">تم تفعيل الكفالة بنجاح</h1>
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-5 mb-8 text-right">
+                <p class="text-sm font-bold text-gray-700 mb-3">تم حفظ:</p>
+                <ul class="space-y-2 text-sm text-gray-600">
+                    <li class="flex items-center gap-2"><i class="fas fa-check text-green-600"></i> موافقتك على الشروط</li>
+                    <li class="flex items-center gap-2"><i class="fas fa-check text-green-600"></i> توقيعك الإلكتروني</li>
+                    <li class="flex items-center gap-2"><i class="fas fa-check text-green-600"></i> بيانات جلسة التفعيل</li>
+                    <li class="flex items-center gap-2"><i class="fas fa-check text-green-600"></i> وقت التفعيل</li>
+                    <li class="flex items-center gap-2"><i class="fas fa-check text-green-600"></i> بيانات جهازك</li>
+                </ul>
+                <p class="text-xs text-gray-400 mt-4">ولا يمكن تعديلها لاحقاً.</p>
+            </div>
+            <button onclick="finishActivationFlow()" class="w-full bg-canon-red hover:bg-red-800 text-white font-bold py-4 rounded-lg shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                عرض شهادة الكفالة <i class="fas fa-certificate"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // =====================================================
+        // ⚙️ SUPABASE CONFIGURATION
+        // =====================================================
+        const SUPABASE_URL = 'https://abppuwylukzpqckazegk.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFicHB1d3lsdWt6cHFja2F6ZWdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMxNTQ4NzYsImV4cCI6MjA5ODczMDg3Nn0.Dx6WCUfXD4T8D_tJclB9VuMUS3B0YSwejexrRrYhnqo';
+        const TABLE_NAME = 'warranties';
+        const LOGS_TABLE_NAME = 'activation_logs';
+
+        // =====================================================
+        // 📨 TELEGRAM NOTIFICATIONS
+        // =====================================================
+        const TELEGRAM_BOT_TOKEN = '8608745716:AAEfP5Oh_AdALuPcHMhLVsULRvqc59q2e-0';
+        const TELEGRAM_CHAT_ID = '-5536441340';
+
+        // Simple text notification (e.g. "new warranty created"). Never throws —
+        // a Telegram outage should never block the customer's flow.
+        async function sendTelegramMessage(text) {
+            try {
+                await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: text, parse_mode: 'HTML' })
+                });
+            } catch (e) {
+                console.error('Telegram sendMessage failed:', e);
+            }
+        }
+
+        // Sends a file (the signed contract PDF) as a Telegram document with a caption.
+        async function sendTelegramDocument(blob, filename, caption) {
+            try {
+                const form = new FormData();
+                form.append('chat_id', TELEGRAM_CHAT_ID);
+                form.append('caption', caption);
+                form.append('parse_mode', 'HTML');
+                form.append('document', blob, filename);
+                await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument`, {
+                    method: 'POST',
+                    body: form
+                });
+            } catch (e) {
+                console.error('Telegram sendDocument failed:', e);
+            }
+        }
+        // =====================================================
+
+        // --- Supabase REST Helpers ---
+        async function supabaseInsert(row) {
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}`, {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify(row)
+            });
+            if (!res.ok) {
+                const err = await res.text();
+                throw new Error(err);
+            }
+            return true;
+        }
+
+        async function supabaseFetch(shortId) {
+            const res = await fetch(
+                `${SUPABASE_URL}/rest/v1/${TABLE_NAME}?short_id=eq.${encodeURIComponent(shortId)}&select=*&limit=1`,
+                {
+                    mode: 'cors',
+                    headers: {
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    }
+                }
+            );
+            if (!res.ok) throw new Error(await res.text());
+            const rows = await res.json();
+            return rows.length > 0 ? rows[0] : null;
+        }
+
+        async function supabaseFetchAll(searchTerm) {
+            let url = `${SUPABASE_URL}/rest/v1/${TABLE_NAME}?select=*&order=created_at.desc&limit=100`;
+            if (searchTerm) {
+                const enc = encodeURIComponent(searchTerm);
+                url += `&or=(customer_name.ilike.*${enc}*,invoice_no.ilike.*${enc}*,phone_no.ilike.*${enc}*,serial_no.ilike.*${enc}*)`;
+            }
+            const res = await fetch(url, {
+                mode: 'cors',
+                headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` }
+            });
+            if (!res.ok) throw new Error(await res.text());
+            return res.json();
+        }
+
+        async function supabaseUpdateStatus(shortId, status, cancelReason) {
+            const updateData = { status: status };
+            if (cancelReason) updateData.cancel_reason = cancelReason;
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}?short_id=eq.${encodeURIComponent(shortId)}`, {
+                method: 'PATCH',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify(updateData)
+            });
+            if (!res.ok) throw new Error(await res.text());
+            return true;
+        }
+
+        // --- ID Generator ---
+        function generateShortID() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let result = '';
+            for (let i = 0; i < 6; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+
+        // --- Legacy decode ---
+        function decodeData(encoded) {
+            try {
+                let base64 = encoded.replace(/-/g, '+').replace(/_/g, '/');
+                while (base64.length % 4) { base64 += '='; }
+                return JSON.parse(decodeURIComponent(escape(atob(base64))));
+            } catch (e) { return null; }
+        }
+
+        // --- Coverage texts ---
+        const coverageTexts = {
+            standard: [
+                'يشمل هذا الضمان عيوب التصنيع فقط، ولا يشمل أي أعطال ناتجة عن سوء الاستخدام، أو الكسر، أو السوائل، أو الصدمات، أو التعديلات غير المعتمدة.',
+                'يشمل الضمان بطارية الجهاز وفق شروط الشركة المصنعة.',
+                'يسقط الضمان في حال فتح الجهاز أو العبث به من قبل جهة غير معتمدة.'
+            ],
+            plus: [
+                'يشمل هذا الضمان عيوب التصنيع فقط، إضافة إلى خصم بنسبة 50% من تكلفة أجور الصيانة للأعطال الناتجة عن سوء الاستخدام .',
+                'لا يشمل الخصم سعر قطع التبديل، ويتم احتسابها بشكل كامل على العميل.',
+                'يشمل الضمان بطارية الجهاز وفق شروط الشركة المصنعة.',
+                'يسقط الضمان في حال وجود كسر متعمد، أو أضرار جسيمة، أو فتح الجهاز من قبل جهة غير معتمدة.'
+            ],
+            extreme: [
+                'يشمل هذا الضمان عيوب التصنيع فقط، ولا يشمل أي أعطال ناتجة عن سوء الاستخدام، أو الكسر، أو السوائل، أو الصدمات',
+                'يشمل هذا الضمان صيانة مجانية كاملة لمدة سنة واحدة من تاريخ الشراء، وتشمل أجور الصيانة فقط.',
+                'لا يشمل الضمان سعر قطع التبديل، ويتم احتسابها بشكل منفصل على العميل.',
+                'لا يشمل الضمان الأضرار الناتجة عن الإهمال الشديد، أو الكسر المتعمد، أو السوائل، أو الاستخدام غير الطبيعي للجهاز.',
+                'يسقط الضمان في حال فتح الجهاز أو التعديل عليه من قبل جهة غير معتمدة.'
+            ]
+        };
+
+        // --- Tier display metadata (shared by certificate + agreement views) ---
+        const tierMeta = {
+            standard: { label: 'Standard Warranty', badgeClass: 'bg-gray-700', borderClass: 'border-gray-600', titleClass: 'text-gray-800', icon: 'fa-shield-alt', title: 'شروط الباقة الأساسية (Standard)' },
+            plus:     { label: 'Plus Warranty',     badgeClass: 'bg-green-700', borderClass: 'border-green-600', titleClass: 'text-green-800', icon: 'fa-star', title: 'شروط باقة بلس (Plus)' },
+            extreme:  { label: 'Extreme Warranty',  badgeClass: 'bg-red-700', borderClass: 'border-canon-red', titleClass: 'text-red-800', icon: 'fa-meteor', title: 'شروط باقة إكستريم (Extreme)' }
+        };
+
+        // =====================================================
+        // 🔐 WARRANTY ACTIVATION SYSTEM
+        // =====================================================
+        // Holds the warranty row + short_id currently being processed,
+        // so every step of the activation flow can read/write it.
+        let currentShortId = null;
+        let currentActivationData = null;
+
+        // --- Save activation fields to Supabase (generic PATCH helper) ---
+        async function supabaseActivateWarranty(shortId, updateData) {
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}?short_id=eq.${encodeURIComponent(shortId)}`, {
+                method: 'PATCH',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify(updateData)
+            });
+            if (!res.ok) throw new Error(await res.text());
+            return true;
+        }
+
+        // --- Decide whether to show the activation flow or go straight to the certificate ---
+        function routeAfterIntro(data, shortId) {
+            currentActivationData = data;
+            currentShortId = shortId;
+
+            // Legacy links (no DB row / no short_id) can't persist activation, skip straight to certificate.
+            // Already-activated warranties skip the activation steps entirely.
+            if (!shortId || data.activation_status === 'activated') {
+                showWarrantyView(data);
+                showToast();
+                return;
+            }
+
+            showActivationWelcome(data);
+        }
+
+        // --- Phase 1: Welcome screen ---
+        function showActivationWelcome(data) {
+            document.getElementById('actWelcomeName').textContent = data.c || '';
+            const view = document.getElementById('activation-welcome-view');
+            view.classList.remove('hidden');
+            view.classList.add('flex');
+            setTimeout(() => view.classList.remove('opacity-0'), 30);
+        }
+
+        function fadeOutAndHide(elId, callback) {
+            const el = document.getElementById(elId);
+            el.classList.add('opacity-0');
+            setTimeout(() => {
+                el.classList.add('hidden');
+                el.classList.remove('flex');
+                if (callback) callback();
+            }, 500);
+        }
+
+        // --- Phase 2: Activation Agreement page ---
+        function goToAgreementView() {
+            fadeOutAndHide('activation-welcome-view', () => {
+                populateAgreementView(currentActivationData);
+                const view = document.getElementById('agreement-view');
+                view.classList.remove('hidden');
+                view.classList.add('flex');
+                setTimeout(() => view.classList.remove('opacity-0'), 30);
+                window.scrollTo(0, 0);
+            });
+        }
+
+        function calcDurationLabel(purchaseDate, expiryDate) {
+            if (!purchaseDate || !expiryDate) return '---';
+            const pd = new Date(purchaseDate);
+            const ed = new Date(expiryDate);
+            if (isNaN(pd) || isNaN(ed)) return '---';
+            let months = (ed.getFullYear() - pd.getFullYear()) * 12 + (ed.getMonth() - pd.getMonth());
+            if (months <= 0) return '---';
+            if (months % 12 === 0) {
+                const years = months / 12;
+                return years === 1 ? 'سنة واحدة' : `${years} سنوات`;
+            }
+            return `${months} أشهر`;
+        }
+
+        function populateAgreementView(data) {
+            document.getElementById('agCustomer').textContent = data.c || '---';
+            document.getElementById('agProduct').textContent = data.p || '---';
+            document.getElementById('agSerial').textContent = data.s || '---';
+            document.getElementById('agInvoice').textContent = data.inv || '---';
+            document.getElementById('agPurchase').textContent = formatDate(data.pd);
+            document.getElementById('agExpiry').textContent = formatDate(data.ed);
+            document.getElementById('agCondition').textContent = data.ist || '---';
+            document.getElementById('agDuration').textContent = calcDurationLabel(data.pd, data.ed);
+
+            const chosenType = data.t || 'standard';
+            const meta = tierMeta[chosenType] || tierMeta.standard;
+
+            const badge = document.getElementById('agTypeBadge');
+            badge.textContent = meta.label;
+            badge.className = `px-2 py-1 rounded text-xs font-bold uppercase text-white ${meta.badgeClass}`;
+
+            // Only render the terms for this warranty's own type
+            const termsBox = document.getElementById('agTermsBox');
+            termsBox.className = `bg-white border-r-4 ${meta.borderClass} p-6 rounded-l-lg shadow-sm mb-6`;
+            document.getElementById('agTermsTitle').innerHTML = `<i class="fas ${meta.icon} ${meta.titleClass}"></i> <span class="${meta.titleClass}">${meta.title}</span>`;
+
+            const list = document.getElementById('agTermsList');
+            list.innerHTML = '';
+            (coverageTexts[chosenType] || []).forEach(point => {
+                const li = document.createElement('li');
+                li.textContent = point;
+                list.appendChild(li);
+            });
+
+            // Reset checkbox + continue button state each time this view is populated
+            document.getElementById('agAgreeCheckbox').checked = false;
+            validateAgreementCheckbox();
+        }
+
+        function validateAgreementCheckbox() {
+            const checked = document.getElementById('agAgreeCheckbox').checked;
+            const btn = document.getElementById('agContinueBtn');
+            btn.disabled = !checked;
+            btn.className = checked
+                ? 'w-full bg-canon-red hover:bg-red-800 text-white font-bold py-4 rounded-lg shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2 mb-10'
+                : 'w-full bg-gray-300 text-white font-bold py-4 rounded-lg shadow-lg transition-all cursor-not-allowed flex items-center justify-center gap-2 mb-10';
+        }
+
+        // --- Phase 3: Signature page ---
+        let sigCtx = null;
+        let sigHasDrawn = false;
+        let sigDrawing = false;
+
+        function goToSignatureView() {
+            if (document.getElementById('agContinueBtn').disabled) return;
+            fadeOutAndHide('agreement-view', () => {
+                const view = document.getElementById('signature-view');
+                view.classList.remove('hidden');
+                view.classList.add('flex');
+                setTimeout(() => view.classList.remove('opacity-0'), 30);
+                window.scrollTo(0, 0);
+                initSignaturePad();
+                checkBiometricAvailability();
+            });
+        }
+
+        // --- Optional biometric (fingerprint / Face ID) verification via WebAuthn ---
+        // IMPORTANT: browsers never expose the actual fingerprint/face image to a
+        // website — this is by design, for the user's privacy and security. What
+        // WebAuthn provides instead is a signed cryptographic proof that the device's
+        // own platform authenticator (Touch ID / Face ID / Android fingerprint /
+        // Windows Hello) verified the person before signing. That proof (a
+        // credential ID) is what gets stored — never a biometric image or template.
+        // Requires HTTPS and a real domain; silently unavailable on file:// or
+        // content:// pages, or unsupported devices — the button just stays hidden.
+        let biometricCredentialId = null;
+        let biometricVerified = false;
+
+        async function checkBiometricAvailability() {
+            try {
+                if (!window.PublicKeyCredential || !PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable) return;
+                const available = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+                if (available) {
+                    document.getElementById('biometricBox').classList.remove('hidden');
+                }
+            } catch (e) {
+                console.error('Biometric availability check failed:', e);
+            }
+        }
+
+        async function performBiometricVerification() {
+            const btn = document.getElementById('biometricBtn');
+            btn.disabled = true;
+            btn.textContent = 'جارٍ التحقق...';
+            try {
+                const challenge = new Uint8Array(32);
+                crypto.getRandomValues(challenge);
+                const userId = new Uint8Array(16);
+                crypto.getRandomValues(userId);
+
+                const credential = await navigator.credentials.create({
+                    publicKey: {
+                        challenge: challenge,
+                        rp: { name: 'General Media Tech', id: window.location.hostname },
+                        user: {
+                            id: userId,
+                            name: currentShortId || 'customer',
+                            displayName: document.getElementById('sigFullName').value.trim() || 'Customer'
+                        },
+                        pubKeyCredParams: [{ type: 'public-key', alg: -7 }, { type: 'public-key', alg: -257 }],
+                        authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required' },
+                        timeout: 60000,
+                        attestation: 'none'
+                    }
+                });
+
+                // Store only the opaque credential ID — never any biometric data itself
+                biometricCredentialId = credential ? btoa(String.fromCharCode(...new Uint8Array(credential.rawId))) : null;
+                biometricVerified = !!biometricCredentialId;
+
+                document.getElementById('biometricStatus').classList.remove('hidden');
+                btn.textContent = 'تم التحقق ✓';
+                btn.classList.add('bg-green-700');
+            } catch (e) {
+                console.error('Biometric verification failed or was cancelled:', e);
+                btn.disabled = false;
+                btn.textContent = 'تحقق الآن';
+                alert('تعذّر إتمام التحقق البيومتري. يمكنك المتابعة بدونه — التوقيع اليدوي أعلاه كافٍ لإتمام التفعيل.');
+            }
+        }
+
+        function initSignaturePad() {
+            const canvas = document.getElementById('signatureCanvas');
+            // Match canvas internal resolution to its displayed size (crisp lines, correct coordinates)
+            const ratio = window.devicePixelRatio || 1;
+            canvas.width = canvas.clientWidth * ratio;
+            canvas.height = canvas.clientHeight * ratio;
+            sigCtx = canvas.getContext('2d');
+            sigCtx.scale(ratio, ratio);
+            sigCtx.lineWidth = 2.5;
+            sigCtx.lineCap = 'round';
+            sigCtx.strokeStyle = '#1f2937';
+            sigHasDrawn = false;
+
+            const getPos = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const point = e.touches ? e.touches[0] : e;
+                return { x: point.clientX - rect.left, y: point.clientY - rect.top };
+            };
+
+            const start = (e) => { e.preventDefault(); sigDrawing = true; const p = getPos(e); sigCtx.beginPath(); sigCtx.moveTo(p.x, p.y); };
+            const move = (e) => {
+                if (!sigDrawing) return;
+                e.preventDefault();
+                const p = getPos(e);
+                sigCtx.lineTo(p.x, p.y);
+                sigCtx.stroke();
+                sigHasDrawn = true;
+                validateSignatureForm();
+            };
+            const end = () => { sigDrawing = false; };
+
+            canvas.addEventListener('mousedown', start);
+            canvas.addEventListener('mousemove', move);
+            window.addEventListener('mouseup', end);
+            canvas.addEventListener('touchstart', start, { passive: false });
+            canvas.addEventListener('touchmove', move, { passive: false });
+            canvas.addEventListener('touchend', end);
+        }
+
+        function clearSignaturePad() {
+            const canvas = document.getElementById('signatureCanvas');
+            sigCtx.clearRect(0, 0, canvas.width, canvas.height);
+            sigHasDrawn = false;
+            validateSignatureForm();
+        }
+
+        function validateSignatureForm() {
+            const name = document.getElementById('sigFullName').value.trim();
+            const ownChecked = document.getElementById('sigOwnCheckbox').checked;
+            const valid = name.length > 0 && sigHasDrawn && ownChecked;
+
+            const btn = document.getElementById('activateBtn');
+            btn.disabled = !valid;
+            btn.className = valid
+                ? 'w-full bg-canon-red hover:bg-red-800 text-white font-bold py-4 rounded-lg shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2 mb-10'
+                : 'w-full bg-gray-300 text-white font-bold py-4 rounded-lg shadow-lg transition-all cursor-not-allowed flex items-center justify-center gap-2 mb-10';
+        }
+
+        // --- Device / session info collectors (each returns a value or null, never throws) ---
+        function detectBrowser() {
+            const ua = navigator.userAgent;
+            let name = null, version = null;
+            const patterns = [
+                ['Edg', 'Edge'], ['OPR', 'Opera'], ['Chrome', 'Chrome'],
+                ['Firefox', 'Firefox'], ['Safari', 'Safari']
+            ];
+            for (const [token, label] of patterns) {
+                if (ua.includes(token)) {
+                    // Safari check must exclude Chrome (Chrome UA also contains "Safari")
+                    if (label === 'Safari' && ua.includes('Chrome')) continue;
+                    name = label;
+                    const match = ua.match(new RegExp(token + '\\/([\\d.]+)'));
+                    version = match ? match[1] : null;
+                    break;
+                }
+            }
+            return { name, version };
+        }
+
+        function detectOS() {
+            const ua = navigator.userAgent;
+            if (/Windows/.test(ua)) return 'Windows';
+            if (/Android/.test(ua)) return 'Android';
+            if (/iPhone|iPad|iPod/.test(ua)) return 'iOS';
+            if (/Mac OS X/.test(ua)) return 'macOS';
+            if (/Linux/.test(ua)) return 'Linux';
+            return null;
+        }
+
+        function detectDeviceType() {
+            const ua = navigator.userAgent;
+            if (/iPad|Tablet/i.test(ua)) return 'Tablet';
+            if (/Mobi|Android|iPhone/i.test(ua)) return 'Mobile';
+            return 'Desktop';
+        }
+
+        async function fetchClientIp() {
+            try {
+                const res = await fetch('https://api.ipify.org?format=json');
+                if (!res.ok) return null;
+                const json = await res.json();
+                return json.ip || null;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        // First-visit timestamp: captured once per browser (localStorage) so it survives the multi-step flow.
+        function getOrSetFirstVisit() {
+            const key = `firstVisit_${currentShortId}`;
+            let stored = null;
+            try { stored = localStorage.getItem(key); } catch (e) { /* storage may be unavailable */ }
+            if (stored) return JSON.parse(stored);
+            const now = new Date();
+            const value = { date: now.toISOString().split('T')[0], time: now.toTimeString().split(' ')[0] };
+            try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { /* ignore */ }
+            return value;
+        }
+
+        // --- Submit: gather everything, save to Supabase, show loading -> success ---
+        async function submitActivation() {
+            if (document.getElementById('activateBtn').disabled) return;
+
+            const activateBtn = document.getElementById('activateBtn');
+            activateBtn.disabled = true;
+
+            // Show loading screen
+            document.getElementById('signature-view').classList.add('hidden');
+            const loadingView = document.getElementById('activation-loading-view');
+            loadingView.classList.remove('hidden');
+            loadingView.classList.add('flex');
+
+            try {
+                const now = new Date();
+                const browser = detectBrowser();
+                const firstVisit = getOrSetFirstVisit();
+                const ip = await fetchClientIp();
+                const canvas = document.getElementById('signatureCanvas');
+                const signatureBase64 = sigHasDrawn ? canvas.toDataURL('image/png') : null;
+
+                const activationPayload = {
+                    activation_status: 'activated',
+                    activation_date: now.toISOString().split('T')[0],
+                    activation_time: now.toTimeString().split(' ')[0],
+                    customer_typed_name: document.getElementById('sigFullName').value.trim() || null,
+                    signature_base64: signatureBase64,
+                    agreement_accepted: true,
+                    receipt_accepted: true,
+                    signature_accepted: document.getElementById('sigOwnCheckbox').checked,
+                    ip_address: ip,
+                    user_agent: navigator.userAgent || null,
+                    browser_name: browser.name,
+                    browser_version: browser.version,
+                    operating_system: detectOS(),
+                    device_type: detectDeviceType(),
+                    language: navigator.language || null,
+                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null,
+                    screen_width: window.screen ? window.screen.width : null,
+                    screen_height: window.screen ? window.screen.height : null,
+                    referrer: document.referrer || null,
+                    first_visit_date: firstVisit.date,
+                    first_visit_time: firstVisit.time,
+                    activation_version: 1,
+                    activation_method: 'Website',
+                    biometric_verified: biometricVerified,
+                    biometric_credential_id: biometricCredentialId
+                };
+
+                await supabaseActivateWarranty(currentShortId, activationPayload);
+
+                // Merge into the local data object so the certificate view reflects the new status
+                currentActivationData.activation_status = 'activated';
+                currentActivationData.sig = signatureBase64;
+                currentActivationData.typedName = activationPayload.customer_typed_name;
+                currentActivationData.actDate = activationPayload.activation_date;
+                currentActivationData.actTime = activationPayload.activation_time;
+                currentActivationData.biometricVerified = activationPayload.biometric_verified;
+
+                loadingView.classList.add('hidden');
+                loadingView.classList.remove('flex');
+                const successView = document.getElementById('activation-success-view');
+                successView.classList.remove('hidden');
+                successView.classList.add('flex');
+                setTimeout(() => successView.classList.remove('opacity-0'), 30);
+
+                // Everything below is "fire and forget": the permanent audit log,
+                // the signed PDF contract, and the Telegram notification. None of
+                // this should ever delay or block the customer's success screen.
+                logAndNotifyActivation(currentActivationData, currentShortId, activationPayload);
+
+            } catch (error) {
+                console.error('Error saving activation data to Supabase:', error);
+                loadingView.classList.add('hidden');
+                loadingView.classList.remove('flex');
+                document.getElementById('signature-view').classList.remove('hidden');
+                document.getElementById('signature-view').classList.add('flex');
+                activateBtn.disabled = false;
+                alert('حدث خطأ أثناء حفظ بيانات التفعيل: ' + error.message);
+            }
+        }
+
+        // --- Permanent audit log: an INSERT-only record of this activation session.
+        // Kept separate from the warranties table so it can never be edited or lost
+        // even if the warranty row itself is later modified — this is the record
+        // you'd rely on in case of a dispute ("دعاوى").
+        async function supabaseInsertActivationLog(logRow) {
+            // 🔧 (2026-08-18) سجلّ التفعيل هو «الدليل القانوني». قبلها كان أي فشل يُبلَع بصمت:
+            //    fetch لا يرمي استثناءً عند HTTP 400/403 (عمود ناقص/RLS) ⇒ يظنّ أنه حُفِظ.
+            //    الآن نفحص res.ok ونُنبّه المستخدم بوضوح إن لم يُكتب السجل.
+            try {
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/${LOGS_TABLE_NAME}`, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify(logRow)
+                });
+                if (!res.ok) {
+                    const detail = await res.text().catch(() => '');
+                    console.error('Activation audit log HTTP', res.status, detail);
+                    alert('⚠️ تنبيه: لم يُحفَظ سجلّ التفعيل (الدليل القانوني) — رمز الحالة ' + res.status + '.\n'
+                        + 'الكفالة نفسها محفوظة، لكن راجع القاعدة قبل الاعتماد على السجلّ في أي نزاع.');
+                    return false;
+                }
+                return true;
+            } catch (e) {
+                console.error('Failed to write activation audit log:', e);
+                alert('⚠️ تعذّر حفظ سجلّ التفعيل (الدليل القانوني): ' + e.message + '.\n'
+                    + 'الكفالة محفوظة، لكن السجلّ لم يُكتب — راجع الاتصال بالقاعدة.');
+                return false;
+            }
+        }
+
+        // --- Renders the signed contract (Arabic, RTL) to an image via html2canvas,
+        // then wraps that image in a single-page PDF via jsPDF. Rendering as an image
+        // avoids jsPDF's lack of native Arabic shaping/RTL support.
+        // Waits for every <img> inside a container to finish loading (or fail) before
+        // resolving. html2canvas can capture a snapshot before an <img src="data:..."> has
+        // actually decoded, which is why the signature/logo were coming out blank before.
+        function waitForImages(container) {
+            const imgs = Array.from(container.querySelectorAll('img'));
+            return Promise.all(imgs.map(img => {
+                if (img.complete) return Promise.resolve();
+                return new Promise(resolve => {
+                    img.onload = resolve;
+                    img.onerror = resolve;
+                });
+            }));
+        }
+
+        async function generateActivationContractPDFBlob(data, payload) {
+            const meta = tierMeta[data.t] || tierMeta.standard;
+            const terms = coverageTexts[data.t] || coverageTexts.standard;
+            const contractRef = `${(currentShortId || data.s || 'WRT')}-${(payload.activation_date || '').replace(/-/g, '')}`;
+
+            const termsListHtml = terms.map(t => `<li style="margin-bottom:6px;">${t}</li>`).join('');
+
+            const acknowledgmentItems = [
+                'أقر بأنني استلمت المنتج المذكور أعلاه كاملاً.',
+                'أقر بأنني استلمت جميع الملحقات الخاصة به.',
+                'أقر بأن المنتج كان بحالة سليمة عند الاستلام ولا توجد به أضرار ظاهرة.',
+                'أقر بأنني تحققت من مطابقة الرقم التسلسلي الموجود على المنتج مع الرقم المسجل لدى الشركة.',
+                'أقر بأنني قرأت جميع شروط الكفالة الخاصة بهذا المنتج المذكورة أعلاه وفهمتها.',
+                'أقر بأن الكفالة مرتبطة بنفس الرقم التسلسلي المسجل لدى الشركة، وأن أي اختلاف فيه يؤدي إلى رفض المطالبة بالكفالة.',
+                'أوافق على قيام الشركة بحفظ بيانات عملية التفعيل الإلكترونية (بما فيها بيانات الجلسة والجهاز) لغرض حماية حقوق الطرفين.',
+                'أقر بأن المعلومات التي أدخلتها صحيحة، وأن التوقيع أدناه هو توقيعي الشخصي الصادر عني طوعاً دون أي إكراه.'
+            ].map(t => `<li style="margin-bottom:6px;">${t}</li>`).join('');
+
+            const biometricLine = payload.biometric_verified
+                ? `<span style="color:#166534;font-weight:bold;">نعم — تم تأكيد الهوية عبر مصادقة الجهاز البيومترية (بصمة/وجه) رقم مرجعي: ${(payload.biometric_credential_id || '').slice(0, 24)}…</span>`
+                : `<span style="color:#991b1b;">لا — لم يستخدم العميل تحققاً بيومترياً إضافياً، تم الاعتماد على التوقيع اليدوي وبيانات الجلسة فقط.</span>`;
+
+            const container = document.createElement('div');
+            container.style.position = 'fixed';
+            container.style.left = '-9999px';
+            container.style.top = '0';
+            container.style.width = '780px';
+            container.style.background = '#ffffff';
+            container.style.direction = 'rtl';
+            container.style.fontFamily = "'Tajawal', 'Cairo', sans-serif";
+            container.style.padding = '36px';
+            container.style.color = '#1f2937';
+            container.innerHTML = `
+                <!-- Letterhead / الهوية الإلكترونية -->
+                <div style="display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #C00012;padding-bottom:14px;margin-bottom:18px;">
+                    <div>
+                        <h1 style="color:#111;font-size:21px;margin:0 0 4px;">عقد إلكتروني لتفعيل الكفالة</h1>
+                        <p style="color:#666;font-size:11px;margin:0;">General Media Tech — الوكيل المعتمد لـ Canon في سوريا</p>
+                    </div>
+                    <div style="text-align:left;font-size:10px;color:#888;">
+                        <p style="margin:0;">الرقم المرجعي للعقد</p>
+                        <p style="margin:0;font-weight:bold;color:#111;font-size:12px;">${contractRef}</p>
+                    </div>
+                </div>
+
+                <!-- بيانات المنتج والكفالة -->
+                <h3 style="font-size:13px;color:#C00012;margin:0 0 8px;">١) بيانات العميل والمنتج والكفالة</h3>
+                <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px;">
+                    <tr><td style="background:#f5f5f5;padding:7px;font-weight:bold;width:32%;border:1px solid #eee;">اسم العميل</td><td style="padding:7px;border:1px solid #eee;">${data.c || '---'}</td></tr>
+                    <tr><td style="background:#f5f5f5;padding:7px;font-weight:bold;border:1px solid #eee;">اسم المنتج</td><td style="padding:7px;border:1px solid #eee;">${data.p || '---'}</td></tr>
+                    <tr><td style="background:#f5f5f5;padding:7px;font-weight:bold;border:1px solid #eee;">الرقم التسلسلي</td><td style="padding:7px;border:1px solid #eee;">${data.s || '---'}</td></tr>
+                    <tr><td style="background:#f5f5f5;padding:7px;font-weight:bold;border:1px solid #eee;">رقم الفاتورة</td><td style="padding:7px;border:1px solid #eee;">${data.inv || '---'}</td></tr>
+                    <tr><td style="background:#f5f5f5;padding:7px;font-weight:bold;border:1px solid #eee;">نوع الكفالة</td><td style="padding:7px;border:1px solid #eee;">${meta.label}</td></tr>
+                    <tr><td style="background:#f5f5f5;padding:7px;font-weight:bold;border:1px solid #eee;">تاريخ الشراء</td><td style="padding:7px;border:1px solid #eee;">${formatDate(data.pd)}</td></tr>
+                    <tr><td style="background:#f5f5f5;padding:7px;font-weight:bold;border:1px solid #eee;">تاريخ انتهاء الكفالة</td><td style="padding:7px;border:1px solid #eee;">${formatDate(data.ed)}</td></tr>
+                </table>
+
+                <!-- شروط نوع الكفالة كاملة -->
+                <h3 style="font-size:13px;color:#C00012;margin:0 0 8px;">٢) شروط وأحكام هذه الكفالة (${meta.label})</h3>
+                <ul style="font-size:11.5px;line-height:1.6;margin:0 0 16px;padding-right:18px;">${termsListHtml}</ul>
+
+                <!-- إقرار العميل الكامل -->
+                <h3 style="font-size:13px;color:#C00012;margin:0 0 8px;">٣) إقرار وموافقة العميل الصريحة</h3>
+                <ul style="font-size:11.5px;line-height:1.6;margin:0 0 16px;padding-right:18px;">${acknowledgmentItems}</ul>
+                <p style="font-size:11.5px;line-height:1.7;background:#fef2f2;border:1px solid #fecaca;padding:10px;border-radius:6px;margin-bottom:16px;">
+                    بتفعيله لهذه الكفالة عبر الموقع الرسمي، يُقر العميل الموقّع أدناه بموافقته الكاملة على كل ما ورد أعلاه، ويعتبر هذا الإقرار
+                    ملزماً له بمجرد إتمام خطوات التفعيل، وتبدأ الكفالة الإلكترونية اعتباراً من تاريخ ووقت التفعيل الموضحين في هذا العقد.
+                </p>
+
+                <!-- سجل تسجيل الدخول وبيانات الجلسة -->
+                <h3 style="font-size:13px;color:#C00012;margin:0 0 8px;">٤) سجل تسجيل الدخول وبيانات الجلسة الإلكترونية</h3>
+                <table style="width:100%;border-collapse:collapse;font-size:11px;color:#333;margin-bottom:18px;">
+                    <tr><td style="background:#f9fafb;padding:6px;font-weight:bold;width:32%;border:1px solid #eee;">تاريخ ووقت التفعيل</td><td style="padding:6px;border:1px solid #eee;">${payload.activation_date || '---'} — ${payload.activation_time || '---'}</td></tr>
+                    <tr><td style="background:#f9fafb;padding:6px;font-weight:bold;border:1px solid #eee;">عنوان IP</td><td style="padding:6px;border:1px solid #eee;">${payload.ip_address || '---'}</td></tr>
+                    <tr><td style="background:#f9fafb;padding:6px;font-weight:bold;border:1px solid #eee;">المتصفح</td><td style="padding:6px;border:1px solid #eee;">${payload.browser_name || '---'} ${payload.browser_version || ''}</td></tr>
+                    <tr><td style="background:#f9fafb;padding:6px;font-weight:bold;border:1px solid #eee;">نظام التشغيل</td><td style="padding:6px;border:1px solid #eee;">${payload.operating_system || '---'}</td></tr>
+                    <tr><td style="background:#f9fafb;padding:6px;font-weight:bold;border:1px solid #eee;">نوع الجهاز</td><td style="padding:6px;border:1px solid #eee;">${payload.device_type || '---'}</td></tr>
+                    <tr><td style="background:#f9fafb;padding:6px;font-weight:bold;border:1px solid #eee;">دقة الشاشة</td><td style="padding:6px;border:1px solid #eee;">${payload.screen_width || '---'} × ${payload.screen_height || '---'}</td></tr>
+                    <tr><td style="background:#f9fafb;padding:6px;font-weight:bold;border:1px solid #eee;">اللغة / المنطقة الزمنية</td><td style="padding:6px;border:1px solid #eee;">${payload.language || '---'} / ${payload.timezone || '---'}</td></tr>
+                    <tr><td style="background:#f9fafb;padding:6px;font-weight:bold;border:1px solid #eee;">أول زيارة لرابط الكفالة</td><td style="padding:6px;border:1px solid #eee;">${payload.first_visit_date || '---'} — ${payload.first_visit_time || '---'}</td></tr>
+                    <tr><td style="background:#f9fafb;padding:6px;font-weight:bold;border:1px solid #eee;">التحقق البيومتري الإضافي</td><td style="padding:6px;border:1px solid #eee;">${biometricLine}</td></tr>
+                </table>
+
+                <!-- الاسم والتوقيع -->
+                <h3 style="font-size:13px;color:#C00012;margin:0 0 8px;">٥) هوية الموقّع والتوقيع الإلكتروني</h3>
+                <div style="border:2px solid #111;border-radius:6px;padding:16px;">
+                    <p style="font-size:12px;color:#555;margin:0 0 4px;">الاسم الكامل كما أدخله العميل بنفسه:</p>
+                    <p style="font-size:16px;font-weight:bold;color:#111;margin:0 0 14px;">${payload.customer_typed_name || '---'}</p>
+                    <p style="font-size:12px;color:#555;margin:0 0 6px;">التوقيع الإلكتروني:</p>
+                    <div style="border:1px solid #ddd;background:#fafafa;padding:10px;display:inline-block;min-width:260px;min-height:90px;">
+                        <img src="${payload.signature_base64 || ''}" style="max-height:100px;max-width:320px;display:block;">
+                    </div>
+                    <p style="font-size:10.5px;color:#888;margin-top:10px;">
+                        وقّع العميل أعلاه إلكترونياً عبر جهازه الخاص بتاريخ ${payload.activation_date || '---'} الساعة ${payload.activation_time || '---'}،
+                        وهذا التوقيع صادر بإرادته الحرة ويُعتبر بمثابة توقيعه الخطي على هذا العقد وكافة بنوده.
+                    </p>
+                </div>
+
+                <p style="font-size:9.5px;color:#999;margin-top:18px;text-align:center;">
+                    هذا المستند صادر تلقائياً من النظام الرقمي لـ General Media Tech، ويحمل رقماً مرجعياً وبصمة جلسة فريدة (IP، جهاز، توقيت) لا يمكن تكرارها،
+                    ويُحفظ نسخة منه بشكل دائم في سجلات الشركة كدليل إثبات لعملية التفعيل.
+                </p>
+            `;
+            document.body.appendChild(container);
+
+            try {
+                await waitForImages(container);
+                const canvas = await html2canvas(container, { scale: 2, backgroundColor: '#ffffff', useCORS: true });
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jspdf.jsPDF({ unit: 'px', format: [canvas.width / 2, canvas.height / 2] });
+                pdf.addImage(imgData, 'PNG', 0, 0, canvas.width / 2, canvas.height / 2);
+                return pdf.output('blob');
+            } finally {
+                document.body.removeChild(container);
+            }
+        }
+
+        // --- Runs everything that must happen after a successful activation, but that
+        // shouldn't hold up the customer's success screen: the immutable audit log,
+        // the signed PDF contract, and the Telegram alert to the shop.
+        async function logAndNotifyActivation(data, shortId, payload) {
+            // 1) Permanent audit log row (separate table, insert-only)
+            supabaseInsertActivationLog({
+                short_id: shortId,
+                customer_name: data.c,
+                product_name: data.p,
+                serial_no: data.s,
+                invoice_no: data.inv,
+                warranty_type: data.t,
+                ...payload
+            });
+
+            // 2) Build the signed contract PDF and send it to Telegram
+            try {
+                const pdfBlob = await generateActivationContractPDFBlob(data, payload);
+                const filename = `Warranty-Activation-${shortId}.pdf`;
+                const caption =
+                    `✅ <b>تم تفعيل الكفالة الإلكترونية</b>\n\n` +
+                    `👤 العميل: ${data.c}\n` +
+                    `📦 المنتج: ${data.p}\n` +
+                    `🔢 الرقم التسلسلي: ${data.s}\n` +
+                    `🕒 وقت التفعيل: ${payload.activation_date} ${payload.activation_time}\n` +
+                    `🌐 IP: ${payload.ip_address || '---'}\n` +
+                    `💻 الجهاز: ${payload.device_type || '---'} — ${payload.operating_system || '---'} — ${payload.browser_name || '---'}`;
+                await sendTelegramDocument(pdfBlob, filename, caption);
+            } catch (e) {
+                console.error('Failed to build/send activation PDF to Telegram:', e);
+                // Fallback: at least send a text alert so the shop isn't left with zero notification
+                sendTelegramMessage(
+                    `✅ تم تفعيل الكفالة الإلكترونية للعميل ${data.c} (${data.s})، ` +
+                    `لكن تعذّر إنشاء/إرسال ملف PDF تلقائياً. يمكنك مراجعة بيانات الجلسة من لوحة الإدارة أو قاعدة البيانات مباشرة.`
+                );
+            }
+        }
+
+        // --- Final step: hide success screen, show the warranty certificate ---
+        function finishActivationFlow() {
+            fadeOutAndHide('activation-success-view', () => {
+                showWarrantyView(currentActivationData);
+                showToast();
+            });
+        }
+
+        // --- Main Logic ---
+        window.onload = async function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const dataParam = urlParams.get('w');
+
+            if (dataParam) {
+                try {
+                    const row = await supabaseFetch(dataParam);
+                    if (row) {
+                        const data = {
+                            c: row.customer_name,
+                            p: row.product_name,
+                            s: row.serial_no,
+                            inv: row.invoice_no,
+                            ist: row.product_condition,
+                            pd: row.purchase_date,
+                            ed: row.expiry_date,
+                            t: row.warranty_type,
+                            notes: row.notes,
+                            phone: row.phone_no,
+                            imei: row.imei_no,
+                            created_by: row.created_by,
+                            branch: row.branch_name,
+                            // NEW status fields
+                            status: row.status || 'active',
+                            cancel_reason: row.cancel_reason || null,
+                            // Warranty Activation System field
+                            activation_status: row.activation_status || 'not_activated',
+                            sig: row.signature_base64 || null,
+                            typedName: row.customer_typed_name || null,
+                            actDate: row.activation_date || null,
+                            actTime: row.activation_time || null,
+                            biometricVerified: row.biometric_verified || false
+                        };
+                        playOpeningFlow(data, row.short_id);
+                    } else {
+                        const oldData = decodeData(dataParam);
+                        if (oldData) {
+                            // Legacy base64-encoded links have no DB row, so the activation
+                            // flow can't persist anything for them — go straight to the certificate.
+                            playOpeningFlow(oldData, null);
+                        } else {
+                            alert("لم يتم العثور على الكفالة - Warranty not found");
+                        }
+                    }
+                } catch (error) {
+                    console.error("Error fetching warranty from Supabase:", error);
+                    const fallbackData = decodeData(dataParam);
+                    if (fallbackData) {
+                        playOpeningFlow(fallbackData, null);
+                    } else {
+                        alert("حدث خطأ في الاتصال بقاعدة البيانات");
+                    }
+                }
+            } else {
+                document.getElementById('admin-view').classList.remove('hidden');
+                // Set default dates: today + 3 months
+                const today = new Date();
+                document.getElementById('purchaseDate').valueAsDate = today;
+                const threeMonthsLater = new Date(today);
+                threeMonthsLater.setMonth(threeMonthsLater.getMonth() + 3);
+                document.getElementById('expiryDate').valueAsDate = threeMonthsLater;
+
+                // Auto-update expiry when purchase date changes
+                document.getElementById('purchaseDate').addEventListener('change', function() {
+                    const pd = new Date(this.value);
+                    if (!isNaN(pd)) {
+                        const ed = new Date(pd);
+                        ed.setMonth(ed.getMonth() + 3);
+                        document.getElementById('expiryDate').valueAsDate = ed;
+                    }
+                });
+
+                loadAllWarranties();
+            }
+        };
+
+        // --- Opening Flow ---
+        function playOpeningFlow(data, shortId) {
+            const overlay = document.getElementById('intro-overlay');
+            const stage1 = document.getElementById('intro-stage-1');
+            const stage2 = document.getElementById('intro-stage-2');
+            const nameSpan = document.getElementById('introCustomerName');
+
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            stage1.classList.remove('hidden');
+
+            setTimeout(() => {
+                stage1.classList.add('transition-opacity', 'duration-500', 'opacity-0');
+                setTimeout(() => {
+                    stage1.classList.add('hidden');
+                    nameSpan.textContent = data.c;
+                    stage2.classList.remove('hidden');
+                    stage2.classList.add('animate-fade-in');
+                    
+                    setTimeout(() => {
+                        overlay.classList.add('transition-opacity', 'duration-700', 'opacity-0');
+                        setTimeout(() => {
+                            overlay.classList.add('hidden');
+                            document.body.style.overflow = 'auto';
+                            // Instead of jumping straight to the certificate, decide whether
+                            // the customer still needs to go through Warranty Activation first.
+                            routeAfterIntro(data, shortId);
+                        }, 700);
+                    }, 2500);
+                }, 500);
+            }, 2500);
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('opacity-0', 'translate-y-[-20px]');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-[-20px]');
+            }, 3000);
+        }
+
+        // --- Admin Form Submit ---
+        document.getElementById('warrantyForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const selectedType = document.querySelector('input[name="warrantyType"]:checked').value;
+            const shortID = generateShortID();
+
+            const row = {
+                short_id: shortID,
+                customer_name: document.getElementById('customerName').value,
+                product_name: document.getElementById('productName').value,
+                serial_no: document.getElementById('serialNo').value,
+                invoice_no: document.getElementById('invoiceNo').value || null,
+                product_condition: document.getElementById('productCondition').value || null,
+                purchase_date: document.getElementById('purchaseDate').value,
+                expiry_date: document.getElementById('expiryDate').value,
+                warranty_type: selectedType,
+                notes: document.getElementById('notes').value || null,
+                phone_no: document.getElementById('phoneNo').value || null,
+                status: 'active',
+                cancel_reason: null,
+                activation_status: 'not_activated'
+            };
+
+            try {
+                await supabaseInsert(row);
+
+                const baseUrl = window.location.origin + window.location.pathname;
+                const finalLink = `${baseUrl}?w=${shortID}`;
+
+                // 📨 Notify Telegram: new warranty certificate created
+                sendTelegramMessage(
+                    `🆕 <b>تم إنشاء كفالة جديدة</b>\n\n` +
+                    `👤 العميل: ${row.customer_name}\n` +
+                    `📦 المنتج: ${row.product_name}\n` +
+                    `🔢 الرقم التسلسلي: ${row.serial_no}\n` +
+                    `🧾 رقم الفاتورة: ${row.invoice_no || '---'}\n` +
+                    `🛡️ نوع الكفالة: ${row.warranty_type}\n` +
+                    `🔗 الرابط: ${finalLink}`
+                );
+
+                document.getElementById('previewBtn').href = finalLink;
+
+                const adminQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(finalLink)}`;
+                document.getElementById('adminQrCode').src = adminQrUrl;
+                document.getElementById('adminQrContainer').classList.remove('hidden');
+
+                const copyBtn = document.getElementById('copyBtn');
+                copyBtn.disabled = false;
+                copyBtn.dataset.link = finalLink;
+                copyBtn.innerHTML = '<i class="fas fa-link"></i> نسخ الرابط';
+
+                const printStickerBtn = document.getElementById('printStickerBtn');
+                printStickerBtn.dataset.link = finalLink;
+                printStickerBtn.dataset.name = row.customer_name;
+
+                document.getElementById('resultSection').classList.remove('hidden');
+                document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+
+                // Refresh admin table
+                loadAllWarranties();
+
+            } catch (error) {
+                console.error("Error saving warranty to Supabase:", error);
+                alert("حدث خطأ أثناء حفظ الشهادة في قاعدة البيانات: " + error.message);
+            }
+        });
+
+        // --- Copy Link ---
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const link = this.dataset.link;
+            if (!link) return;
+            const btn = this;
+            const prevHTML = btn.innerHTML;
+            navigator.clipboard.writeText(link).then(() => {
+                btn.innerHTML = '<i class="fas fa-check"></i> تم النسخ';
+                setTimeout(() => { btn.innerHTML = prevHTML; }, 1500);
+            }).catch(() => { alert('فشل النسخ — استخدم النسخ اليدوي.'); });
+        });
+
+        // --- Print Sticker ---
+        document.getElementById('printStickerBtn').addEventListener('click', function() {
+            const link = this.dataset.link;
+            const customerName = this.dataset.name;
+            if (!link || !customerName) return;
+
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(link)}`;
+            const printWindow = window.open('', '_blank', 'width=800,height=600');
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html lang="ar" dir="rtl">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>طباعة ملصق الكفالة</title>
+                    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+                    <style>
+                        body { font-family: 'Cairo', sans-serif; background: #f3f4f6; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+                        .controls { position: absolute; top: 20px; text-align: center; width: 100%; }
+                        .btn-print { background-color: #E60012; color: white; border: none; padding: 10px 20px; font-size: 16px; font-family: 'Cairo', sans-serif; font-weight: bold; border-radius: 5px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+                        .btn-print:hover { background-color: #cc0000; }
+                        .sticker-wrapper { background: white; width: 100%; max-width: 600px; border: 2px solid #ccc; border-radius: 12px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); box-sizing: border-box; }
+                        .sticker-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E60012; padding-bottom: 10px; margin-bottom: 15px; }
+                        .sticker-header img { max-width: 130px; height: auto; }
+                        .sticker-body { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+                        .text-section { flex: 1; }
+                        .welcome-text { font-size: 18px; color: #333; margin: 0 0 5px 0; }
+                        .customer-name { color: #E60012; font-weight: bold; }
+                        .thanks-text { font-size: 14px; color: #666; margin: 0 0 15px 0; }
+                        .main-scan-text { font-size: 20px; font-weight: bold; color: #000; margin: 0; line-height: 1.4; }
+                        .qr-section { flex-shrink: 0; background: #fff; padding: 5px; border: 1px solid #eee; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+                        .qr-section img { width: 120px; height: 120px; display: block; }
+                        .sticker-footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 20px; padding-top: 15px; border-top: 1px dashed #ddd; }
+                        .footer-text { font-size: 11px; color: #555; line-height: 1.5; }
+                        .footer-logo { max-width: 90px; height: auto; }
+                        @media print { body { background: white; padding: 0; display: block; } .controls { display: none; } .sticker-wrapper { box-shadow: none; border: 1px solid #000; margin: 0; page-break-inside: avoid; } @page { size: auto; margin: 5mm; } }
+                    </style>
+                </head>
+                <body>
+                    <div class="controls"><button class="btn-print" onclick="window.print()">طباعة الملصق الآن</button></div>
+                    <div class="sticker-wrapper">
+                        <div class="sticker-header">
+                            <img src="canonlogo.png" alt="Canon Logo">
+                            <div style="font-weight: bold; color: #333; font-size: 16px;">Official Warranty</div>
+                        </div>
+                        <div class="sticker-body">
+                            <div class="text-section">
+                                <p class="welcome-text">أهلاً بك: <span class="customer-name">${customerName}</span></p>
+                                <p class="thanks-text">شكراً لاختياركم Canon General Mediatech</p>
+                                <h2 class="main-scan-text">امسح الباركود للحصول على<br>معلومات كفالتكم</h2>
+                            </div>
+                            <div class="qr-section"><img src="${qrUrl}" alt="Warranty QR Code"></div>
+                        </div>
+                        <div class="sticker-footer">
+                            <div class="footer-text">
+                                <strong>هذه الكفالة ممنوحة من مجموعة General Mediatech التجارية</strong><br>
+                                الكفالة الالكترونية تعتبر وثيقة ضمان رسمية محفوظة على سيرفرات الشركة
+                            </div>
+                            <img src="genrallogo.png" class="footer-logo" alt="General Media Tech">
+                        </div>
+                    </div>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+        });
+
+        // --- Download QR ---
+        document.getElementById('downloadQrBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const img = document.getElementById('adminQrCode');
+            const url = img.src;
+            if(!url) return;
+            fetch(url)
+                .then(response => response.blob())
+                .then(blob => {
+                    const blobUrl = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = blobUrl;
+                    a.download = 'warranty-qr.png';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(blobUrl);
+                })
+                .catch(() => window.open(url, '_blank'));
+        });
+
+        // --- Warranty View Render ---
+        function showWarrantyView(data) {
+            const view = document.getElementById('warranty-view');
+            view.classList.remove('hidden');
+            setTimeout(() => view.classList.remove('opacity-0'), 100);
+
+            // Show cancelled banner if status is cancelled
+            if (data.status === 'cancelled') {
+                const banner = document.getElementById('cancelledBanner');
+                banner.classList.remove('hidden');
+                if (data.cancel_reason) {
+                    document.getElementById('cancelReasonText').textContent = data.cancel_reason;
+                    document.getElementById('cancelReasonDisplay').classList.remove('hidden');
+                }
+            }
+
+            document.getElementById('dispCustomer').textContent = data.c;
+            document.getElementById('dispProduct').textContent = data.p;
+            document.getElementById('dispSerial').textContent = data.s;
+            document.getElementById('dispInvoice').textContent = data.inv || '---';
+            document.getElementById('dispProductStatus').textContent = data.ist || '---';
+            document.getElementById('dispPurchase').textContent = formatDate(data.pd);
+            document.getElementById('dispExpiry').textContent = formatDate(data.ed);
+            document.getElementById('dispPhone').textContent = data.phone || '---';
+
+            const covList = document.getElementById('dispCoverage');
+            covList.innerHTML = '';
+            const chosenType = data.t || 'standard';
+            const points = coverageTexts[chosenType] || [];
+            if (points.length) {
+                points.forEach(point => {
+                    const li = document.createElement('li');
+                    li.className = "flex items-start gap-2";
+                    li.innerHTML = `<i class="fas fa-check text-green-600 mt-1 text-xs"></i> <span>${point}</span>`;
+                    covList.appendChild(li);
+                });
+            } else {
+                covList.innerHTML = '<li class="text-gray-400 italic">لا توجد تفاصيل إضافية محددة</li>';
+            }
+
+            const notesContainer = document.getElementById('notesContainer');
+            const notesText = document.getElementById('notesText');
+            if (data.notes && data.notes.trim() !== '') {
+                notesText.textContent = data.notes;
+                notesContainer.classList.remove('hidden');
+            } else {
+                notesText.textContent = '';
+                notesContainer.classList.add('hidden');
+            }
+
+            const today = new Date();
+            const expiry = new Date(data.ed);
+            const isExpired = today > expiry;
+            const isCancelled = data.status === 'cancelled';
+
+            const badge = document.getElementById('dispTypeBadge');
+            const statusContainer = document.getElementById('statusContainer');
+            const statusIcon = document.getElementById('statusIcon');
+            const statusIconWrapper = document.getElementById('statusIconWrapper');
+            const statusTitle = document.getElementById('statusTitle');
+
+            switch(chosenType) {
+                case 'extreme':
+                    badge.textContent = 'Extreme Warranty';
+                    badge.className = 'px-3 py-1 rounded text-xs font-bold uppercase tracking-wider text-white bg-red-700';
+                    break;
+                case 'plus':
+                    badge.textContent = 'Plus Warranty';
+                    badge.className = 'px-3 py-1 rounded text-xs font-bold uppercase tracking-wider text-white bg-green-700';
+                    break;
+                case 'standard':
+                default:
+                    badge.textContent = 'Standard Warranty';
+                    badge.className = 'px-3 py-1 rounded text-xs font-bold uppercase tracking-wider text-white bg-gray-700';
+                    break;
+            }
+
+            if (isCancelled) {
+                statusContainer.className = "flex items-center gap-4 p-5 rounded-lg border border-red-300 bg-red-50 shadow-sm transition-all duration-300";
+                statusIconWrapper.className = "w-10 h-10 rounded-full flex items-center justify-center text-white text-lg shadow-sm bg-red-800";
+                statusIcon.className = "fas fa-ban";
+                statusTitle.textContent = "حالة الكفالة: ملغاة (Cancelled)";
+                statusTitle.className = "font-bold text-base text-red-800";
+                document.getElementById('countdownBox').classList.remove('shadow-[0_0_20px_rgba(22,163,74,0.3)]');
+            } else if (!isExpired) {
+                statusContainer.className = "flex items-center gap-4 p-5 rounded-lg border border-green-200 bg-green-50 shadow-sm transition-all duration-300";
+                statusIconWrapper.className = "w-10 h-10 rounded-full flex items-center justify-center text-white text-lg shadow-sm bg-green-600 animate-pulse-slow";
+                statusIcon.className = "fas fa-check";
+                statusTitle.textContent = "حالة الكفالة: سارية المفعول (Active)";
+                statusTitle.className = "font-bold text-base text-green-800";
+                document.getElementById('countdownBox').classList.add('shadow-[0_0_20px_rgba(22,163,74,0.3)]');
+            } else {
+                statusContainer.className = "flex items-center gap-4 p-5 rounded-lg border border-red-200 bg-red-50 shadow-sm transition-all duration-300";
+                statusIconWrapper.className = "w-10 h-10 rounded-full flex items-center justify-center text-white text-lg shadow-sm bg-canon-red";
+                statusIcon.className = "fas fa-times-circle";
+                statusTitle.textContent = "حالة الكفالة: منتهية الصلاحية (Expired)";
+                statusTitle.className = "font-bold text-base text-canon-red";
+                document.getElementById('countdownBox').classList.remove('shadow-[0_0_20px_rgba(22,163,74,0.3)]');
+            }
+
+            startCountdown(expiry);
+            const currentUrl = window.location.href;
+            document.getElementById('qrCodeImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(currentUrl)}`;
+
+            // Show the client's signature on the certificate (and therefore in the printed/PDF version too)
+            const sigBlock = document.getElementById('signatureDisplayBlock');
+            if (data.activation_status === 'activated' && data.sig) {
+                document.getElementById('signatureDisplayImg').src = data.sig;
+                document.getElementById('signatureDisplayName').textContent = data.typedName || data.c || '---';
+                document.getElementById('signatureDisplayDate').textContent = data.actDate ? formatDate(data.actDate) : '---';
+                document.getElementById('signatureDisplayBiometric').classList.toggle('hidden', !data.biometricVerified);
+                sigBlock.classList.remove('hidden');
+            } else {
+                sigBlock.classList.add('hidden');
+            }
+        }
+
+        // --- Countdown ---
+        function startCountdown(expiryDate) {
+            const updateTimer = () => {
+                const now = new Date().getTime();
+                const distance = expiryDate.getTime() - now;
+
+                if (distance < 0) {
+                    document.getElementById("countdownContainer").innerHTML = '<span class="text-red-500 font-bold text-xl">انتهت فترة الضمان</span>';
+                    return;
+                }
+
+                const daysTotal = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const months = Math.floor(daysTotal / 30);
+                const days = daysTotal % 30;
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("cntMonths").innerText = months;
+                document.getElementById("cntDays").innerText = days;
+                document.getElementById("cntHours").innerText = hours;
+                document.getElementById("cntSeconds").innerText = seconds;
+            };
+
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        }
+
+        // --- UI Helpers ---
+        function toggleDetailsView() {
+            const view = document.getElementById('details-view');
+            if(view.classList.contains('hidden')) {
+                view.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            } else {
+                view.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return '...';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        }
+
+        // =====================================================
+        // ADMIN PANEL FUNCTIONS
+        // =====================================================
+
+        async function loadAllWarranties() {
+            const tbody = document.getElementById('adminTableBody');
+            tbody.innerHTML = '<tr><td colspan="7" class="px-4 py-8 text-center text-gray-400"><i class="fas fa-spinner fa-spin ml-2"></i> جارٍ التحميل...</td></tr>';
+            try {
+                const rows = await supabaseFetchAll('');
+                renderAdminTable(rows);
+            } catch (e) {
+                tbody.innerHTML = '<tr><td colspan="7" class="px-4 py-8 text-center text-red-500">حدث خطأ أثناء جلب البيانات</td></tr>';
+            }
+        }
+
+        async function adminSearchWarranties() {
+            const term = document.getElementById('adminSearch').value.trim();
+            const tbody = document.getElementById('adminTableBody');
+            tbody.innerHTML = '<tr><td colspan="7" class="px-4 py-8 text-center text-gray-400"><i class="fas fa-spinner fa-spin ml-2"></i> جارٍ البحث...</td></tr>';
+            try {
+                const rows = await supabaseFetchAll(term);
+                renderAdminTable(rows);
+            } catch (e) {
+                tbody.innerHTML = '<tr><td colspan="7" class="px-4 py-8 text-center text-red-500">حدث خطأ أثناء البحث</td></tr>';
+            }
+        }
+
+        function renderAdminTable(rows) {
+            const tbody = document.getElementById('adminTableBody');
+            if (!rows || rows.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="px-4 py-8 text-center text-gray-400">لا توجد كفالات</td></tr>';
+                return;
+            }
+
+            const baseUrl = window.location.origin + window.location.pathname;
+
+            tbody.innerHTML = rows.map(row => {
+                const isCancelled = row.status === 'cancelled';
+                const statusBadge = isCancelled
+                    ? '<span class="px-2 py-1 rounded text-xs font-bold bg-red-100 text-red-700">ملغاة</span>'
+                    : '<span class="px-2 py-1 rounded text-xs font-bold bg-green-100 text-green-700">فعالة</span>';
+
+                const cancelBtn = !isCancelled
+                    ? `<button onclick="openCancelModal('${row.short_id}')" class="text-xs bg-red-100 hover:bg-red-200 text-red-700 font-bold px-2 py-1 rounded transition-colors">إلغاء</button>`
+                    : `<span class="text-xs text-gray-400">ملغاة</span>`;
+
+                const warrantyLink = `${baseUrl}?w=${row.short_id}`;
+
+                const activationBadge = row.activation_status === 'activated'
+                    ? '<span class="px-2 py-1 rounded text-xs font-bold bg-blue-100 text-blue-700"><i class="fas fa-check-circle ml-1"></i>مفعّلة</span>'
+                    : '<span class="px-2 py-1 rounded text-xs font-bold bg-yellow-100 text-yellow-700"><i class="fas fa-clock ml-1"></i>بانتظار التفعيل</span>';
+
+                return `<tr class="hover:bg-gray-50 transition-colors ${isCancelled ? 'opacity-60' : ''}">
+                    <td class="px-4 py-3 font-bold text-sm">${row.customer_name || '---'}</td>
+                    <td class="px-4 py-3 text-sm text-gray-600">${row.product_name || '---'}</td>
+                    <td class="px-4 py-3 text-xs text-gray-500">${row.invoice_no || '---'}</td>
+                    <td class="px-4 py-3 text-xs text-gray-600">${row.expiry_date ? formatDate(row.expiry_date) : '---'}</td>
+                    <td class="px-4 py-3">${statusBadge}</td>
+                    <td class="px-4 py-3">${activationBadge}</td>
+                    <td class="px-4 py-3">
+                        <div class="flex gap-2 flex-wrap">
+                            <a href="${warrantyLink}" target="_blank" class="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold px-2 py-1 rounded transition-colors">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            ${cancelBtn}
+                        </div>
+                    </td>
+                </tr>`;
+            }).join('');
+        }
+
+        function openCancelModal(shortId) {
+            document.getElementById('cancelWarrantyId').value = shortId;
+            document.getElementById('cancelReason').value = '';
+            document.getElementById('cancelReasonError').classList.add('hidden');
+            const modal = document.getElementById('cancelModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeCancelModal() {
+            const modal = document.getElementById('cancelModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        async function confirmCancel() {
+            const reason = document.getElementById('cancelReason').value.trim();
+            const shortId = document.getElementById('cancelWarrantyId').value;
+
+            if (!reason) {
+                document.getElementById('cancelReasonError').classList.remove('hidden');
+                return;
+            }
+
+            try {
+                await supabaseUpdateStatus(shortId, 'cancelled', reason);
+                closeCancelModal();
+                loadAllWarranties();
+            } catch (e) {
+                alert('حدث خطأ أثناء إلغاء الكفالة: ' + e.message);
+            }
+        }
+
+        // Allow pressing Enter in admin search
+        document.getElementById('adminSearch').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') adminSearchWarranties();
+        });
+    </script>
+
+    <!-- ═══════════════════════════════════════════════════════════════════
+         توابع منظومة GMT (خفيفة · صامتة · لا تمسّ منطق الكفالة إطلاقاً)
+         WAR-1 (2026-07-13): الملف منسوخ حرفياً كما طلبت. أُضيف هنا فقط:
+           • 🎨 gmt-brand.js  — يوحّد الهوية البصرية ويعالج الصور المكسورة
+                                (canonlogo.png … تظهر ببديل بلون الهوية بدل أيقونة مكسورة)
+           • 🐞 gmt-bugcatcher.js — الحارس الصامت: أي خطأ يحدث للزبون يصل الإدارة تلقائياً
+         هذان الملفان لا يعرّفان أي زر ولا يغيّران أي تدفّق — مراقبة فقط.
+         (لا نظام تعليمي ولا مفتّش ولا فاحص — هذه صفحة يستعملها الزبون النهائي.)
+         ⚠️ ارفع gmt-brand.js و gmt-bugcatcher.js بجانب هذه الصفحة (مجلد الكفالة).
+    ═══════════════════════════════════════════════════════════════════ -->
+<script>
+/* (2026-07-23) إظهار لوحة الإدارة للأدمن فقط — الزبون لا يراها */
+(function(){
+  try{
+    var isAdmin = /[?&]admin=1/.test(location.search);
+    if(!isAdmin){
+      try{ var u=JSON.parse(localStorage.getItem('gmt_user')||'{}');
+           if(/admin|sovereign|owner/i.test(u.role||'')) isAdmin=true; }catch(e){}
+    }
+    var p=document.getElementById('adminPanel');
+    if(p && isAdmin) p.style.display='';
+  }catch(e){}
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الكفالات — General Media Tech</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Cairo', sans-serif; }
+        body { background: #f3f4f6; }
+        .canon-red { color: #C00012; }
+        .bg-canon-red { background: #C00012; }
+    </style><!-- 🐞 جامع الأخطاء (2026-07-10) --><!-- 🎨 نوافذ بهويتنا + روابط مضبوطة + إصلاح المشاركة --><!-- 🔍 المفتّش: تقرير التجربة --><!-- 🎓 وضع تدريبي: افتح بـ ?training=1 -->
+  <!-- 🎨 الهوية البصرية الموحّدة (2026-07-12) — مصدر الحقيقة الوحيد للألوان والخط -->
+  <link rel="stylesheet" href="gmt-theme.css">
+</head>
+<body class="min-h-screen">
+  <script src="gmt-updater.js"></script>
+  <script src="gmt-core.js"></script>
+  <script src="gmt-staff.js"></script>
+
+
+    <!-- شاشة كلمة السر -->
+    <div id="lockScreen" style="position:fixed;inset:0;z-index:500;background:linear-gradient(160deg,#1a1a1a,#C00012);display:flex;align-items:center;justify-content:center;padding:24px;">
+        <div style="background:#fff;border-radius:20px;padding:32px 28px;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+            <div style="text-align:center;margin-bottom:22px;">
+                <div style="font-size:24px;font-weight:900;" class="canon-red">إدارة الكفالات</div>
+                <div style="font-size:12px;color:#666;margin-top:4px;">General Media Tech — وصول الإدارة</div>
+            </div>
+            <input id="lockPass" type="password" placeholder="كلمة سر الإدارة" onkeydown="if(event.key==='Enter')checkLock()" style="width:100%;padding:12px;border:1.5px solid #ddd;border-radius:10px;font-size:14px;box-sizing:border-box;margin-bottom:14px;">
+            <div id="lockError" style="display:none;background:#fef2f2;border:1.5px solid #fca5a5;border-radius:8px;padding:9px;margin-bottom:12px;font-size:12px;font-weight:700;color:#dc2626;text-align:center;">كلمة السر غير صحيحة</div>
+            <button onclick="checkLock()" style="width:100%;padding:13px;background:#C00012;color:#fff;border:none;border-radius:11px;font-size:15px;font-weight:900;cursor:pointer;">دخول</button>
+        </div>
+    </div>
+
+    <!-- المحتوى -->
+    <div id="mainContent" style="display:none;" class="max-w-6xl mx-auto p-4 md:p-8">
+        <div class="border-b-2 border-red-700 pb-4 mb-6 flex items-center justify-between flex-wrap gap-3">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">لوحة إدارة الكفالات</h1>
+                <p class="text-sm text-gray-500 mt-1">عرض، بحث، وإلغاء الكفالات — الإلغاء متاح للإدارة فقط</p>
+            </div>
+            <button onclick="loadAllWarranties()" class="bg-canon-red text-white px-4 py-2 rounded text-sm font-bold hover:bg-red-800 transition-colors flex items-center gap-2">
+                <i class="fas fa-sync-alt"></i> تحديث
+            </button>
+        </div>
+
+        <!-- إحصائيات -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+            <div class="bg-white rounded-xl p-4 border border-gray-200 shadow-sm"><div id="statTotal" class="text-2xl font-black text-gray-900">—</div><div class="text-xs text-gray-500 font-bold">إجمالي الكفالات</div></div>
+            <div class="bg-white rounded-xl p-4 border border-gray-200 shadow-sm"><div id="statActive" class="text-2xl font-black text-green-600">—</div><div class="text-xs text-gray-500 font-bold">فعّالة</div></div>
+            <div class="bg-white rounded-xl p-4 border border-gray-200 shadow-sm"><div id="statActivated" class="text-2xl font-black text-blue-600">—</div><div class="text-xs text-gray-500 font-bold">مفعّلة</div></div>
+            <div class="bg-white rounded-xl p-4 border border-gray-200 shadow-sm"><div id="statCancelled" class="text-2xl font-black text-red-600">—</div><div class="text-xs text-gray-500 font-bold">ملغاة</div></div>
+        </div>
+
+        <div class="mb-4 flex gap-2">
+            <input type="text" id="adminSearch" placeholder="بحث بالاسم أو الرقم التسلسلي أو رقم الفاتورة أو الهاتف..." class="flex-1 bg-white border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-red-600 text-sm">
+            <button onclick="adminSearchWarranties()" class="bg-gray-800 text-white px-4 py-2 rounded text-sm font-bold hover:bg-gray-700 transition-colors"><i class="fas fa-search"></i></button>
+        </div>
+
+        <div class="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+            <table class="w-full text-sm text-right">
+                <thead class="bg-gray-800 text-white">
+                    <tr>
+                        <th class="px-4 py-3 font-bold">العميل</th>
+                        <th class="px-4 py-3 font-bold">المنتج</th>
+                        <th class="px-4 py-3 font-bold">الفاتورة</th>
+                        <th class="px-4 py-3 font-bold">المنشئ</th>
+                        <th class="px-4 py-3 font-bold">الانتهاء</th>
+                        <th class="px-4 py-3 font-bold">الحالة</th>
+                        <th class="px-4 py-3 font-bold">التفعيل</th>
+                        <th class="px-4 py-3 font-bold">إجراءات</th>
+                    </tr>
+                </thead>
+                <tbody id="adminTableBody" class="divide-y divide-gray-100 bg-white">
+                    <tr><td colspan="8" class="px-4 py-8 text-center text-gray-400">جارٍ التحميل...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- نافذة الإلغاء -->
+    <div id="cancelModal" class="fixed inset-0 bg-black/60 z-[200] hidden items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl p-8 max-w-md w-full">
+            <h3 class="text-xl font-bold canon-red mb-2 flex items-center gap-2"><i class="fas fa-times-circle"></i> إلغاء الكفالة</h3>
+            <p class="text-gray-600 text-sm mb-5">سيتم إلغاء هذه الكفالة. يرجى كتابة سبب الإلغاء (إلزامي).</p>
+            <input type="hidden" id="cancelWarrantyId">
+            <label class="text-sm font-bold text-gray-700">سبب الإلغاء <span class="canon-red">*</span></label>
+            <textarea id="cancelReason" rows="3" class="w-full bg-gray-50 border border-gray-300 rounded px-3 py-2 mt-1 mb-2 focus:outline-none focus:border-red-600 text-sm" placeholder="اكتب سبب الإلغاء هنا..."></textarea>
+            <p id="cancelReasonError" class="hidden text-red-600 text-xs mb-2">سبب الإلغاء إلزامي</p>
+            <div class="flex gap-2 mt-4">
+                <button onclick="closeCancelModal()" class="flex-1 bg-gray-100 text-gray-700 py-2.5 rounded font-bold text-sm hover:bg-gray-200">تراجع</button>
+                <button onclick="confirmCancel()" class="flex-1 bg-canon-red text-white py-2.5 rounded font-bold text-sm hover:bg-red-800">تأكيد الإلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ═══ إعدادات قاعدة الكفالة ═══
+        const SUPABASE_URL = 'https://abppuwylukzpqckazegk.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFicHB1d3lsdWt6cHFja2F6ZWdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMxNTQ4NzYsImV4cCI6MjA5ODczMDg3Nn0.Dx6WCUfXD4T8D_tJclB9VuMUS3B0YSwejexrRrYhnqo';
+        const TABLE_NAME = 'warranties';
+
+        // كلمة سر الإدارة — غيّرها لكلمتك. (البوّابة السيادية تمرّر ?sovereign=1 لتجاوزها)
+        // 0000 افتراضياً — تُغيَّر من الأدمن الكلي (زر 🔐)، وتُحفظ محلياً بالجهاز
+        const ADMIN_PASSWORD = localStorage.getItem('gmt_pw_warranty') || '0000';
+
+        function checkLock() {
+            const val = document.getElementById('lockPass').value;
+            if (val === ADMIN_PASSWORD) {
+                document.getElementById('lockScreen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                loadAllWarranties();
+            } else {
+                document.getElementById('lockError').style.display = 'block';
+            }
+        }
+        // تجاوز القفل لو دخل من البوّابة السيادية
+        if (new URLSearchParams(window.location.search).get('sovereign') === '1') {
+            window.addEventListener('DOMContentLoaded', () => {
+                document.getElementById('lockScreen').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                loadAllWarranties();
+            });
+        }
+
+        function formatDate(d) {
+            if (!d) return '---';
+            try { const dt = new Date(d); return `${dt.getDate()}/${dt.getMonth()+1}/${dt.getFullYear()}`; } catch(e){ return d; }
+        }
+
+        async function supabaseFetchAll(term) {
+            let url = `${SUPABASE_URL}/rest/v1/${TABLE_NAME}?select=*&order=id.desc&limit=1000`;
+            if (term) {
+                const enc = encodeURIComponent(term);
+                url = `${SUPABASE_URL}/rest/v1/${TABLE_NAME}?select=*&or=(customer_name.ilike.*${enc}*,serial_no.eq.${enc},invoice_no.eq.${enc},phone_no.eq.${enc},short_id.eq.${enc})&order=id.desc&limit=1000`;
+            }
+            const res = await fetch(url, { headers: { apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY } });
+            if (!res.ok) throw new Error(await res.text());
+            return await res.json();
+        }
+
+        async function supabaseUpdateStatus(shortId, status, cancelReason) {
+            const updateData = { status };
+            if (cancelReason) updateData.cancel_reason = cancelReason;
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}?short_id=eq.${encodeURIComponent(shortId)}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json', apikey: SUPABASE_ANON_KEY, Authorization: 'Bearer ' + SUPABASE_ANON_KEY, Prefer: 'return=minimal' },
+                body: JSON.stringify(updateData)
+            });
+            if (!res.ok) throw new Error(await res.text());
+            return true;
+        }
+
+        function updateStats(rows) {
+            const total = rows.length;
+            const cancelled = rows.filter(r => r.status === 'cancelled').length;
+            const activated = rows.filter(r => r.activation_status === 'activated').length;
+            const active = total - cancelled;
+            document.getElementById('statTotal').textContent = total;
+            document.getElementById('statActive').textContent = active;
+            document.getElementById('statActivated').textContent = activated;
+            document.getElementById('statCancelled').textContent = cancelled;
+        }
+
+        async function loadAllWarranties() {
+            const tbody = document.getElementById('adminTableBody');
+            tbody.innerHTML = '<tr><td colspan="8" class="px-4 py-8 text-center text-gray-400"><i class="fas fa-spinner fa-spin ml-2"></i> جارٍ التحميل...</td></tr>';
+            try {
+                const rows = await supabaseFetchAll('');
+                renderAdminTable(rows);
+                updateStats(rows);
+            } catch (e) {
+                tbody.innerHTML = '<tr><td colspan="8" class="px-4 py-8 text-center text-red-500">حدث خطأ أثناء جلب البيانات</td></tr>';
+            }
+        }
+
+        async function adminSearchWarranties() {
+            const term = document.getElementById('adminSearch').value.trim();
+            const tbody = document.getElementById('adminTableBody');
+            tbody.innerHTML = '<tr><td colspan="8" class="px-4 py-8 text-center text-gray-400"><i class="fas fa-spinner fa-spin ml-2"></i> جارٍ البحث...</td></tr>';
+            try {
+                const rows = await supabaseFetchAll(term);
+                renderAdminTable(rows);
+            } catch (e) {
+                tbody.innerHTML = '<tr><td colspan="8" class="px-4 py-8 text-center text-red-500">حدث خطأ أثناء البحث</td></tr>';
+            }
+        }
+
+        // رابط ملف إنشاء/عرض الكفالة (للاطلاع على كفالة) — يُسأل مرة ويُحفظ
+        function getWarrantyViewUrl() {
+            let u = localStorage.getItem('warranty_view_url');
+            if (!u) {
+                u = (prompt('أدخل رابط صفحة عرض الكفالة (ملف الكفالة index) — يُحفظ مرة واحدة:', '') || '').trim();
+                if (u) localStorage.setItem('warranty_view_url', u);
+            }
+            return u;
+        }
+
+        function renderAdminTable(rows) {
+            const tbody = document.getElementById('adminTableBody');
+            if (!rows || rows.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="px-4 py-8 text-center text-gray-400">لا توجد كفالات</td></tr>';
+                return;
+            }
+            const viewBase = localStorage.getItem('warranty_view_url') || '';
+            tbody.innerHTML = rows.map(row => {
+                const isCancelled = row.status === 'cancelled';
+                const statusBadge = isCancelled
+                    ? '<span class="px-2 py-1 rounded text-xs font-bold bg-red-100 text-red-700">ملغاة</span>'
+                    : '<span class="px-2 py-1 rounded text-xs font-bold bg-green-100 text-green-700">فعّالة</span>';
+                const cancelBtn = !isCancelled
+                    ? `<button onclick="openCancelModal('${row.short_id}')" class="text-xs bg-red-100 hover:bg-red-200 text-red-700 font-bold px-2 py-1 rounded">إلغاء</button>`
+                    : `<span class="text-xs text-gray-400">ملغاة</span>`;
+                const activationBadge = row.activation_status === 'activated'
+                    ? '<span class="px-2 py-1 rounded text-xs font-bold bg-blue-100 text-blue-700"><i class="fas fa-check-circle ml-1"></i>مفعّلة</span>'
+                    : '<span class="px-2 py-1 rounded text-xs font-bold bg-yellow-100 text-yellow-700"><i class="fas fa-clock ml-1"></i>بانتظار</span>';
+                const viewBtn = viewBase
+                    ? `<a href="${viewBase}?w=${row.short_id}" target="_blank" class="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold px-2 py-1 rounded"><i class="fas fa-eye"></i></a>`
+                    : `<button onclick="getWarrantyViewUrl()&&loadAllWarranties()" class="text-xs bg-gray-100 text-gray-500 font-bold px-2 py-1 rounded" title="اضبط رابط العرض"><i class="fas fa-eye"></i></button>`;
+                return `<tr class="hover:bg-gray-50 ${isCancelled ? 'opacity-60' : ''}">
+                    <td class="px-4 py-3 font-bold text-sm">${row.customer_name || '---'}</td>
+                    <td class="px-4 py-3 text-sm text-gray-600">${row.product_name || '---'}</td>
+                    <td class="px-4 py-3 text-xs text-gray-500">${row.invoice_no || '---'}</td>
+                    <td class="px-4 py-3 text-xs text-gray-600">${row.created_by || '---'}</td>
+                    <td class="px-4 py-3 text-xs text-gray-600">${formatDate(row.expiry_date)}</td>
+                    <td class="px-4 py-3">${statusBadge}</td>
+                    <td class="px-4 py-3">${activationBadge}</td>
+                    <td class="px-4 py-3"><div class="flex gap-2 flex-wrap">${viewBtn}${cancelBtn}</div></td>
+                </tr>`;
+            }).join('');
+        }
+
+        function openCancelModal(shortId) {
+            document.getElementById('cancelWarrantyId').value = shortId;
+            document.getElementById('cancelReason').value = '';
+            document.getElementById('cancelReasonError').classList.add('hidden');
+            const modal = document.getElementById('cancelModal');
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+        }
+        function closeCancelModal() {
+            const modal = document.getElementById('cancelModal');
+            modal.classList.add('hidden'); modal.classList.remove('flex');
+        }
+        async function confirmCancel() {
+            const reason = document.getElementById('cancelReason').value.trim();
+            const shortId = document.getElementById('cancelWarrantyId').value;
+            if (!reason) { document.getElementById('cancelReasonError').classList.remove('hidden'); return; }
+            try {
+                await supabaseUpdateStatus(shortId, 'cancelled', reason);
+                closeCancelModal();
+                loadAllWarranties();
+            } catch (e) { alert('حدث خطأ أثناء إلغاء الكفالة: ' + e.message); }
+        }
+
+        document.getElementById('adminSearch').addEventListener('keypress', e => { if (e.key === 'Enter') adminSearchWarranties(); });
+    </script><!-- 🎓 النظام التعليمي (يستبدل gmt-tour) -->
+</body>
+</html>

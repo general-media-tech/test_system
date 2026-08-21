@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔬 مركز الفحوصات الشامل — GMT</title>
+<link rel="stylesheet" href="gmt-theme.css">
+<style>
+  :root{ --red:#C00012; --bg:#f5f6f8; --card:#fff; --line:#e5e7eb; --muted:#6b7280;
+         --ok:#15803d; --okbg:#f0fdf4; --bad:#b91c1c; --badbg:#fef2f2; --warn:#b45309; --warnbg:#fffbeb; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Cairo',system-ui,Tahoma,sans-serif;background:var(--bg);color:#1f2937;padding:16px;line-height:1.7}
+  .wrap{max-width:900px;margin:0 auto}
+  header{text-align:center;padding:20px 0}
+  h1{color:var(--red);font-size:24px;font-weight:900}
+  .sub{color:var(--muted);font-size:14px;margin-top:6px}
+  .controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:20px 0}
+  .btn{background:var(--red);color:#fff;border:0;border-radius:12px;padding:14px 28px;font:inherit;
+       font-weight:800;font-size:16px;cursor:pointer;transition:.2s}
+  .btn:hover{opacity:.9;transform:translateY(-1px)}
+  .btn:disabled{opacity:.5;cursor:not-allowed}
+  .btn.ghost{background:#fff;color:var(--red);border:2px solid var(--red)}
+  .progress{background:#fff;border-radius:12px;padding:14px;margin:14px 0;border:1px solid var(--line);
+            display:none;position:sticky;top:8px;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+  .progress.show{display:block}
+  .pbar{height:10px;background:#eef1f5;border-radius:99px;overflow:hidden;margin-top:8px}
+  .pfill{height:100%;background:linear-gradient(90deg,var(--red),#ff5268);width:0;transition:width .4s}
+  .pstat{font-weight:800;font-size:14px}
+  .bot{background:var(--card);border-radius:14px;margin:14px 0;border:1px solid var(--line);overflow:hidden}
+  .bot-head{padding:14px 16px;font-weight:900;font-size:16px;display:flex;align-items:center;gap:10px;
+            background:linear-gradient(135deg,#fafbfc,#f0f2f5);border-bottom:1px solid var(--line)}
+  .bot-body{padding:14px 16px}
+  .live{font-family:'Courier New',monospace;font-size:13px;color:#374151;background:#0f1219;color:#a7f3d0;
+        border-radius:8px;padding:12px;margin:8px 0;white-space:pre-wrap;max-height:300px;overflow-y:auto}
+  .chk{padding:10px 12px;border-radius:8px;margin:8px 0;border-right:4px solid var(--line)}
+  .chk.ok{background:var(--okbg);border-color:var(--ok)}
+  .chk.bad{background:var(--badbg);border-color:var(--bad)}
+  .chk.warn{background:var(--warnbg);border-color:var(--warn)}
+  .chk .t{font-weight:800;font-size:14px}
+  .chk .d{font-size:13px;color:#4b5563;margin-top:4px}
+  .chk .why{font-size:12.5px;color:var(--warn);margin-top:4px}
+  .chk .fix{font-size:12.5px;color:var(--ok);margin-top:2px}
+  .summary{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:14px 0}
+  .pill{padding:8px 16px;border-radius:99px;font-weight:800;font-size:14px}
+  .pill.ok{background:var(--okbg);color:var(--ok)}
+  .pill.bad{background:var(--badbg);color:var(--bad)}
+  .pill.warn{background:var(--warnbg);color:var(--warn)}
+  .spinner{display:inline-block;width:16px;height:16px;border:3px solid #ddd;border-top-color:var(--red);
+           border-radius:50%;animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .src-tag{font-size:11px;padding:2px 8px;border-radius:99px;background:#eff6ff;color:#1d4ed8;font-weight:700}
+  .empty{text-align:center;color:var(--muted);padding:40px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🔬 مركز الفحوصات الشامل</h1>
+    <div class="sub">زر واحد — كل البوتات تفحص النظام بوتاً وراء بوت، فحص حقيقي كامل بلا اختصار</div>
+    <div class="src-tag" style="margin-top:8px;display:inline-block">مصدر التقرير: فحص يدوي</div>
+  </header>
+
+  <div class="controls">
+    <button class="btn" id="run">▶️ ابدأ الفحص الشامل</button>
+    <button class="btn ghost" id="copyall" style="display:none">📋 نسخ التقرير الكامل</button>
+  </div>
+
+  <div class="progress" id="progress">
+    <div class="pstat" id="pstat">جارٍ التحضير...</div>
+    <div class="pbar"><div class="pfill" id="pfill"></div></div>
+  </div>
+
+  <div id="results">
+    <div class="empty">اضغط «ابدأ الفحص الشامل» — ستفحص البوتات النظام بالكامل، وتعرض تقريراً مفصّلاً لكل بوت.</div>
+  </div>
+</div>
+
+<script src="gmt-updater.js"></script>
+<script src="gmt-core.js"></script>
+<script src="gmt-staff.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════════════════
+//  مركز الفحوصات — يشغّل البوتات بالتسلسل، تقرير حي مفصّل لكل بوت
+// ═══════════════════════════════════════════════════════════════════
+
+// أي خطأ يُسجَّل أثناء الفحص يُوسم مصدره = check (يقرأه التقرير الأسبوعي)
+window.__GMT_SOURCE = 'check';
+
+// قائمة البوتات الفاحصة (بالترتيب)
+var BOTS = [
+  { id:'inspector', icon:'🔬', name:'الفاحص المركزي', desc:'يفتح كل صفحة ويفحص كل زر ورابط وحقل وواجهة',
+    get:function(){ return window.GMTInspect; }, run:'report' },
+  { id:'warden', icon:'🐞', name:'الحارس', desc:'يراقب الأخطاء الحية ويسجّلها',
+    get:function(){ return window.GMTWarden; }, run:'runProbes' },
+  { id:'selftest', icon:'🧪', name:'الفاحص الذاتي', desc:'يختبر وظائف النظام الأساسية',
+    get:function(){ return window.GMTSelfTest; }, run:'run' },
+  { id:'autotest', icon:'🤖', name:'الفاحص الشامل', desc:'يفحص كل زر ويجرّب النقر الفعلي',
+    get:function(){ return window.GMTAutoTest; }, run:'run' },
+  { id:'integration', icon:'🔗', name:'اختبارات الترابط', desc:'يتحقق من ترابط الوحدات',
+    get:function(){ return window.GMTIntegrationTests; }, run:'run' },
+  { id:'money', icon:'💰', name:'حارس المال', desc:'يفحص قواعد الربح والحسابات',
+    get:function(){ return window.GMTMoneyGuard; }, run:'selfTest' },
+  { id:'health', icon:'🩺', name:'الصحة', desc:'يجمّع صحة النظام من السجلات',
+    get:function(){ return window.GMTHealthPanel; }, run:'report' },
+  { id:'sentinel', icon:'🛡️', name:'حارس الكود', desc:'يفحص سلامة الكود',
+    get:function(){ return window.GMTCodeSentinel; }, run:'scan' },
+  { id:'dbwrite', icon:'💾', name:'كتابة القاعدة الفعلية', desc:'ينظّف العوالق ثم ينشئ فاتورة __TEST__ ويقرأها ويحذفها',
+    get:function(){ return window.GMTDbWriteTest; }, run:'run' }
+];
+
+// ═══ بوت الكتابة الفعلية بالقاعدة (فاتورة __TEST__ تُنشأ وتُحذف) ═══
+// وافق المالك على الكتابة الحقيقية. يستعمل نفس إعداد اتصال gmt-core.
+window.GMTDbWriteTest = {
+  run: async function(){
+    var url = (window.GMT_CONFIG && GMT_CONFIG.SUPABASE_URL) || window.SUPABASE_URL;
+    var key = (window.GMT_CONFIG && GMT_CONFIG.SUPABASE_ANON_KEY) || window.SUPABASE_ANON_KEY;
+    var MARK = '__TEST__';
+    var out = [];
+    if(!url || !key){
+      return [{status:'bad', title:'إعداد الاتصال', detail:'رابط/مفتاح القاعدة غير متوفر',
+               why:'GMT_CONFIG غير محمّل بالصفحة', fix:'تأكد أن gmt-core.js محمّل والاتصال مُعدّ'}];
+    }
+    var H = { apikey:key, Authorization:'Bearer '+key, 'Content-Type':'application/json' };
+    var RF = window.__gmtRealFetch || window.fetch;
+    var INV = url + '/rest/v1/invoices';
+
+    // 0) تنظيف أي عوالق من فحص سابق
+    try {
+      await RF(INV+'?customer_name=eq.'+encodeURIComponent(MARK), { method:'DELETE', headers:H });
+      out.push({status:'ok', title:'تنظيف العوالق', detail:'حُذفت أي فواتير __TEST__ سابقة (إن وُجدت)'});
+    } catch(e){ out.push({status:'warn', title:'تنظيف العوالق', detail:'تعذّر: '+e.message}); }
+
+    // 1) كتابة فاتورة تجريبية (أعمدة موجودة فقط)
+    var id = null;
+    try {
+      var payload = { customer_name:MARK, cashier_name:MARK, branch_key:MARK, total:0, items_count:0 };
+      var r = await RF(INV, { method:'POST', headers:Object.assign({}, H, {Prefer:'return=representation'}), body:JSON.stringify(payload) });
+      if(!r.ok) throw new Error('HTTP '+r.status+' — '+(await r.text()).slice(0,110));
+      var rows = await r.json(); id = rows && rows[0] && rows[0].id;
+      if(!id) throw new Error('لم يرجع id (قد تمنع سياسة RLS الكتابة)');
+      out.push({status:'ok', title:'كتابة فاتورة __TEST__', detail:'أُنشئت الفاتورة id='+id});
+    } catch(e){
+      out.push({status:'bad', title:'كتابة فاتورة __TEST__', detail:e.message,
+                why:'فشل الإدخال بالقاعدة', fix:'تأكد من جدول invoices وسياسة insert للـanon'});
+      return out;
+    }
+
+    // 2) قراءة للتأكيد
+    try {
+      var r2 = await RF(INV+'?id=eq.'+id+'&select=id,customer_name', { headers:H });
+      var got = await r2.json();
+      if(got && got[0] && got[0].customer_name===MARK)
+        out.push({status:'ok', title:'قراءة التأكيد', detail:'الفاتورة موجودة فعلاً بالقاعدة'});
+      else
+        out.push({status:'warn', title:'قراءة التأكيد', detail:'لم تُقرأ (قد تمنع سياسة القراءة)'});
+    } catch(e){ out.push({status:'warn', title:'قراءة التأكيد', detail:e.message}); }
+
+    // 3) حذف الفاتورة التجريبية (لا يبقى أي أثر)
+    try {
+      var r3 = await RF(INV+'?id=eq.'+id, { method:'DELETE', headers:H });
+      if(!r3.ok) throw new Error('HTTP '+r3.status);
+      out.push({status:'ok', title:'حذف الفاتورة التجريبية', detail:'حُذفت — لا أثر بالقاعدة'});
+    } catch(e){
+      out.push({status:'bad', title:'حذف الفاتورة التجريبية', detail:e.message,
+                why:'الفاتورة التجريبية بقيت بالقاعدة!', fix:'احذف يدوياً: invoices حيث customer_name = __TEST__'});
+    }
+    return out;
+  }
+};
+
+var fullReport = [];
+
+function el(id){ return document.getElementById(id); }
+function esc(s){ return String(s==null?'':s).replace(/[<>&]/g,function(c){return{'<':'&lt;','>':'&gt;','&':'&amp;'}[c];}); }
+
+function setProgress(i, total, txt){
+  el('progress').classList.add('show');
+  el('pfill').style.width = Math.round(i/total*100)+'%';
+  el('pstat').innerHTML = txt;
+}
+
+// يشغّل بوتاً واحداً ويعرض تقريره المفصّل
+async function runBot(bot, index, total){
+  var botDiv = document.createElement('div');
+  botDiv.className = 'bot';
+  botDiv.innerHTML =
+    '<div class="bot-head">'+bot.icon+' بوت '+(index+1)+'/'+total+': '+bot.name+' <span class="spinner"></span></div>'+
+    '<div class="bot-body"><div class="live" id="live-'+bot.id+'">⏳ يبدأ '+bot.name+'...\n'+bot.desc+'</div></div>';
+  el('results').appendChild(botDiv);
+  var live = el('live-'+bot.id);
+  var body = botDiv.querySelector('.bot-body');
+
+  function log(msg){ live.textContent += '\n'+msg; live.scrollTop = live.scrollHeight; }
+
+  fullReport.push('\n═══════════════════════════════════');
+  fullReport.push(bot.icon+' '+bot.name+' — بوت '+(index+1)+'/'+total);
+  fullReport.push('المهمة: '+bot.desc);
+  fullReport.push('───────────────────────────────────');
+
+  var instance = bot.get();
+  if(!instance){
+    log('🔴 البوت غير محمّل — تخطّي');
+    fullReport.push('🔴 البوت غير محمّل');
+    botDiv.querySelector('.spinner').remove();
+    return { ok:0, bad:1, warn:0 };
+  }
+
+  log('✅ البوت محمّل. بدء الفحص الحقيقي...');
+  await sleep(300);
+
+  var checks = [];
+  try {
+    // شغّل دالة الفحص المتاحة
+    var fn = instance[bot.run] || instance.run || instance.scan || instance.audit || instance.report;
+    if(typeof fn === 'function'){
+      log('▶️ تشغيل: '+bot.run+'()...');
+      var result = await Promise.resolve(fn.call(instance, { live:log, deep:true }));
+      checks = normalizeResult(result);
+    } else {
+      log('ℹ️ لا دالة فحص مباشرة — قراءة الحالة');
+      checks = [{ status:'info', title:bot.name+' جاهز', detail:'البوت محمّل ويعمل بالخلفية' }];
+    }
+  } catch(e) {
+    log('🔴 خطأ أثناء الفحص: '+e.message);
+    checks = [{ status:'fail', title:'خطأ بالفحص', detail:e.message,
+                why:'حدث استثناء أثناء تشغيل البوت', fix:'راجع الكود أو الكونسول' }];
+  }
+
+  // اعرض كل فحص بالتفصيل
+  var ok=0, bad=0, warn=0;
+  checks.forEach(function(c){
+    var st = c.status==='ok'||c.ok===true ? 'ok' : (c.status==='warn' ? 'warn' : (c.status==='info'||c.status==='ℹ️'?'info':'bad'));
+    if(st==='ok') ok++; else if(st==='warn') warn++; else if(st!=='info') bad++;
+    var cls = st==='ok'?'ok':st==='warn'?'warn':st==='info'?'':'bad';
+    var ic = st==='ok'?'✅':st==='warn'?'🟡':st==='info'?'ℹ️':'🔴';
+    var div = document.createElement('div');
+    div.className = 'chk '+cls;
+    var h = '<div class="t">'+ic+' '+esc(c.title||c.name||'فحص')+'</div>';
+    if(c.detail||c.msg) h += '<div class="d">'+esc(c.detail||c.msg)+'</div>';
+    if(st!=='ok' && c.why) h += '<div class="why">↳ لماذا: '+esc(c.why)+'</div>';
+    if(st!=='ok' && (c.fix||c.how)) h += '<div class="fix">↳ كيف نصلح: '+esc(c.fix||c.how)+'</div>';
+    div.innerHTML = h;
+    body.appendChild(div);
+
+    // للتقرير النصي
+    fullReport.push(ic+' '+(c.title||c.name||'فحص')+(c.detail||c.msg?': '+(c.detail||c.msg):''));
+    if(st!=='ok' && c.why) fullReport.push('     لماذا: '+c.why);
+    if(st!=='ok' && (c.fix||c.how)) fullReport.push('     كيف نصلح: '+(c.fix||c.how));
+  });
+
+  log('\n✅ انتهى '+bot.name+' — نجح:'+ok+' فشل:'+bad+' تنبيه:'+warn);
+  botDiv.querySelector('.spinner').remove();
+  botDiv.querySelector('.bot-head').innerHTML =
+    bot.icon+' بوت '+(index+1)+'/'+total+': '+bot.name+
+    ' <span class="pill '+(bad?'bad':warn?'warn':'ok')+'" style="margin-right:auto;font-size:12px">'+
+    (bad?'🔴 '+bad+' فشل':warn?'🟡 '+warn+' تنبيه':'✅ سليم')+'</span>';
+
+  return { ok:ok, bad:bad, warn:warn };
+}
+
+// يوحّد نتائج البوتات المختلفة لشكل موحّد
+function normalizeResult(r){
+  if(!r) return [{ status:'info', title:'تم الفحص', detail:'بلا نتائج مفصّلة' }];
+  if(Array.isArray(r)) return r;
+  if(r.checks && Array.isArray(r.checks)) return r.checks;
+  if(r.results && Array.isArray(r.results)) return r.results;
+  if(r.probes && Array.isArray(r.probes)) return r.probes;
+  if(r.incidents && Array.isArray(r.incidents)) return r.incidents;
+  if(r.details && Array.isArray(r.details)) return r.details.map(function(d){
+    return { status: d.ok!==false ? 'ok':'bad', title: d.n||d.title||'فحص',
+             detail: d.ok!==false ? 'سليم ✔' : 'فشل التحقّق',
+             why: d.ok!==false ? '' : 'منطق الحساب أعطى نتيجة غير متوقّعة',
+             fix: d.ok!==false ? '' : 'راجع دوال حارس المال (checkCommission/checkBelowCost)' };
+  });
+  // كائن نتيجة واحد
+  if(r.status || r.ok!==undefined || r.title) return [r];
+  // كائن فيه عدّادات
+  var out = [];
+  Object.keys(r).forEach(function(k){
+    out.push({ status:'info', title:k, detail:String(r[k]) });
+  });
+  return out.length?out:[{ status:'info', title:'تم', detail:JSON.stringify(r).slice(0,200) }];
+}
+
+function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+
+async function runAll(){
+  el('run').disabled = true;
+  el('results').innerHTML = '';
+  el('copyall').style.display = 'none';
+  fullReport = [];
+  fullReport.push('═══ تقرير الفحص الشامل — GMT ═══');
+  fullReport.push('التاريخ: '+new Date().toLocaleString('ar'));
+  fullReport.push('مصدر التقرير: فحص يدوي');
+  fullReport.push('عدد البوتات: '+BOTS.length);
+
+  var total = BOTS.length;
+  var totOk=0, totBad=0, totWarn=0;
+
+  for(var i=0; i<BOTS.length; i++){
+    setProgress(i, total, '<span class="spinner"></span> بوت '+(i+1)+'/'+total+': '+BOTS[i].icon+' '+BOTS[i].name);
+    var res = await runBot(BOTS[i], i, total);
+    totOk += res.ok; totBad += res.bad; totWarn += res.warn;
+    await sleep(400);
+  }
+
+  setProgress(total, total, '✅ اكتمل الفحص الشامل');
+
+  // ملخص نهائي
+  var sum = document.createElement('div');
+  sum.className = 'bot';
+  sum.innerHTML =
+    '<div class="bot-head">📊 الملخص النهائي</div>'+
+    '<div class="bot-body"><div class="summary">'+
+      '<span class="pill ok">✅ نجح '+totOk+'</span>'+
+      '<span class="pill warn">🟡 تنبيه '+totWarn+'</span>'+
+      '<span class="pill bad">🔴 فشل '+totBad+'</span>'+
+    '</div></div>';
+  el('results').appendChild(sum);
+
+  fullReport.push('\n═══════════════════════════════════');
+  fullReport.push('📊 الملخص: نجح '+totOk+' · تنبيه '+totWarn+' · فشل '+totBad);
+
+  el('run').disabled = false;
+  el('run').textContent = '🔄 إعادة الفحص';
+  el('copyall').style.display = 'inline-block';
+}
+
+el('run').onclick = runAll;
+el('copyall').onclick = function(){
+  var txt = fullReport.join('\n');
+  if(navigator.clipboard) navigator.clipboard.writeText(txt);
+  this.textContent = '✅ نُسخ!';
+  var self = this;
+  setTimeout(function(){ self.textContent = '📋 نسخ التقرير الكامل'; }, 1500);
+};
+</script>
+</body>
+</html>

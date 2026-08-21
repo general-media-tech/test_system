@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أداة العقود — General Media Tech</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.5/JsBarcode.all.min.js"></script><!-- 🐞 جامع الأخطاء --><!-- 🎨 نوافذ بهويتنا + روابط مضبوطة + إصلاح المشاركة --><!-- 🎓 وضع تدريبي -->
+  <!-- 🎨 الهوية البصرية الموحّدة (2026-07-12) — مصدر الحقيقة الوحيد للألوان والخط -->
+  <link rel="stylesheet" href="gmt-theme.css">
+</head>
+<body>
+  <script src="gmt-updater.js"></script>
+  <script src="gmt-core.js"></script>
+  <script src="gmt-staff.js"></script>
+
+
+    <!-- شاشة الدخول (gmt_users — نفس حسابات نقاط البيع) -->
+    <div id="login-screen">
+        <div class="login-card">
+            <div class="t1">General Media Tech</div>
+            <div class="t2">📜 أداة العقود — دخول الموظفين (حسابات نقاط البيع)</div>
+            <input id="lg-user" type="text" placeholder="اسم المستخدم" autocomplete="username">
+            <input id="lg-pass" type="password" placeholder="كلمة المرور" autocomplete="current-password">
+            <div id="login-err"></div>
+            <button class="btn btn-red" id="lg-btn">دخول ←</button>
+        </div>
+    </div>
+
+    <!-- الرأس -->
+    <header>
+        <div class="brand">📜 أداة العقود <small>General Media Tech</small></div>
+        <span class="who" id="who"></span>
+        <button id="btn-back">🏠 الأنواع</button>
+    </header>
+
+    <!-- الرئيسية: اختيار نوع العقد -->
+    <div id="home">
+        <div class="hint">
+            ⚖️ <b>تنبيه قانوني:</b> نماذج صيغت على هدي القوانين السورية النافذة، وهي <b>مسودات استرشادية</b>
+            تُعرض على محامٍ لاعتمادها قبل أي توقيع فعلي. <b>ترتيب التوقيع الموصى به:</b> العقد الأساسي
+            (عمل / وكيل) ← اتفاقية السرية ← نموذج العهدة ← ملحق التدريب عند كل دورة ← إقرار إخلاء الطرف عند الانتهاء.
+            الأداة قابلة للتوسع: أي نوع جديد يُضاف بملف واحد في js/contracts دون المساس بالباقي.
+        </div>
+        <div class="type-grid" id="type-grid"></div>
+    </div>
+
+    <!-- مساحة العمل: نموذج + معاينة -->
+    <div id="work">
+        <div id="form-pane">
+            <h2 id="form-title"></h2>
+            <div class="sub" id="form-sub"></div>
+            <div id="autofill-wrap"></div>
+            <div id="fields-wrap"></div>
+            <div class="copies-box">
+                <div style="font-size:11px;font-weight:900;color:#6b7280;margin-bottom:4px;">🖨️ النسخ المطلوب طباعتها</div>
+                <div id="copies-wrap"></div>
+            </div>
+        </div>
+        <div id="preview-pane">
+            <div id="edit-hint">✏️ وضع التحرير الحر مفعّل — اكبس على أي نص بالعقد وعدّله مباشرة.
+                تعديلاتك تُطبع وتُصدَّر كما هي. (تنبيه: تغيير حقول النموذج أثناء هذا الوضع لا يعيد
+                رسم العقد حتى لا تضيع تعديلاتك — أنهِ التحرير أولاً إن أردت إعادة التعبئة.)</div>
+            <div id="paper"></div>
+        </div>
+    </div>
+
+    <!-- شريط الإجراءات -->
+    <div id="actions" class="no-print">
+        <div id="contract-no-chip"></div>
+        <button class="btn btn-gray" id="btn-edit">🔓 تحرير النص</button>
+        <button class="btn btn-gray" id="btn-new">🆕 عقد جديد</button>
+        <button class="btn btn-gray" id="btn-word">📄 Word</button>
+        <button class="btn btn-red" id="btn-print">🖨️ اعتماد وطباعة</button>
+    </div>
+
+    <!-- المحرّك ثم قوالب العقود (كل عقد ملف مستقل — نقطة التوسع) -->
+    <script src="js/app.js"></script>
+    <script src="js/contracts/receipt.js"></script>
+    <script src="js/contracts/employee.js"></script>
+    <script src="js/contracts/agent.js"></script>
+    <!-- الملاحق (إصدار 2 — 2026-07-12) -->
+    <script src="js/contracts/nda.js"></script>
+    <script src="js/contracts/custody.js"></script>
+    <script src="js/contracts/training.js"></script>
+    <script src="js/contracts/handover.js"></script><!-- 🎓 النظام التعليمي (يستبدل gmt-tour) -->
+</body>
+</html>

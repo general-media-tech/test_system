@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧪 لوحة تجريب GMT — الأدوات المُنجَزة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Cairo',sans-serif;}
+  body{background:#0f172a;color:#e2e8f0;padding:16px;line-height:1.7;}
+  .wrap{max-width:920px;margin:0 auto;}
+  h1{font-size:22px;font-weight:900;text-align:center;margin-bottom:4px;color:#fff;}
+  .sub{text-align:center;color:#94a3b8;font-size:13px;margin-bottom:20px;}
+  h2{font-size:16px;font-weight:800;margin:22px 0 10px;color:#fff;border-right:4px solid #ef4444;padding-right:10px;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;}
+  .card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:14px;transition:.15s;}
+  .card:hover{border-color:#ef4444;transform:translateY(-2px);}
+  .card .ico{font-size:26px;}
+  .card .nm{font-weight:800;font-size:15px;margin:6px 0;color:#fff;}
+  .card .ds{font-size:11.5px;color:#94a3b8;margin-bottom:10px;min-height:32px;}
+  .btns{display:flex;gap:6px;}
+  a.btn{flex:1;text-align:center;text-decoration:none;padding:8px;border-radius:9px;font-size:12px;font-weight:800;}
+  .b-open{background:#ef4444;color:#fff;}
+  .b-chk{background:#334155;color:#cbd5e1;cursor:pointer;border:none;}
+  .bot{background:#0e2a1e;border-color:#14532d;}
+  .bot:hover{border-color:#22c55e;}
+  .bot .b-open{background:#16a34a;}
+  details{background:#1e293b;border:1px solid #334155;border-radius:12px;padding:12px 14px;margin-bottom:10px;}
+  summary{font-weight:800;cursor:pointer;color:#fff;}
+  code{background:#0f172a;padding:2px 7px;border-radius:6px;color:#fca5a5;font-size:13px;}
+  .sql-list{list-style:none;font-size:13px;line-height:2;}
+  .req{color:#fca5a5;font-weight:800;}
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:999;display:none;align-items:center;justify-content:center;padding:14px;}
+  .modal.on{display:flex;}
+  .mbox{background:#fff;color:#1e293b;border-radius:16px;max-width:440px;width:100%;max-height:85vh;overflow:auto;padding:18px;}
+  .mbox h3{font-size:16px;margin-bottom:10px;}
+  .mbox label{display:flex;gap:8px;align-items:flex-start;padding:8px 6px;border-bottom:1px solid #f1f5f9;font-size:13px;}
+  .mbox .close{background:#ef4444;color:#fff;border:none;border-radius:8px;padding:5px 14px;font-weight:800;cursor:pointer;float:left;}
+  .neu{margin-top:10px;padding:10px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:10px;font-size:12px;color:#065f46;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🧪 لوحة تجريب GMT</h1>
+  <div class="sub">الأدوات المُنجَزة (المشتريات · الجرد · الأدوات الصغيرة) — كل رابط يفتح بوضع سيادي فتظهر كل البوتات · اضغط «قائمة الفحص» قبل كل أداة</div>
+
+  <h2>🛠️ الأدوات المُنجَزة</h2>
+  <div class="grid" id="tools"></div>
+
+  <h2>🤖 البوتات (جرّبها)</h2>
+  <div class="grid" id="bots"></div>
+
+  <h2>🗄️ ما يخصّ المهندس: SQL وخطة النشر</h2>
+  <details open>
+    <summary>① ملفات SQL — شغّلها بالترتيب (مهمّ)</summary>
+    <div style="margin-top:8px;font-size:12.5px;color:#cbd5e1;">⚠️ ليست قديمة — منها <span class="req">جديد وإلزامي</span>. كلها آمنة (<code>if not exists</code>) لا تمسّ البيانات.</div>
+    <ul class="sql-list">
+      <li>أساسية: <code>1️⃣ 2️⃣ 3️⃣ 4️⃣ 5️⃣ 6️⃣ 7️⃣ 8️⃣ 9️⃣</code></li>
+      <li class="req">جديدة إلزامية: <code>🔟</code> دوال المخزون · <code>1️⃣1️⃣</code> العروض/الصندوق · <code>1️⃣2️⃣</code> إبطال مالي · <code>1️⃣3️⃣</code> التسويات/الجرد · <code>1️⃣4️⃣</code> حد التنبيه min_stock · <code>SCHEMA_00_telemetry</code> لوحة الصحة</li>
+      <li>الكفالة بقاعدة WARRANTY منفصلة: تأكّد <code>6️⃣ 7️⃣</code> مشغّلان بها.</li>
+    </ul>
+  </details>
+  <details>
+    <summary>② الملفات المعدّلة — أعد نشرها</summary>
+    <div style="margin-top:8px;font-size:12.5px;color:#cbd5e1;line-height:2;">
+      الصفحات: المشتريات · الجرد · طابعة الملصقات · الأدوات الصغيرة.<br>
+      البوتات: <code>gmt-core.js · gmt-staff.js · gmt-updater.js · gmt-training.js</code> + الأدلّة.<br>
+      صفحات الفحص: الفاحص_المركزي · الفحوصات · تشخيص · بوتات_الحماية · الأدمن_السيادي.
+    </div>
+  </details>
+  <details>
+    <summary>③ خطوات النشر + الاختبار</summary>
+    <div style="margin-top:8px;font-size:12.5px;color:#cbd5e1;line-height:2;">
+      1) شغّل SQL بالترتيب. 2) ارفع كل ملفات الحزمة. 3) افتح كل أداة من هذه اللوحة (بوضع سيادي) واتبع «قائمة الفحص». 4) شغّل الفاحص المركزي + بوتات الحماية وراجع التقارير.<br>
+      التفاصيل الكاملة في <code>🚀_خطة_النشر_والتجريب.md</code>.
+    </div>
+  </details>
+</div>
+
+<div class="modal" id="modal"><div class="mbox"><button class="close" onclick="document.getElementById('modal').classList.remove('on')">إغلاق</button><h3 id="m-title"></h3><div id="m-body"></div></div></div>
+
+<script>
+var TOOLS=[
+  {f:'المشتريات.html',ico:'🚚',nm:'المشتريات',ds:'فواتير الشراء · الترحيل · المسودة',k:'purchases'},
+  {f:'الجرد.html',ico:'📦',nm:'الجرد',ds:'المخزون · الأسعار · الحذف · التنبيه',k:'inventory'},
+  {f:'الأوردرات.html',ico:'🧾',nm:'الأوردرات',ds:'الطلبات · العرابين · التحويل لفاتورة',k:'orders'},
+  {f:'إنشاء_الكفالة.html',ico:'🛡️',nm:'إنشاء الكفالة',ds:'كفالة جديدة + طباعة',k:'warranty_new'},
+  {f:'بحث_الكفالة.html',ico:'🔎',nm:'بحث الكفالة',ds:'بحث + عرض التفاصيل',k:'warranty_find'},
+  {f:'أدمن_الكفالة.html',ico:'⚙️',nm:'أدمن الكفالة',ds:'تعديل · حذف · تقارير',k:'warranty_admin'},
+  {f:'العقود.html',ico:'📜',nm:'العقود',ds:'عقود + طباعة (بتسجيل دخول)',k:'contracts'},
+  {f:'تتبع_الشحنة.html',ico:'📍',nm:'تتبع الشحنة',ds:'تتبع شحنة برقمها',k:'tracking'},
+];
+var BOTS=[
+  {f:'بوتات_الحماية.html',ico:'🛡️',nm:'بوتات الحماية',ds:'كل تقارير الحارس/المفتّش/الفاحص'},
+  {f:'الفاحص_المركزي.html',ico:'🔬',nm:'الفاحص المركزي',ds:'فحص شامل + بصمة المضاعفة + التسوية'},
+  {f:'تشخيص.html',ico:'🩺',nm:'التشخيص',ds:'فحص الاتصال والإعداد'},
+  {f:'الأدمن_السيادي.html',ico:'👑',nm:'الأدمن السيادي',ds:'صحة النظام + الأدوات'},
+];
+// قوائم الفحص (نسخة من GMTChecklist)
+var CHK={
+  purchases:{t:'المشتريات',l:['فاتورة شراء جديدة (ألماني/صيني/فوري)','التصدير · نسخة احتياطية JSON · Excel','إدخال الصور من Excel','التسعير + توزيع المصاريف','تحويل العملة','الترحيل الكامل + الجزئي (لا مضاعفة)','ترحيل فاتورة فيها منتج محذوف (يُعاد تلقائياً)','إعادة ترحيل مرحّلة (يُمنع)','المسودة (استعادة)','بحث منتج موجود (يظهر)'],n:['منع المضاعفة (سجل الاستلام)','إعادة المحذوف تلقائياً','التعرّف على المنتج من السيرفر']},
+  inventory:{t:'الجرد',l:['إضافة منتج + حد التنبيه','تعديل الكمية (قفل سيادي + سبب)','سعر الشراء 🔗 (ينقل للمشتريات)','الحذف الفردي (تحذير الفاتورة)','الحذف الجماعي (تحذير المعلّقة)','مؤشّر مخزون منخفض ⚠️','فرز المنتجات القديمة','الوضع الجماعي (excel/باركود/سعر/حذف)','طباعة الملصقات','التدقيق الذكي'],n:['حد تنبيه لكل منتج','سعر الشراء→المشتريات','تحذير الحذف الجماعي']},
+  orders:{t:'الأوردرات',l:['إنشاء أوردر','تحويل لفاتورة كاشير','العرابين','زر شاشات التعريف'],n:['إصلاح زر التعريف']},
+  warranty_new:{t:'إنشاء الكفالة',l:['كفالة جديدة','طباعة','ربط بالفاتورة'],n:['أُضيفت البوتات']},
+  warranty_find:{t:'بحث الكفالة',l:['بحث برقم/باركود','عرض التفاصيل'],n:['أُضيفت البوتات']},
+  warranty_admin:{t:'أدمن الكفالة',l:['تعديل','حذف','تقارير'],n:[]},
+  contracts:{t:'العقود',l:['تسجيل الدخول','إنشاء عقد','طباعة'],n:[]},
+  tracking:{t:'تتبع الشحنة',l:['تتبع برقم','عرض الحالة'],n:['أُضيفت البوتات']},
+};
+function card(x,isBot){
+  return '<div class="card'+(isBot?' bot':'')+'"><div class="ico">'+x.ico+'</div><div class="nm">'+x.nm+'</div><div class="ds">'+x.ds+'</div><div class="btns">'
+    +'<a class="btn b-open" href="'+x.f+'?sovereign=1">فتح ←</a>'
+    +(x.k?'<button class="btn b-chk" onclick="showChk(\''+x.k+'\')">📋 فحص</button>':'')+'</div></div>';
+}
+document.getElementById('tools').innerHTML=TOOLS.map(function(x){return card(x,false)}).join('');
+document.getElementById('bots').innerHTML=BOTS.map(function(x){return card(x,true)}).join('');
+function showChk(k){
+  var c=CHK[k]; if(!c)return;
+  document.getElementById('m-title').textContent='📋 قائمة فحص: '+c.t;
+  var rows=c.l.map(function(t){return '<label><input type="checkbox"><span>'+t+'</span></label>'}).join('');
+  var neu=c.n.length?'<div class="neu"><b>✨ ميزات جديدة تستحقّ الفحص:</b><br>'+c.n.map(function(x){return '• '+x}).join('<br>')+'</div>':'';
+  document.getElementById('m-body').innerHTML=rows+neu;
+  document.getElementById('modal').classList.add('on');
+}
+</script>
+</body>
+</html>
